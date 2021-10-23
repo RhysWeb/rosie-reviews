@@ -1,11 +1,11 @@
 /* IMAGE STYLES */
-[type='radio'] + p {
+[type='radio'] + img {
 	cursor: pointer;
-	width: 1.8rem;
+	width: 3rem;
 	text-align: center;
 	display: inline-block;
 	margin: 0.5rem;
-	padding: 0.5rem;
+	padding: 0.2rem;
 	border: 2px solid grey;
 	border-radius: 10%;
 	background: white;
@@ -17,13 +17,14 @@ h3 {
 }
 
 /* CHECKED STYLES */
-[type='radio']:checked + p {
-	border: 2px solid #f00;
-	font-size: 1.5rem;
+[type='radio']:checked + img {
+	border: 3px solid #f00;
+	/* font-size: 1.5rem; */
 	font-weight: bold;
 	color: black;
-	background: lightgoldenrodyellow;
+	background: yellow;
 	border-radius: 10%;
+	width: 4.5rem;
 }
 
 [type='radio'] {
@@ -36,7 +37,8 @@ a:hover {
 
 .grid {
 	display: grid;
-	grid-template-columns: 1fr 1rem 2fr 1rem 1fr;
+	grid-template-columns: 1fr 1rem 6fr 1rem 1fr;
+	background: white;
 }
 
 form {
@@ -47,23 +49,22 @@ form {
 .leftSide {
 	grid-column: 1/2;
 	grid-row: 1/2;
-	background: chocolate;
+	background: var(--primary);
 }
 .rightSide {
 	grid-column: 5/6;
 	grid-row: 1/2;
-	background: chocolate;
+	background: var(--primary);
 }
 
 .reviewLablesDiv {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: grey solid 1px;
 	border-radius: 10px;
-	background: lightgray;
+	background: hsl(245, 0%, 90%);
 	width: 100%;
 	height: 30px;
 	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-bottom: 12px;
 }

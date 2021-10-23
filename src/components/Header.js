@@ -49,7 +49,7 @@ export const Header = () => {
 				</Toolbar>
 			</AppBar>
 			<Typography
-				style={{ marginTop: '80px' }}
+				style={{ marginTop: '45px' }}
 				component="h2"
 				variant="h5"
 			></Typography>

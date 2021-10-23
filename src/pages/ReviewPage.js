@@ -2,6 +2,12 @@ import './ReviewPage.css';
 import { useForm } from 'react-hook-form';
 import { RadioLabel } from '../components/Radiolabel';
 import { TextField, Button } from '@material-ui/core';
+import { RadioLabel2 } from '../components/Radiolabel2';
+import happy from './happy.png';
+import lesshappy from './lesshappy.png';
+import neutral from './neutral.png';
+import lesssad from './lesssad.png';
+import sad from './sad.png';
 
 export const ReviewPage = () => {
 	const { getValues, register, handleSubmit, handleChange, formState } =
@@ -23,7 +29,7 @@ export const ReviewPage = () => {
 			<form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
 				<h3>Please select a review score</h3>
 
-				<div className="reviewLablesDiv">
+				{/* <div className="reviewLablesDiv">
 					<RadioLabel register={register} value={1} />
 					<RadioLabel register={register} value={2} />
 					<RadioLabel register={register} value={3} />
@@ -34,6 +40,14 @@ export const ReviewPage = () => {
 					<RadioLabel register={register} value={8} />
 					<RadioLabel register={register} value={9} />
 					<RadioLabel register={register} value={10} />
+				</div> */}
+
+				<div className="reviewLablesDiv">
+					<RadioLabel2 register={register} value={5} image={happy} />
+					<RadioLabel2 register={register} value={4} image={lesshappy} />
+					<RadioLabel2 register={register} value={3} image={neutral} />
+					<RadioLabel2 register={register} value={2} image={lesssad} />
+					<RadioLabel2 register={register} value={1} image={sad} />
 				</div>
 				<br />
 				<TextField
@@ -41,11 +55,11 @@ export const ReviewPage = () => {
 					multiline
 					fullWidth
 					rows={2}
-					label="Please enter an optional comment / review"
+					label="Comment / review"
 					{...register('reviewComment')}
 					variant="filled"
 				/>
-
+				<div style={{ marginBottom: '30px' }}></div>
 				<TextField
 					fullWidth
 					variant="filled"
@@ -53,9 +67,16 @@ export const ReviewPage = () => {
 					type="email"
 					label="Email address (optional)"
 				/>
+				<div style={{ marginBottom: '30px' }}></div>
 
 				<div>
-					<Button disabled={formState.isSubmitting} type="submit">
+					<Button
+						disabled={formState.isSubmitting}
+						type="submit"
+						variant="contained"
+						color="primary"
+						fullWidth
+					>
 						Submit
 					</Button>
 				</div>
