@@ -1,16 +1,14 @@
-import React from 'react';
-
 import { Link } from 'react-router-dom';
 
 export const Home = () => {
 	return (
 		<>
 			<hr />
-			<Link to="/page_one">Page 1</Link>
+			<Link to="/reviewPage">Go to an event review page</Link>
 			<hr />
-			<Link to="/check_all_tests">Page 2</Link>
+			<Link to="/check_all_tests">Create a new event review page</Link>
 			<hr />
-			<Link to="/addAuthor">Page 3</Link>
+			<Link to="/addAuthor">Download event review results</Link>
 			<hr />
 		</>
 	);
