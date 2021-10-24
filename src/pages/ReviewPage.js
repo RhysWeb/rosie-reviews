@@ -47,7 +47,7 @@ export const ReviewPage = () => {
 
 				<fieldset>
 					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
-						Please provide a comment (What did you like? What could we improve?)
+						Please provide a comment
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>
 
@@ -55,7 +55,8 @@ export const ReviewPage = () => {
 						multiline
 						fullWidth
 						rows={2}
-						label="Comment / review"
+						// label="What did you like? What could we improve?"
+						label="What did you like? What could we improve? Write here"
 						{...register('reviewComment')}
 						variant="filled"
 					/>
@@ -65,8 +66,7 @@ export const ReviewPage = () => {
 
 				<fieldset>
 					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
-						If you would like to be informed about future events please provide
-						an email address
+						Would you would like to be informed about future events?
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>
 
@@ -75,11 +75,11 @@ export const ReviewPage = () => {
 						variant="filled"
 						{...register('email')}
 						type="email"
-						label="Email address (optional)"
+						label="Please provide an email address (optional)"
 					/>
 					<div style={{ marginBottom: '10px' }}></div>
 				</fieldset>
-				<div style={{ marginBottom: '60px' }}></div>
+				<div style={{ marginBottom: '40px' }}></div>
 
 				<div>
 					<Button
@@ -89,7 +89,7 @@ export const ReviewPage = () => {
 						color="primary"
 						fullWidth
 					>
-						Submit
+						Submit your Review
 					</Button>
 				</div>
 
