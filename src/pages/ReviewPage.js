@@ -1,6 +1,5 @@
 import './ReviewPage.css';
 import { useForm } from 'react-hook-form';
-import { RadioLabel } from '../components/Radiolabel';
 import { TextField, Button } from '@material-ui/core';
 import { RadioLabel2 } from '../components/Radiolabel2';
 import happy from './happy.png';
@@ -27,47 +26,60 @@ export const ReviewPage = () => {
 			<div className="leftSide"></div>
 			<div className="rightSide"></div>
 			<form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
-				<h3>Please select a review score</h3>
+				<div style={{ marginBottom: '40px' }}></div>
 
-				{/* <div className="reviewLablesDiv">
-					<RadioLabel register={register} value={1} />
-					<RadioLabel register={register} value={2} />
-					<RadioLabel register={register} value={3} />
-					<RadioLabel register={register} value={4} />
-					<RadioLabel register={register} value={5} />
-					<RadioLabel register={register} value={6} />
-					<RadioLabel register={register} value={7} />
-					<RadioLabel register={register} value={8} />
-					<RadioLabel register={register} value={9} />
-					<RadioLabel register={register} value={10} />
-				</div> */}
+				<fieldset>
+					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
+						How did you enjoy todays event?
+					</legend>
+					<div style={{ marginBottom: '20px' }}></div>
+					<div className="reviewLablesDiv">
+						<RadioLabel2 register={register} value={5} image={happy} />
+						<RadioLabel2 register={register} value={4} image={lesshappy} />
+						<RadioLabel2 register={register} value={3} image={neutral} />
+						<RadioLabel2 register={register} value={2} image={lesssad} />
+						<RadioLabel2 register={register} value={1} image={sad} />
+					</div>
+					<div style={{ marginBottom: '10px' }}></div>
+				</fieldset>
 
-				<div className="reviewLablesDiv">
-					<RadioLabel2 register={register} value={5} image={happy} />
-					<RadioLabel2 register={register} value={4} image={lesshappy} />
-					<RadioLabel2 register={register} value={3} image={neutral} />
-					<RadioLabel2 register={register} value={2} image={lesssad} />
-					<RadioLabel2 register={register} value={1} image={sad} />
-				</div>
-				<br />
-				<TextField
-					margin="normal"
-					multiline
-					fullWidth
-					rows={2}
-					label="Comment / review"
-					{...register('reviewComment')}
-					variant="filled"
-				/>
-				<div style={{ marginBottom: '30px' }}></div>
-				<TextField
-					fullWidth
-					variant="filled"
-					{...register('email')}
-					type="email"
-					label="Email address (optional)"
-				/>
-				<div style={{ marginBottom: '30px' }}></div>
+				<div style={{ marginBottom: '50px' }}></div>
+
+				<fieldset>
+					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
+						Please provide a comment (What did you like? What could we improve?)
+					</legend>
+					<div style={{ marginBottom: '20px' }}></div>
+
+					<TextField
+						multiline
+						fullWidth
+						rows={2}
+						label="Comment / review"
+						{...register('reviewComment')}
+						variant="filled"
+					/>
+					<div style={{ marginBottom: '10px' }}></div>
+				</fieldset>
+				<div style={{ marginBottom: '50px' }}></div>
+
+				<fieldset>
+					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
+						If you would like to be informed about future events please provide
+						an email address
+					</legend>
+					<div style={{ marginBottom: '20px' }}></div>
+
+					<TextField
+						fullWidth
+						variant="filled"
+						{...register('email')}
+						type="email"
+						label="Email address (optional)"
+					/>
+					<div style={{ marginBottom: '10px' }}></div>
+				</fieldset>
+				<div style={{ marginBottom: '60px' }}></div>
 
 				<div>
 					<Button
