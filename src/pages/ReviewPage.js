@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import './ReviewPage.css';
 import { useForm } from 'react-hook-form';
 import { TextField, Button } from '@material-ui/core';
@@ -7,25 +8,118 @@ import lesshappy from './lesshappy.png';
 import neutral from './neutral.png';
 import lesssad from './lesssad.png';
 import sad from './sad.png';
+import Swal from 'sweetalert2';
+import { useHistory } from 'react-router-dom';
 
-export const ReviewPage = () => {
-	const { getValues, register, handleSubmit, handleChange, formState } =
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+const axios = require('axios');
+// const schema = yup.object().shape({
+// 	reviewScore: yup.string().required(),
+// });
+
+// const getAllAuthors = async () => {
+// 	let response;
+// 	try {
+// 		console.log('getting authors');
+// 		await axios({
+// 			method: 'get',
+// 			url: `https://rhysserver.herokuapp.com/authors`,
+// 		}).then((res) => {
+// 			console.log(res.data);
+// 			response = res.data;
+// 		});
+// 		console.log(response);
+// 		return response;
+// 	} catch (err) {
+// 		console.log(err);
+// 	}
+// };
+
+export const ReviewPage = (props) => {
+	/*
+	This initialKey state is important and unusual.
+	So, I found that when I submitted a form the form reset to default values using reset()
+	but the floating label didnt reset back to normal.
+	I learned that the components needed to be rerendered and the only way to force this 
+	was to set the key of the component in the state and change it each time I submit the form
+	This rerenders the whole form. I could have just rerendered bits of it but I decided to do the whole thing.
+	*/
+	const [initialKey, setInitialKey] = useState(1);
+	const history = useHistory();
+	const { getValues, register, handleSubmit, reset, handleChange, formState } =
 		useForm({
 			defaultValues: {
 				reviewComment: '',
+				email: '',
+				reviewScore: 'none',
 			},
+			// resolver: yupResolver(schema),
 		});
+
+	useEffect(() => {
+		// const authorsOnDb = await getAllAuthors();
+		// console.log(authorsOnDb);
+
+		console.log(window.location.search);
+	}, []);
+
+	async function addReview(form) {
+		try {
+			console.log(form);
+			console.log('running axios');
+			await axios({
+				method: 'post',
+				url: 'https://rhysserver.herokuapp.com/review',
+				data: {
+					reviewComment: form.reviewComment,
+					email: form.email,
+					reviewScore: form.reviewScore,
+					eventId: 'devEvent',
+				},
+			}).then(async (res) => {
+				if (res.status === 200) {
+					reset();
+					setInitialKey(initialKey + 1);
+					Swal.fire({
+						icon: 'success',
+						title: 'Review submitted',
+						text: 'Thank you for your feedback. Enjoy the rest of your day!',
+					});
+				}
+				// const authorsOnDb = await getAllAuthors()
+				// console.log(authorsOnDb)
+				// setAuthors(authorsOnDb)
+				console.log(res);
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	}
 
 	const onSubmit = (form) => {
 		console.log('click');
 		console.log(form);
+		if (form.reviewScore === 'none') {
+			Swal.fire({
+				icon: 'error',
+				title: 'No review submitted',
+				text: 'Please click on one of the faces and try submitting again',
+			});
+			return;
+		}
+		addReview(form);
 	};
 
 	return (
 		<div className="grid">
 			<div className="leftSide"></div>
 			<div className="rightSide"></div>
-			<form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
+			<form
+				onSubmit={handleSubmit(onSubmit)}
+				onChange={handleChange}
+				key={initialKey}
+			>
 				<div style={{ marginBottom: '40px' }}></div>
 
 				<fieldset>
