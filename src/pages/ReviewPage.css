@@ -1,3 +1,44 @@
+/* DEFINE SOME ANIMATIONS */
+@keyframes colorChange {
+	to {
+		background: darkblue;
+	}
+}
+@keyframes sizeChange {
+	to {
+		/* width: 4.5rem; */
+		background: yellow;
+		border: 3px solid #f00;
+	}
+}
+
+form {
+	--timer1: 0.3s;
+	--timer2: 0.15s;
+}
+
+/* ANIMATION WHEN STARTING THE PAGE */
+#face5 {
+	animation: sizeChange var(--timer1) ease 0s 2 alternate,
+		sizeChange var(--timer1) ease calc(14 * var(--timer2)) 2 alternate;
+}
+#face4 {
+	animation: sizeChange var(--timer1) ease calc(1 * var(--timer2)) 2 alternate,
+		sizeChange var(--timer1) ease calc(13 * var(--timer2)) 2 alternate;
+}
+#face3 {
+	animation: sizeChange var(--timer1) ease calc(2 * var(--timer2)) 2 alternate,
+		sizeChange var(--timer1) ease calc(12 * var(--timer2)) 2 alternate;
+}
+#face2 {
+	animation: sizeChange var(--timer1) ease calc(3 * var(--timer2)) 2 alternate,
+		sizeChange var(--timer1) ease calc(11 * var(--timer2)) 2 alternate;
+}
+#face1 {
+	animation: sizeChange var(--timer1) ease calc(4 * var(--timer2)) 2 alternate,
+		sizeChange var(--timer1) ease calc(10 * var(--timer2)) 2 alternate;
+}
+
 /* IMAGE STYLES */
 [type='radio'] + img {
 	cursor: pointer;
@@ -18,6 +59,8 @@ h3 {
 
 /* CHECKED STYLES */
 [type='radio']:checked + img {
+	/* animation: sizeChange 0.05s;
+	animation-fill-mode: forwards; */
 	border: 3px solid #f00;
 	/* font-size: 1.5rem; */
 	font-weight: bold;

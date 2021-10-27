@@ -136,8 +136,6 @@ export const ReviewPage = () => {
 						Submit your Review
 					</Button>
 				</div>
-
-				<pre>{JSON.stringify(getValues(), null, 2)}</pre>
 			</form>
 		</div>
 	);
