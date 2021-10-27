@@ -10,42 +10,19 @@ import lesssad from './lesssad.png';
 import sad from './sad.png';
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
+import database from '../utils/database.js';
 
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-const axios = require('axios');
-// const schema = yup.object().shape({
-// 	reviewScore: yup.string().required(),
-// });
-
-// const getAllAuthors = async () => {
-// 	let response;
-// 	try {
-// 		console.log('getting authors');
-// 		await axios({
-// 			method: 'get',
-// 			url: `https://rhysserver.herokuapp.com/authors`,
-// 		}).then((res) => {
-// 			console.log(res.data);
-// 			response = res.data;
-// 		});
-// 		console.log(response);
-// 		return response;
-// 	} catch (err) {
-// 		console.log(err);
-// 	}
-// };
-
-export const ReviewPage = (props) => {
+export const ReviewPage = () => {
+	const [key, setKey] = useState(1);
 	/*
-	This initialKey state is important and unusual.
-	So, I found that when I submitted a form the form reset to default values using reset()
+	This key state is important and unusual.
+	I found that when I submitted a form the form reset to default values using reset()
 	but the floating label didnt reset back to normal.
 	I learned that the components needed to be rerendered and the only way to force this 
 	was to set the key of the component in the state and change it each time I submit the form
 	This rerenders the whole form. I could have just rerendered bits of it but I decided to do the whole thing.
+	Useful to know that if you want to force a component rerender you should change the key of the component
 	*/
-	const [initialKey, setInitialKey] = useState(1);
 	const history = useHistory();
 	const { getValues, register, handleSubmit, reset, handleChange, formState } =
 		useForm({
@@ -54,48 +31,11 @@ export const ReviewPage = (props) => {
 				email: '',
 				reviewScore: 'none',
 			},
-			// resolver: yupResolver(schema),
 		});
 
-	useEffect(() => {
-		// const authorsOnDb = await getAllAuthors();
-		// console.log(authorsOnDb);
+	// useEffect(() => {
 
-		console.log(window.location.search);
-	}, []);
-
-	async function addReview(form) {
-		try {
-			console.log(form);
-			console.log('running axios');
-			await axios({
-				method: 'post',
-				url: 'https://rhysserver.herokuapp.com/review',
-				data: {
-					reviewComment: form.reviewComment,
-					email: form.email,
-					reviewScore: form.reviewScore,
-					eventId: 'devEvent',
-				},
-			}).then(async (res) => {
-				if (res.status === 200) {
-					reset();
-					setInitialKey(initialKey + 1);
-					Swal.fire({
-						icon: 'success',
-						title: 'Review submitted',
-						text: 'Thank you for your feedback. Enjoy the rest of your day!',
-					});
-				}
-				// const authorsOnDb = await getAllAuthors()
-				// console.log(authorsOnDb)
-				// setAuthors(authorsOnDb)
-				console.log(res);
-			});
-		} catch (err) {
-			console.log(err);
-		}
-	}
+	// }, []);
 
 	const onSubmit = (form) => {
 		console.log('click');
@@ -108,18 +48,30 @@ export const ReviewPage = (props) => {
 			});
 			return;
 		}
-		addReview(form);
+		try {
+			database.addReview(form).then(async (res) => {
+				if (res.status === 200) {
+					reset();
+					setKey(key + 1);
+					Swal.fire({
+						icon: 'success',
+						title: 'Review submitted',
+						text: 'Thank you for your feedback. Enjoy the rest of your day!',
+					});
+				}
+
+				console.log(res);
+			});
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	return (
 		<div className="grid">
 			<div className="leftSide"></div>
 			<div className="rightSide"></div>
-			<form
-				onSubmit={handleSubmit(onSubmit)}
-				onChange={handleChange}
-				key={initialKey}
-			>
+			<form onSubmit={handleSubmit(onSubmit)} onChange={handleChange} key={key}>
 				<div style={{ marginBottom: '40px' }}></div>
 
 				<fieldset>
@@ -149,7 +101,6 @@ export const ReviewPage = (props) => {
 						multiline
 						fullWidth
 						rows={2}
-						// label="What did you like? What could we improve?"
 						label="What did you like? What could we improve? Write here"
 						{...register('reviewComment')}
 						variant="filled"
