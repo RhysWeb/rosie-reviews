@@ -8,7 +8,7 @@ export const Home = () => {
 			<hr />
 			<Link to="/check_all_tests">Create a new event review page</Link>
 			<hr />
-			<Link to="/addAuthor">Download event review results</Link>
+			<Link to="/addAuthor">Download the event review results</Link>
 			<hr />
 		</>
 	);
