@@ -33,10 +33,6 @@ export const ReviewPage = () => {
 			},
 		});
 
-	// useEffect(() => {
-
-	// }, []);
-
 	const onSubmit = (form) => {
 		console.log('click');
 		console.log(form);
@@ -48,23 +44,26 @@ export const ReviewPage = () => {
 			});
 			return;
 		}
-		try {
-			database.addReview(form).then(async (res) => {
-				if (res.status === 200) {
-					reset();
-					setKey(key + 1);
-					Swal.fire({
-						icon: 'success',
-						title: 'Review submitted',
-						text: 'Thank you for your feedback. Enjoy the rest of your day!',
-					});
-				}
 
-				console.log(res);
-			});
-		} catch (err) {
-			console.log(err);
-		}
+		database.addReview(form).then(async (res) => {
+			if (res.status === 200) {
+				reset();
+				setKey(key + 1);
+				Swal.fire({
+					icon: 'success',
+					title: 'Review submitted',
+					text: 'Thank you for your feedback. Enjoy the rest of your day!',
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'No review submitted',
+					text: 'The system isnt working. Please tell someone at the event so that they can go back to using paper',
+				});
+			}
+
+			console.log(res);
+		});
 	};
 
 	return (
