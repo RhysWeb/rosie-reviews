@@ -47,12 +47,13 @@ export const ReviewPage = () => {
 
 		database.addReview(form).then(async (res) => {
 			if (res.status === 200) {
-				reset();
-				setKey(key + 1);
 				Swal.fire({
 					icon: 'success',
 					title: 'Review submitted',
 					text: 'Thank you for your feedback. Enjoy the rest of your day!',
+				}).then(() => {
+					reset();
+					setKey(key + 1);
 				});
 			} else {
 				Swal.fire({
