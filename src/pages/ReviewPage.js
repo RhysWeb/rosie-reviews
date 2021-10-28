@@ -51,10 +51,18 @@ export const ReviewPage = () => {
 				Swal.fire({
 					icon: 'success',
 					title: 'Review submitted',
+					timer: 3000,
 					text: 'Thank you for your feedback. Enjoy the rest of your day!',
+					showConfirmButton: false,
+					showCancelButton: false,
 				}).then(() => {
-					reset();
-					setKey(key + 1);
+					Swal.fire({
+						text: 'Please click the button below to begin the next review.',
+						confirmButtonText: 'Begin Review',
+					}).then(() => {
+						reset();
+						setKey(key + 1);
+					});
 				});
 			} else {
 				Swal.fire({
@@ -139,7 +147,6 @@ export const ReviewPage = () => {
 						Submit your Review
 					</Button>
 				</div>
-				<pre>{JSON.stringify(submitting)}</pre>
 			</form>
 		</div>
 	);

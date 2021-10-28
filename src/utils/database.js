@@ -26,6 +26,24 @@ class database {
 		}
 		return resp;
 	}
+
+	static async getAllReviews() {
+		let response;
+		try {
+			console.log('getting reviews');
+			await axios({
+				method: 'get',
+				url: process.env.REACT_APP_DATABASE_SERVER,
+			}).then((res) => {
+				console.log(res.data);
+				response = res.data;
+			});
+			console.log(response);
+			return response;
+		} catch (err) {
+			console.log(err);
+		}
+	}
 }
 
 export default database;
