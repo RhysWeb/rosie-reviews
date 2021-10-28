@@ -25,14 +25,7 @@ export const ReviewPage = () => {
 	Useful to know that if you want to force a component rerender you should change the key of the component
 	*/
 	const history = useHistory();
-	const {
-		getValues,
-		register,
-		handleSubmit,
-		reset,
-		handleChange,
-		formState: { isSubmitting },
-	} = useForm({
+	const { getValues, register, handleSubmit, reset, handleChange } = useForm({
 		defaultValues: {
 			reviewComment: '',
 			email: '',
@@ -53,7 +46,7 @@ export const ReviewPage = () => {
 		}
 		setSubmitting(true);
 
-		database.addReview(form).then(async (res) => {
+		database.addReview(form).then((res) => {
 			if (res.status === 200) {
 				Swal.fire({
 					icon: 'success',
