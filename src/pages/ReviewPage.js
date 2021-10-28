@@ -14,6 +14,7 @@ import database from '../utils/database.js';
 
 export const ReviewPage = () => {
 	const [key, setKey] = useState(1);
+	const [submitting, setSubmitting] = useState(false);
 	/*
 	This key state is important and unusual.
 	I found that when I submitted a form the form reset to default values using reset()
@@ -24,14 +25,20 @@ export const ReviewPage = () => {
 	Useful to know that if you want to force a component rerender you should change the key of the component
 	*/
 	const history = useHistory();
-	const { getValues, register, handleSubmit, reset, handleChange, formState } =
-		useForm({
-			defaultValues: {
-				reviewComment: '',
-				email: '',
-				reviewScore: 'none',
-			},
-		});
+	const {
+		getValues,
+		register,
+		handleSubmit,
+		reset,
+		handleChange,
+		formState: { isSubmitting },
+	} = useForm({
+		defaultValues: {
+			reviewComment: '',
+			email: '',
+			reviewScore: 'none',
+		},
+	});
 
 	const onSubmit = (form) => {
 		console.log('click');
@@ -44,6 +51,7 @@ export const ReviewPage = () => {
 			});
 			return;
 		}
+		setSubmitting(true);
 
 		database.addReview(form).then(async (res) => {
 			if (res.status === 200) {
@@ -62,6 +70,7 @@ export const ReviewPage = () => {
 					text: 'The system isnt working. Please tell someone at the event so that they can go back to using paper',
 				});
 			}
+			setSubmitting(false);
 
 			console.log(res);
 		});
@@ -111,7 +120,7 @@ export const ReviewPage = () => {
 
 				<fieldset>
 					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
-						Would you would like to be informed about future events?
+						Would you like to be informed about future events?
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>
 
@@ -128,7 +137,7 @@ export const ReviewPage = () => {
 
 				<div>
 					<Button
-						disabled={formState.isSubmitting}
+						disabled={submitting}
 						type="submit"
 						variant="contained"
 						color="primary"
@@ -137,6 +146,7 @@ export const ReviewPage = () => {
 						Submit your Review
 					</Button>
 				</div>
+				<pre>{JSON.stringify(submitting)}</pre>
 			</form>
 		</div>
 	);
