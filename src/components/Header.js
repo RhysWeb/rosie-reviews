@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import logo from './newLogo.png';
+import { useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -20,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Header = () => {
+	const history = useHistory();
 	const classes = useStyles();
 
 	return (
@@ -39,8 +42,32 @@ export const Header = () => {
 					</Typography>
 
 					<Button
-						onClick={() => {
-							window.location.assign(process.env.REACT_APP_LOCALHOST);
+						onClick={async () => {
+							const { value: password } = await Swal.fire({
+								// title: 'Enter your password',
+								input: 'password',
+								showCancelButton: true,
+								inputLabel: 'Password required',
+								inputPlaceholder: 'Enter your password',
+								inputAttributes: {
+									maxlength: 10,
+									autocapitalize: 'off',
+									autocorrect: 'off',
+								},
+							});
+
+							if (password == '123') {
+								history.push(`./`);
+							}
+
+							// let movePassword = prompt('Leave?');
+							// // history.push(`http://localhost:3000`);
+							// if (movePassword == '123') {
+							// 	history.push(`./`);
+							// } else {
+							// 	return;
+							// }
+							// window.location.assign(process.env.REACT_APP_HOME_URL);
 						}}
 						color="inherit"
 					>

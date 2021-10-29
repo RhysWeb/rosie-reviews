@@ -7,8 +7,8 @@ import { ResultsPage } from './pages/ResultsPage';
 function App() {
 	return (
 		<>
-			<Header />
 			<Router>
+				<Header />
 				<Switch>
 					<Route exact path="/" component={Home} />
 					<Route exact path="/reviewPage" component={ReviewPage} />

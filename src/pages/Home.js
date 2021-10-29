@@ -32,7 +32,7 @@ export const Home = () => {
 		return (
 			<div>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<div style={{ margin: '100px 200px' }}>
+					<div style={{ margin: '100px auto', maxWidth: '300px' }}>
 						<TextField
 							type="password"
 							fullWidth
