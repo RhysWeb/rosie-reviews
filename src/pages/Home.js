@@ -59,7 +59,7 @@ export const Home = () => {
 	return (
 		<div style={{ margin: '100px' }}>
 			<hr />
-			<Link to="/reviewPage">Go to the event review page</Link>
+			<Link to="/reviewPage">Go to event review page</Link>
 			<hr />
 
 			<Link to="/resultsPage">View results</Link>
