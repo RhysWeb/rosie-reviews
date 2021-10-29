@@ -35,7 +35,7 @@ export const Header = () => {
 						<img src={logo} height={25} width={25} alt="logo" />
 					</Icon>
 					<Typography variant="h6" className={classes.title}>
-						Event Review
+						Event Reviews
 					</Typography>
 
 					<Button

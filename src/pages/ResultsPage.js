@@ -93,7 +93,11 @@ export const ResultsPage = () => {
 
 	return (
 		<MainContainerLarger>
-			<TableContainer component={Paper}>
+			<div style={{ marginTop: '20px' }}></div>
+			<TableContainer
+				component={Paper}
+				style={{ backgroundColor: 'hsl(1, 0%, 95%)' }}
+			>
 				<Table className={classes.table} aria-label="simple table">
 					{tableHeader}
 					<TableBody>{reviews && tableRowCreate(reviews)}</TableBody>
