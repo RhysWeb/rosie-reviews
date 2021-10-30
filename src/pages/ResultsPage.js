@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 	headerRow: {
 		color: 'black',
 		fontWeight: 'bolder',
-		fontSize: '14px',
+		fontSize: '11px',
 		fontFamily: 'Arial',
 	},
 	id: {
@@ -60,6 +60,9 @@ export const ResultsPage = () => {
 				<TableCell className={classes.headerRow} align="left">
 					Email
 				</TableCell>
+				<TableCell className={classes.headerRow} align="left">
+					Visited{<br />}Before?
+				</TableCell>
 
 				<TableCell className={classes.headerRow} align="left">
 					Comment
@@ -70,7 +73,7 @@ export const ResultsPage = () => {
 
 	function tableRowCreate(myArray) {
 		return myArray.map((review, index) => {
-			const { _id, email, reviewScore, reviewComment } = review;
+			const { _id, email, reviewScore, reviewComment, visitedBefore } = review;
 
 			return (
 				<TableRow key={_id}>
@@ -82,6 +85,9 @@ export const ResultsPage = () => {
 					</TableCell>
 					<TableCell className={classes.email} align="left">
 						{email}
+					</TableCell>
+					<TableCell className={classes.email} align="left">
+						{visitedBefore}
 					</TableCell>
 					<TableCell className={classes.comment} align="left">
 						{reviewComment}
