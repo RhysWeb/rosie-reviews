@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './ReviewPage.css';
 import { useForm } from 'react-hook-form';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, MenuItem } from '@material-ui/core';
 import { RadioLabel2 } from '../components/Radiolabel2';
 import happy from './happy.png';
 import lesshappy from './lesshappy.png';
@@ -11,6 +11,26 @@ import sad from './sad.png';
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
 import database from '../utils/database.js';
+import logo1 from './logo1.jpg';
+import logo2 from './logo2.png';
+import logo3 from './logo3.png';
+
+///Code for the test selection///
+const dropdownAnswers = [
+	{
+		value: 'Yes, lots of times',
+		label: 'Yes, lots of times',
+	},
+	{
+		value: 'Yes, on accasions',
+		label: 'Yes, on accasions',
+	},
+	{
+		value: 'No, never',
+		label: 'No, never',
+	},
+];
+////
 
 export const ReviewPage = () => {
 	const [key, setKey] = useState(1);
@@ -57,8 +77,8 @@ export const ReviewPage = () => {
 					showCancelButton: false,
 				}).then(() => {
 					Swal.fire({
-						text: 'Please click the button below to begin the next review.',
-						confirmButtonText: 'Begin Review',
+						text: 'Please click the button to begin the next review.',
+						confirmButtonText: 'Begin Next Review',
 					}).then(() => {
 						reset();
 						setKey(key + 1);
@@ -84,9 +104,30 @@ export const ReviewPage = () => {
 			<form onSubmit={handleSubmit(onSubmit)} onChange={handleChange} key={key}>
 				<div style={{ marginBottom: '40px' }}></div>
 
+				<div className="logos2">
+					<img src={logo1} id="logo1" />
+					<img src={logo2} id="logo2" />
+					<img src={logo3} id="logo3" />
+				</div>
 				<fieldset>
 					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
-						How did you enjoy todays event?
+						Q1. Have you visited Radipole park before?
+					</legend>
+					<div style={{ marginBottom: '20px' }}></div>
+
+					<TextField
+						fullWidth
+						{...register('visitedBefore')}
+						variant="filled"
+						label="Yes, No, 'Many times' etc"
+					/>
+					<div style={{ marginBottom: '10px' }}></div>
+				</fieldset>
+				<div style={{ marginBottom: '40px' }}></div>
+
+				<fieldset>
+					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
+						Q2. How did you enjoy todays event?
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>
 					<div className="reviewLablesDiv">
@@ -99,11 +140,11 @@ export const ReviewPage = () => {
 					<div style={{ marginBottom: '10px' }}></div>
 				</fieldset>
 
-				<div style={{ marginBottom: '50px' }}></div>
+				<div style={{ marginBottom: '40px' }}></div>
 
 				<fieldset>
 					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
-						Please provide a comment
+						Q3. Please provide a comment{' '}
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>
 
@@ -117,11 +158,11 @@ export const ReviewPage = () => {
 					/>
 					<div style={{ marginBottom: '10px' }}></div>
 				</fieldset>
-				<div style={{ marginBottom: '50px' }}></div>
+				<div style={{ marginBottom: '40px' }}></div>
 
 				<fieldset>
 					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
-						Would you like to be informed about future events?
+						Q4. Would you like to be informed about future events?
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>
 

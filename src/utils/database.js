@@ -28,7 +28,7 @@ class database {
 		return resp;
 	}
 
-	static async addReview(form) {
+	static async addReview(form, dropdownAnswer) {
 		console.log(form);
 		console.log('running axios');
 		console.log(process.env.REACT_APP_DATABASE_SERVER);
@@ -41,6 +41,7 @@ class database {
 					reviewComment: form.reviewComment,
 					email: form.email,
 					reviewScore: form.reviewScore,
+					visitedBefore: form.visitedBefore,
 					eventId: 'devEvent',
 				},
 			});

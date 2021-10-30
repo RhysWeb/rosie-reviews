@@ -90,9 +90,39 @@ a:hover {
 	background: white;
 }
 
+.logos2 {
+	grid-column: 3/4;
+	grid-row: 1/2;
+	display: flex;
+	margin-top: 20px;
+	margin-bottom: 40px;
+	justify-content: space-between;
+}
+
 form {
 	grid-column: 3/-3;
-	grid-row: 1/2;
+	grid-row: 2/3;
+}
+
+.logos {
+	grid-column: 3/4;
+	grid-row: 3/4;
+	display: flex;
+	margin-top: 20px;
+	margin-bottom: 40px;
+	justify-content: space-between;
+}
+
+#logo1 {
+	height: 70px;
+}
+
+#logo2 {
+	height: 70px;
+}
+
+#logo3 {
+	height: 70px;
 }
 
 .leftSide {
