@@ -82,6 +82,7 @@ export const ReviewPage = () => {
 					}).then(() => {
 						reset();
 						setKey(key + 1);
+						window.scrollTo(0, 0);
 					});
 				});
 			} else {
