@@ -59,13 +59,13 @@ export const TestPage = () => {
 	// }, []);
 
 	const onSubmit = (form) => {
-		let storedData = JSON.parse(localStorage.getItem('data'));
+		let storedData = JSON.parse(localStorage.getItem('freshData'));
 		if (storedData) {
 			storedData.push(form);
-			localStorage.setItem('data', JSON.stringify(storedData));
+			localStorage.setItem('freshData', JSON.stringify(storedData));
 			reset();
 		} else {
-			localStorage.setItem('data', [JSON.stringify(storedData)]);
+			localStorage.setItem('freshData', [JSON.stringify(storedData)]);
 		}
 		Swal.fire({
 			icon: 'success',
@@ -104,7 +104,7 @@ export const TestPage = () => {
 					Submit
 				</Button>
 			</form>
-			{JSON.parse(localStorage.getItem('data'))?.map((obj) => {
+			{JSON.parse(localStorage.getItem('freshData'))?.map((obj) => {
 				return <pre>{obj.test}</pre>;
 			})}
 		</MainContainerLarger>
