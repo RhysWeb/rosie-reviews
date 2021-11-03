@@ -15,6 +15,7 @@ import { MainContainerLarger } from '../components/MainContainerLarger';
 import database from '../utils/database.js';
 import { useForm } from 'react-hook-form';
 import { TextField, MenuItem } from '@material-ui/core';
+import Swal from 'sweetalert2';
 
 const useStyles = makeStyles({
 	table: {
@@ -54,14 +55,23 @@ export const TestPage = () => {
 	// let var3;
 
 	// useEffect(() => {
-	// 	var1 = localStorage.getItem('value1');
-	// 	var2 = localStorage.getItem('value2');
-	// 	var3 = localStorage.getItem('value3');
+	// 	console.log(localStorage.getItem('data'));
 	// }, []);
 
 	const onSubmit = (form) => {
-		console.log(form.test);
-		localStorage.setItem('data', JSON.stringify(form));
+		let storedData = JSON.parse(localStorage.getItem('data'));
+		if (storedData) {
+			storedData.push(form);
+			localStorage.setItem('data', JSON.stringify(storedData));
+			reset();
+		} else {
+			localStorage.setItem('data', [JSON.stringify(storedData)]);
+		}
+		Swal.fire({
+			icon: 'success',
+			title: 'Done',
+			text: 'Please click on buttonn',
+		});
 	};
 
 	return (
@@ -94,9 +104,9 @@ export const TestPage = () => {
 					Submit
 				</Button>
 			</form>
-
-			<pre>{JSON.parse(localStorage.getItem('data'))?.test}</pre>
-			<pre>{JSON.parse(localStorage.getItem('data'))?.test2}</pre>
+			{JSON.parse(localStorage.getItem('data'))?.map((obj) => {
+				return <pre>{obj.test}</pre>;
+			})}
 		</MainContainerLarger>
 	);
 };
