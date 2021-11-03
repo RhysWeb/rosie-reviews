@@ -65,7 +65,7 @@ export const TestPage = () => {
 			localStorage.setItem('freshData', JSON.stringify(storedData));
 			reset();
 		} else {
-			localStorage.setItem('freshData', [JSON.stringify(storedData)]);
+			localStorage.setItem('freshData', JSON.stringify([storedData]));
 		}
 		Swal.fire({
 			icon: 'success',
