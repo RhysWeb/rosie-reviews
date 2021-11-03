@@ -61,7 +61,8 @@ export const Home = () => {
 			<hr />
 			<Link to="/reviewPage">Go to event review page</Link>
 			<hr />
-
+			<Link to="/test">test page</Link>
+			<hr />
 			<Link to="/resultsPage">View results</Link>
 			<hr />
 		</div>
