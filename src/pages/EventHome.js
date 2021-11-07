@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom';
 import { Header } from '../components/Header';
 
-export const Home = () => {
+export const EventHome = () => {
 	return (
 		<div style={{ margin: '100px' }}>
 			<Header />
 			<hr />
-
-			<Link to="/createEvent">Create new event</Link>
+			<Link to="/reviewPage">Go to event review page</Link>
 			<hr />
-			<Link to="/viewEvents">View existing events</Link>
+			<Link to="/resultsPage">View results</Link>
+			<hr />
+			<Link to="/localStoragePage">View local storage</Link>
 			<hr />
 		</div>
 	);

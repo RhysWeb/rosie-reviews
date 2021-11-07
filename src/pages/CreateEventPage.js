@@ -17,6 +17,8 @@ import { useForm } from 'react-hook-form';
 import { TextField, MenuItem } from '@material-ui/core';
 import Swal from 'sweetalert2';
 import { Header } from '../components/Header';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const useStyles = makeStyles({
 	table: {
@@ -42,14 +44,21 @@ const useStyles = makeStyles({
 	},
 });
 
-export const TestPage = () => {
-	const [reviews, setReviews] = useState([]);
-	const classes = useStyles();
-	const { getValues, register, handleSubmit, reset, handleChange } = useForm({
-		defaultValues: {
-			test: '',
-		},
-	});
+const schema = yup.object().shape({
+	eventCode: yup.string().required('This field is required'),
+	eventName: yup.string().required('This field is required'),
+	eventDate: yup.string().required('This field is required'),
+});
+
+export const CreateEventPage = () => {
+	const {
+		getValues,
+		register,
+		handleSubmit,
+		reset,
+		handleChange,
+		formState: errors,
+	} = useForm({ mode: 'onBlur', resolver: yupResolver(schema) });
 
 	// let var1;
 	// let var2;
@@ -59,20 +68,11 @@ export const TestPage = () => {
 	// 	console.log(localStorage.getItem('data'));
 	// }, []);
 
-	const onSubmit = (form) => {
-		let storedData = JSON.parse(localStorage.getItem('data'));
-		if (storedData) {
-			storedData.push(form);
-			localStorage.setItem('data', JSON.stringify(storedData));
-			reset();
-		} else {
-			localStorage.setItem('data', JSON.stringify([form]));
-		}
-		Swal.fire({
-			icon: 'success',
-			title: 'Done',
-			text: 'Please click on button',
-		});
+	const onSubmit = async (form) => {
+		console.log('click');
+		console.log(form);
+
+		await database.addEvent(form);
 	};
 
 	return (
@@ -83,21 +83,30 @@ export const TestPage = () => {
 
 				<fieldset>
 					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
-						Q1. Enter a value and see if it persists
+						Create an event
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>
 
 					<TextField
 						fullWidth
-						{...register('test')}
+						{...register('eventCode')}
 						variant="filled"
-						label="Enter it here"
+						label="make up a unique code for the event"
+						error={!!errors.eventCode}
 					/>
 					<TextField
 						fullWidth
-						{...register('test2')}
+						{...register('eventName')}
 						variant="filled"
-						label="Enter it here"
+						label="Brief description of event"
+						error={!!errors.eventName}
+					/>
+					<TextField
+						fullWidth
+						{...register('eventDate')}
+						variant="filled"
+						label="Date of event"
+						error={!!errors.eventDate}
 					/>
 					<div style={{ marginBottom: '10px' }}></div>
 				</fieldset>
@@ -106,9 +115,6 @@ export const TestPage = () => {
 					Submit
 				</Button>
 			</form>
-			{JSON.parse(localStorage.getItem('data'))?.map((obj) => {
-				return <pre>{obj.test}</pre>;
-			})}
 		</MainContainerLarger>
 	);
 };
