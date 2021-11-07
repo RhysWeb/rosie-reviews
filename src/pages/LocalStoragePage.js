@@ -12,7 +12,7 @@ import {
 	Button,
 } from '@material-ui/core';
 import { MainContainerLarger } from '../components/MainContainerLarger';
-import database from '../utils/database.js';
+import localDatabase from '../utils/localDatabase.js';
 import { Header } from '../components/Header';
 
 const useStyles = makeStyles({
@@ -39,12 +39,12 @@ const useStyles = makeStyles({
 	},
 });
 
-export const ResultsPage = () => {
+export const LocalStoragePage = () => {
 	const [reviews, setReviews] = useState([]);
 	const classes = useStyles();
 
 	useEffect(async () => {
-		const reviewsOnDb = await database.getAllReviews();
+		const reviewsOnDb = await localDatabase.getAllReviews();
 		console.log(reviewsOnDb);
 		setReviews(reviewsOnDb);
 	}, []);
@@ -74,12 +74,12 @@ export const ResultsPage = () => {
 
 	function tableRowCreate(myArray) {
 		return myArray.map((review, index) => {
-			const { _id, email, reviewScore, reviewComment, visitedBefore } = review;
+			const { email, reviewScore, reviewComment, visitedBefore } = review;
 
 			return (
-				<TableRow key={_id}>
+				<TableRow key={index}>
 					<TableCell className={classes.id} align="left">
-						{_id}
+						{index + 1}
 					</TableCell>
 					<TableCell className={classes.score} align="left">
 						{reviewScore}

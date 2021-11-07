@@ -16,6 +16,7 @@ import database from '../utils/database.js';
 import { useForm } from 'react-hook-form';
 import { TextField, MenuItem } from '@material-ui/core';
 import Swal from 'sweetalert2';
+import { Header } from '../components/Header';
 
 const useStyles = makeStyles({
 	table: {
@@ -70,12 +71,13 @@ export const TestPage = () => {
 		Swal.fire({
 			icon: 'success',
 			title: 'Done',
-			text: 'Please click on buttonn',
+			text: 'Please click on button',
 		});
 	};
 
 	return (
 		<MainContainerLarger>
+			<Header />
 			<form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
 				<div style={{ marginBottom: '40px' }}></div>
 

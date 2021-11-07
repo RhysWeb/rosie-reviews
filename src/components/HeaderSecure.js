@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export const Header = () => {
+export const HeaderSecure = () => {
 	const history = useHistory();
 	const classes = useStyles();
 
@@ -42,8 +42,23 @@ export const Header = () => {
 					</Typography>
 
 					<Button
-						onClick={() => {
-							history.push(`./`);
+						onClick={async () => {
+							const { value: password } = await Swal.fire({
+								// title: 'Enter your password',
+								input: 'password',
+								showCancelButton: true,
+								inputLabel: 'Password required',
+								inputPlaceholder: 'Enter your password',
+								inputAttributes: {
+									maxlength: 10,
+									autocapitalize: 'off',
+									autocorrect: 'off',
+								},
+							});
+
+							if (password == '123') {
+								history.push(`./`);
+							}
 
 							// let movePassword = prompt('Leave?');
 							// // history.push(`http://localhost:3000`);

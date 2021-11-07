@@ -10,10 +10,11 @@ import lesssad from './lesssad.png';
 import sad from './sad.png';
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
-import database from '../utils/database.js';
+import localDatabase from '../utils/localDatabase.js';
 import logo1 from './logo1.jpg';
 import logo2 from './logo2.png';
 import logo3 from './logo3.png';
+import { HeaderSecure } from '../components/HeaderSecure';
 
 ///Code for the test selection///
 const dropdownAnswers = [
@@ -34,7 +35,6 @@ const dropdownAnswers = [
 
 export const ReviewPage = () => {
 	const [key, setKey] = useState(1);
-	const [submitting, setSubmitting] = useState(false);
 	/*
 	This key state is important and unusual.
 	I found that when I submitted a form the form reset to default values using reset()
@@ -45,7 +45,7 @@ export const ReviewPage = () => {
 	Useful to know that if you want to force a component rerender you should change the key of the component
 	*/
 	const history = useHistory();
-	const { getValues, register, handleSubmit, reset, handleChange } = useForm({
+	const { register, handleSubmit, reset, handleChange } = useForm({
 		defaultValues: {
 			reviewComment: '',
 			email: '',
@@ -64,42 +64,59 @@ export const ReviewPage = () => {
 			});
 			return;
 		}
-		setSubmitting(true);
 
-		database.addReview(form).then((res) => {
-			if (res.status === 200) {
-				Swal.fire({
-					icon: 'success',
-					title: 'Review submitted',
-					timer: 3000,
-					text: 'Thank you for your feedback. Enjoy the rest of your day!',
-					showConfirmButton: false,
-					showCancelButton: false,
-				}).then(() => {
-					Swal.fire({
-						text: 'Please click the button to begin the next review.',
-						confirmButtonText: 'Begin Next Review',
-					}).then(() => {
-						reset();
-						setKey(key + 1);
-						window.scrollTo(0, 0);
-					});
-				});
-			} else {
-				Swal.fire({
-					icon: 'error',
-					title: 'No review submitted',
-					text: 'The system isnt working. Please tell someone at the event so that they can go back to using paper',
-				});
-			}
-			setSubmitting(false);
-
-			console.log(res);
+		localDatabase.addReview(form);
+		Swal.fire({
+			icon: 'success',
+			title: 'Review submitted',
+			timer: 3000,
+			text: 'Thank you for your feedback. Enjoy the rest of your day!',
+			showConfirmButton: false,
+			showCancelButton: false,
+		}).then(() => {
+			reset();
+			Swal.fire({
+				text: 'Please click the button to begin the next review.',
+				confirmButtonText: 'Begin Next Review',
+			}).then((info) => {
+				console.log('.then function already started');
+				reset();
+				setKey(key + 1);
+				window.scrollTo(0, 0);
+			});
 		});
+
+		// .then((res) => {
+		// 	if (res.status === 200) {
+		// 		Swal.fire({
+		// 			icon: 'success',
+		// 			title: 'Review submitted',
+		// 			timer: 3000,
+		// 			text: 'Thank you for your feedback. Enjoy the rest of your day!',
+		// 			showConfirmButton: false,
+		// 			showCancelButton: false,
+		// 		}).then(() => {
+		// 			Swal.fire({
+		// 				text: 'Please click the button to begin the next review.',
+		// 				confirmButtonText: 'Begin Next Review',
+		// 			}).then(() => {
+		// 				reset();
+		// 				setKey(key + 1);
+		// 				window.scrollTo(0, 0);
+		// 			});
+		// 		});
+		// 	} else {
+		// 		Swal.fire({
+		// 			icon: 'error',
+		// 			title: 'No review submitted',
+		// 			text: 'The system isnt working. Please tell someone at the event so that they can go back to using paper',
+		// 		});
+		// 	}
 	};
 
 	return (
 		<div className="grid">
+			<HeaderSecure />
 			<div className="leftSide"></div>
 			<div className="rightSide"></div>
 			<form onSubmit={handleSubmit(onSubmit)} onChange={handleChange} key={key}>
@@ -179,13 +196,7 @@ export const ReviewPage = () => {
 				<div style={{ marginBottom: '40px' }}></div>
 
 				<div>
-					<Button
-						disabled={submitting}
-						type="submit"
-						variant="contained"
-						color="primary"
-						fullWidth
-					>
+					<Button type="submit" variant="contained" color="primary" fullWidth>
 						Submit your Review
 					</Button>
 				</div>
