@@ -9,6 +9,7 @@ import { Login } from './pages/Login';
 import { useData } from './utils/DataContext';
 import { LocalStoragePage } from './pages/LocalStoragePage';
 import { EventHome } from './pages/EventHome';
+import { ViewEventsPage } from './pages/ViewEventsPage';
 
 function App() {
 	const { token } = useData();
@@ -23,6 +24,7 @@ function App() {
 					<Route exact path="/reviewPage" component={ReviewPage} />
 					<Route exact path="/resultsPage" component={ResultsPage} />
 					<Route exact path="/createEvent" component={CreateEventPage} />
+					<Route exact path="/viewEvents" component={ViewEventsPage} />
 					<Route exact path="/event" component={EventHome} />
 
 					<Route exact path="/localStoragePage" component={LocalStoragePage} />
