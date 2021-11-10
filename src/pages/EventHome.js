@@ -1,18 +1,31 @@
 import { Link } from 'react-router-dom';
+import { EventCard } from '../components/EventCard';
 import { Header } from '../components/Header';
+import { MainContainerLarger } from '../components/MainContainerLarger';
+import { useData } from '../utils/DataContext';
 
 export const EventHome = () => {
+	const { currentEvent } = useData();
 	return (
-		<div style={{ margin: '100px' }}>
+		<MainContainerLarger>
 			<Header />
+
+			<EventCard
+				eventCode={currentEvent.eventCode}
+				eventName={currentEvent.eventName}
+				eventDate={currentEvent.eventDate}
+				buttonName="Review"
+			/>
 			<hr />
-			<Link to="/reviewPage">Go to event review page</Link>
+			<Link to="/reviewPage">go to event review page</Link>
 			<hr />
-			<Link to="/resultsPage">View results</Link>
+			<Link to="/resultsPage">view results</Link>
 			<hr />
-			<Link to="/localStoragePage">View local storage</Link>
+			<Link to="/localStoragePage">view local storage</Link>
 			<hr />
-		</div>
+			<Link to="/viewEvents">back to existing events</Link>
+			<hr />
+		</MainContainerLarger>
 	);
 };
 

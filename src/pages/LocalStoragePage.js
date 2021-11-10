@@ -14,6 +14,8 @@ import {
 import { MainContainerLarger } from '../components/MainContainerLarger';
 import localDatabase from '../utils/localDatabase.js';
 import { Header } from '../components/Header';
+import { useData } from '../utils/DataContext';
+import { EventCard } from '../components/EventCard';
 
 const useStyles = makeStyles({
 	table: {
@@ -42,9 +44,12 @@ const useStyles = makeStyles({
 export const LocalStoragePage = () => {
 	const [reviews, setReviews] = useState([]);
 	const classes = useStyles();
+	const { currentEvent } = useData();
 
 	useEffect(async () => {
-		const reviewsOnDb = await localDatabase.getAllReviews();
+		const reviewsOnDb = await localDatabase.getAllReviews(
+			currentEvent.eventCode
+		);
 		console.log(reviewsOnDb);
 		setReviews(reviewsOnDb);
 	}, []);
@@ -101,7 +106,13 @@ export const LocalStoragePage = () => {
 	return (
 		<MainContainerLarger>
 			<Header />
-			<div style={{ marginTop: '20px' }}></div>
+			<EventCard
+				eventCode={currentEvent.eventCode}
+				eventName={currentEvent.eventName}
+				eventDate={currentEvent.eventDate}
+				buttonName="Back"
+			/>
+			<div style={{ marginTop: '40px' }}></div>
 			<TableContainer
 				component={Paper}
 				style={{ backgroundColor: 'hsl(1, 0%, 95%)' }}

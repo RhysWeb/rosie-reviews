@@ -19,6 +19,8 @@ import Swal from 'sweetalert2';
 import { Header } from '../components/Header';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
 	table: {
@@ -51,6 +53,9 @@ const schema = yup.object().shape({
 });
 
 export const CreateEventPage = () => {
+	const history = useHistory();
+
+	const [submitting, setSubmitting] = useState(false);
 	const {
 		getValues,
 		register,
@@ -71,8 +76,12 @@ export const CreateEventPage = () => {
 	const onSubmit = async (form) => {
 		console.log('click');
 		console.log(form);
+		setSubmitting(true);
 
 		await database.addEvent(form);
+		history.push(`./viewEvents`);
+
+		setSubmitting(false);
 	};
 
 	return (
@@ -91,7 +100,7 @@ export const CreateEventPage = () => {
 						fullWidth
 						{...register('eventCode')}
 						variant="filled"
-						label="make up a unique code for the event"
+						label="make up a unique code for the event (no spaces)"
 						error={!!errors.eventCode}
 					/>
 					<TextField
@@ -111,10 +120,20 @@ export const CreateEventPage = () => {
 					<div style={{ marginBottom: '10px' }}></div>
 				</fieldset>
 
-				<Button type="submit" variant="contained" color="primary" fullWidth>
+				<Button
+					type="submit"
+					variant="contained"
+					color="primary"
+					fullWidth
+					disable={submitting}
+				>
 					Submit
 				</Button>
 			</form>
+			<Link style={{ marginTop: '20px' }} to="/">
+				Back
+			</Link>
+			<hr />
 		</MainContainerLarger>
 	);
 };

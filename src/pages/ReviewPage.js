@@ -14,7 +14,8 @@ import localDatabase from '../utils/localDatabase.js';
 import logo1 from './logo1.jpg';
 import logo2 from './logo2.png';
 import logo3 from './logo3.png';
-import { HeaderSecure } from '../components/HeaderSecure';
+import { HeaderEventSecure } from '../components/HeaderEventSecure';
+import { useData } from '../utils/DataContext';
 
 ///Code for the test selection///
 const dropdownAnswers = [
@@ -34,6 +35,8 @@ const dropdownAnswers = [
 ////
 
 export const ReviewPage = () => {
+	const { currentEvent } = useData();
+
 	const [key, setKey] = useState(1);
 	/*
 	This key state is important and unusual.
@@ -65,7 +68,7 @@ export const ReviewPage = () => {
 			return;
 		}
 
-		localDatabase.addReview(form);
+		localDatabase.addReview(form, currentEvent.eventCode);
 		Swal.fire({
 			icon: 'success',
 			title: 'Review submitted',
@@ -116,7 +119,7 @@ export const ReviewPage = () => {
 
 	return (
 		<div className="grid">
-			<HeaderSecure />
+			<HeaderEventSecure />
 			<div className="leftSide"></div>
 			<div className="rightSide"></div>
 			<form onSubmit={handleSubmit(onSubmit)} onChange={handleChange} key={key}>

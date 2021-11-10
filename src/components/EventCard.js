@@ -4,6 +4,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Typography, Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import { useData } from '../utils/DataContext';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
 	root: {
@@ -21,22 +23,39 @@ const useStyles = makeStyles({
 		color: 'blue',
 		marginRight: '10px',
 	},
-	name: { fontSize: '1.2rem', marginTop: '10px', fontWeight: 'bold' },
+	name: { marginTop: '10px', fontWeight: 'bold' },
 	date: { fontFamily: 'Verdana', color: 'blue' },
 
-	button: { margin: '5px' },
+	button: { margin: '5px', minWidth: '5.5rem' },
 });
 
-export function EventCard({ eventCode, eventName, eventDate }) {
+export const EventCard = ({ eventCode, eventName, eventDate, buttonName }) => {
+	const history = useHistory();
+	const { setCurrentEvent } = useData();
 	const classes = useStyles();
+
+	const buttonClick = () => {
+		if (buttonName === 'Review') {
+			history.push(`./reviewPage`);
+			return;
+		}
+		if (buttonName === 'Back') {
+			history.push(`./event`);
+			return;
+		}
+		setCurrentEvent({
+			eventCode: eventCode,
+			eventName: eventName,
+			eventDate: eventDate,
+		});
+		history.push(`./event`);
+	};
 
 	return (
 		<Card elevation={4} className={classes.root}>
 			<CardContent className={classes.details}>
 				<div className={classes.codeContainer}>
-					<Typography className={classes.code}>
-						{`Code: ${eventCode}`} -{' '}
-					</Typography>
+					<Typography className={classes.code}>{`${eventCode} - `}</Typography>
 
 					<Typography className={classes.date}>{eventDate}</Typography>
 				</div>
@@ -57,16 +76,21 @@ export function EventCard({ eventCode, eventName, eventDate }) {
 				</Typography>
 				<br /> */}
 			</CardContent>
-			<Button color="primary" variant="contained" className={classes.button}>
-				{' '}
-				Select
+			<Button
+				color="primary"
+				variant="contained"
+				className={classes.button}
+				onClick={buttonClick}
+			>
+				{buttonName}
 			</Button>
 		</Card>
 	);
-}
+};
 
 EventCard.propTypes = {
 	eventCode: PropTypes.string,
 	eventName: PropTypes.string,
 	eventDate: PropTypes.string,
+	buttonName: PropTypes.string,
 };

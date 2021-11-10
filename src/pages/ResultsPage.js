@@ -14,6 +14,8 @@ import {
 import { MainContainerLarger } from '../components/MainContainerLarger';
 import database from '../utils/database.js';
 import { Header } from '../components/Header';
+import { EventCard } from '../components/EventCard';
+import { useData } from '../utils/DataContext';
 
 const useStyles = makeStyles({
 	table: {
@@ -40,6 +42,8 @@ const useStyles = makeStyles({
 });
 
 export const ResultsPage = () => {
+	const { currentEvent } = useData();
+
 	const [reviews, setReviews] = useState([]);
 	const classes = useStyles();
 
@@ -101,7 +105,13 @@ export const ResultsPage = () => {
 	return (
 		<MainContainerLarger>
 			<Header />
-			<div style={{ marginTop: '20px' }}></div>
+			<EventCard
+				eventCode={currentEvent.eventCode}
+				eventName={currentEvent.eventName}
+				eventDate={currentEvent.eventDate}
+				buttonName="Back"
+			/>
+
 			<TableContainer
 				component={Paper}
 				style={{ backgroundColor: 'hsl(1, 0%, 95%)' }}

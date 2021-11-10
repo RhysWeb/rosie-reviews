@@ -21,6 +21,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SEO } from '../components/SEO';
 import { EventCard } from '../components/EventCard';
+import { Link } from 'react-router-dom';
 
 export const ViewEventsPage = () => {
 	const [events, setEvents] = useState([]);
@@ -45,9 +46,12 @@ export const ViewEventsPage = () => {
 						eventCode={event.eventCode}
 						eventName={event.eventName}
 						eventDate={event.eventDate}
+						buttonName="select"
 					/>
 				);
 			})}
+			<Link to="/">Back</Link>
+			<hr />
 		</MainContainerLarger>
 	);
 };
