@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { MainContainerLarger } from '../components/MainContainerLarger';
 import localDatabase from '../utils/localDatabase.js';
+import database from '../utils/database';
 import { Header } from '../components/Header';
 import { useData } from '../utils/DataContext';
 import { EventCard } from '../components/EventCard';
@@ -39,6 +40,14 @@ const useStyles = makeStyles({
 		color: 'blue',
 		fontSize: '10px',
 	},
+	button: {
+		margin: '20px',
+		padding: '20px',
+		'&:hover': {
+			boxShadow: '0px 0 5px #0d33fd, 0px 0 25px #cce6ff',
+			transition: '0.1s ease-in-out all',
+		},
+	},
 });
 
 export const LocalStoragePage = () => {
@@ -46,13 +55,26 @@ export const LocalStoragePage = () => {
 	const classes = useStyles();
 	const { currentEvent } = useData();
 
-	useEffect(async () => {
-		const reviewsOnDb = await localDatabase.getAllReviews(
-			currentEvent.eventCode
-		);
+	useEffect(() => {
+		const reviewsOnDb = localDatabase.getAllReviews(currentEvent.eventCode);
 		console.log(reviewsOnDb);
 		setReviews(reviewsOnDb);
 	}, []);
+
+	const uploadReviews = (array) => {
+		array.map((obj) => {
+			database.addReview(obj, currentEvent.eventCode);
+		});
+	};
+
+	const buttonClick = () => {
+		if (!reviews) {
+			return;
+		}
+		uploadReviews(reviews);
+		localDatabase.clearLocalReviews(currentEvent.eventCode);
+		setReviews(localDatabase.getAllReviews(currentEvent.eventCode));
+	};
 
 	const tableHeader = (
 		<TableHead>
@@ -122,6 +144,14 @@ export const LocalStoragePage = () => {
 					<TableBody>{reviews && tableRowCreate(reviews)}</TableBody>
 				</Table>
 			</TableContainer>
+			<Button
+				color="primary"
+				variant="contained"
+				className={classes.button}
+				onClick={buttonClick}
+			>
+				Upload Local Reviews to the Server
+			</Button>
 		</MainContainerLarger>
 	);
 };

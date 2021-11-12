@@ -26,10 +26,12 @@ import { Link } from 'react-router-dom';
 export const ViewEventsPage = () => {
 	const [events, setEvents] = useState([]);
 
-	useEffect(async () => {
-		const eventsOnDb = await database.getAllEvents();
-		console.log(eventsOnDb);
-		setEvents(eventsOnDb);
+	useEffect(() => {
+		async function getEvents() {
+			const eventsOnDb = await database.getAllEvents();
+			setEvents(eventsOnDb);
+		}
+		getEvents();
 	}, []);
 
 	return (

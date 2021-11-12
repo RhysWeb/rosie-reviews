@@ -44,7 +44,6 @@ export const HeaderEventSecure = () => {
 					<Button
 						onClick={async () => {
 							const { value: password } = await Swal.fire({
-								// title: 'Enter your password',
 								input: 'password',
 								showCancelButton: true,
 								inputLabel: 'Password required',
@@ -59,15 +58,6 @@ export const HeaderEventSecure = () => {
 							if (password == '123') {
 								history.push(`./event`);
 							}
-
-							// let movePassword = prompt('Leave?');
-							// // history.push(`http://localhost:3000`);
-							// if (movePassword == '123') {
-							// 	history.push(`./`);
-							// } else {
-							// 	return;
-							// }
-							// window.location.assign(process.env.REACT_APP_HOME_URL);
 						}}
 						color="inherit"
 					>

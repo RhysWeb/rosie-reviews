@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import logo from './newLogo.png';
 import { useHistory } from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -44,15 +43,6 @@ export const HeaderEvent = () => {
 					<Button
 						onClick={() => {
 							history.push(`./event`);
-
-							// let movePassword = prompt('Leave?');
-							// // history.push(`http://localhost:3000`);
-							// if (movePassword == '123') {
-							// 	history.push(`./`);
-							// } else {
-							// 	return;
-							// }
-							// window.location.assign(process.env.REACT_APP_HOME_URL);
 						}}
 						color="inherit"
 					>

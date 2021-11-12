@@ -47,10 +47,14 @@ export const ResultsPage = () => {
 	const [reviews, setReviews] = useState([]);
 	const classes = useStyles();
 
-	useEffect(async () => {
-		const reviewsOnDb = await database.getAllReviews();
-		console.log(reviewsOnDb);
-		setReviews(reviewsOnDb);
+	useEffect(() => {
+		async function getReviews() {
+			const reviewsOnDb = await database.getEventReviews(
+				currentEvent.eventCode
+			);
+			setReviews(reviewsOnDb);
+		}
+		getReviews();
 	}, []);
 
 	const tableHeader = (

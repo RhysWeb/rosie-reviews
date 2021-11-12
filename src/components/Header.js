@@ -44,15 +44,6 @@ export const Header = () => {
 					<Button
 						onClick={() => {
 							history.push(`./`);
-
-							// let movePassword = prompt('Leave?');
-							// // history.push(`http://localhost:3000`);
-							// if (movePassword == '123') {
-							// 	history.push(`./`);
-							// } else {
-							// 	return;
-							// }
-							// window.location.assign(process.env.REACT_APP_HOME_URL);
 						}}
 						color="inherit"
 					>

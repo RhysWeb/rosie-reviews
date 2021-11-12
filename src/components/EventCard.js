@@ -8,13 +8,14 @@ import { useData } from '../utils/DataContext';
 import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
-	root: {
+	card: {
 		width: 500,
 		display: 'flex',
 		justifyContent: 'space-between',
 		padding: '10px',
 		marginBottom: '20px',
 	},
+
 	codeContainer: {
 		display: 'flex',
 	},
@@ -26,7 +27,14 @@ const useStyles = makeStyles({
 	name: { marginTop: '10px', fontWeight: 'bold' },
 	date: { fontFamily: 'Verdana', color: 'blue' },
 
-	button: { margin: '5px', minWidth: '5.5rem' },
+	button: {
+		margin: '5px',
+		minWidth: '5.5rem',
+		'&:hover': {
+			boxShadow: '0px 0 5px #0d33fd, 0px 0 15px #cce6ff',
+			transition: '0.1s ease-in-out all',
+		},
+	},
 });
 
 export const EventCard = ({ eventCode, eventName, eventDate, buttonName }) => {
@@ -52,7 +60,7 @@ export const EventCard = ({ eventCode, eventName, eventDate, buttonName }) => {
 	};
 
 	return (
-		<Card elevation={4} className={classes.root}>
+		<Card elevation={4} className={classes.card}>
 			<CardContent className={classes.details}>
 				<div className={classes.codeContainer}>
 					<Typography className={classes.code}>{`${eventCode} - `}</Typography>
@@ -60,21 +68,6 @@ export const EventCard = ({ eventCode, eventName, eventDate, buttonName }) => {
 					<Typography className={classes.date}>{eventDate}</Typography>
 				</div>
 				<Typography className={classes.name}>{eventName}</Typography>
-				{/* <br />
-				<Typography className={classes.pos} style={{ color: 'green' }}>
-					{props.subheader2}
-				</Typography>
-				<Typography variant="body2" component="p">
-					{props.text2}
-				</Typography>
-				<br />
-				<Typography className={classes.pos} style={{ color: 'green' }}>
-					{props.subheader3}
-				</Typography>
-				<Typography variant="body2" component="p">
-					{props.text3}
-				</Typography>
-				<br /> */}
 			</CardContent>
 			<Button
 				color="primary"

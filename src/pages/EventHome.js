@@ -19,7 +19,7 @@ export const EventHome = () => {
 			<hr />
 			<Link to="/reviewPage">go to event review page</Link>
 			<hr />
-			<Link to="/resultsPage">view results</Link>
+			<Link to="/resultsPage">view uploaded reviews</Link>
 			<hr />
 			<Link to="/localStoragePage">view local storage</Link>
 			<hr />

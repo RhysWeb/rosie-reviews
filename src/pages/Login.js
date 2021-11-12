@@ -2,13 +2,12 @@ import { Link } from 'react-router-dom';
 import { useData } from '../utils/DataContext';
 import { useForm } from 'react-hook-form';
 import { TextField, Button } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import database from '../utils/database.js';
 
 export const Login = () => {
 	const { token, setToken } = useData();
-	const [submitting, setSubmitting] = useState(false);
+	const [submitting] = useState(false);
 	const { register, handleSubmit } = useForm({
 		defaultValues: {
 			password: '',
@@ -16,11 +15,9 @@ export const Login = () => {
 	});
 
 	const onSubmit = async (form) => {
-		console.log(form.password);
 		let token;
 		try {
 			let resp = await database.login(form.password);
-			console.log(resp);
 			token = resp.data.token;
 			setToken(token);
 		} catch {
@@ -68,6 +65,3 @@ export const Login = () => {
 		</div>
 	);
 };
-
-/*<FileInput name="files" control={control} />*/ //after typogrphy
-/**/

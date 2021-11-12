@@ -28,7 +28,7 @@ class database {
 		return resp;
 	}
 
-	static async addReview(form, dropdownAnswer) {
+	static async addReview(form, eventCode) {
 		console.log(form);
 		console.log('running axios');
 		console.log(process.env.REACT_APP_DATABASE_SERVER);
@@ -42,7 +42,7 @@ class database {
 					email: form.email,
 					reviewScore: form.reviewScore,
 					visitedBefore: form.visitedBefore,
-					eventId: 'devEvent',
+					eventId: eventCode,
 				},
 			});
 		} catch {
@@ -61,6 +61,27 @@ class database {
 			}).then((res) => {
 				console.log(res.data);
 				response = res.data;
+			});
+			console.log(response);
+			return response;
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	static async getEventReviews(eventCode) {
+		let response;
+		try {
+			console.log('getting reviews for specific event');
+			await axios({
+				method: 'get',
+				url: `${process.env.REACT_APP_DATABASE_SERVER}/review`,
+			}).then((res) => {
+				console.log(res.data);
+				const filteredResults = res.data.filter(
+					(obj) => obj.eventId == eventCode
+				);
+				response = filteredResults;
 			});
 			console.log(response);
 			return response;

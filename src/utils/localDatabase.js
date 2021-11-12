@@ -12,6 +12,10 @@ class localDatabase {
 		}
 	}
 
+	static clearLocalReviews(eventCode) {
+		localStorage.removeItem(eventCode);
+	}
+
 	static getAllReviews(eventCode) {
 		return JSON.parse(localStorage.getItem(eventCode));
 	}
