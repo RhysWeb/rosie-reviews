@@ -1,50 +1,13 @@
-import { useEffect, useState } from 'react';
-import {
-	Typography,
-	makeStyles,
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-	Paper,
-	Button,
-} from '@material-ui/core';
+import { useState } from 'react';
+import { TextField, Button } from '@material-ui/core';
 import { MainContainerLarger } from '../components/MainContainerLarger';
 import database from '../utils/database.js';
 import { useForm } from 'react-hook-form';
-import { TextField, MenuItem } from '@material-ui/core';
-import Swal from 'sweetalert2';
 import { Header } from '../components/Header';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
-const useStyles = makeStyles({
-	table: {
-		minWidth: 550,
-	},
-	headerRow: {
-		color: 'black',
-		fontWeight: 'bolder',
-		fontSize: '11px',
-		fontFamily: 'Arial',
-	},
-	id: {
-		color: 'red',
-		fontSize: '10px',
-	},
-	email: {
-		color: 'black',
-		fontSize: '10px',
-	},
-	comment: {
-		color: 'blue',
-		fontSize: '10px',
-	},
-});
 
 const schema = yup.object().shape({
 	eventCode: yup.string().required('This field is required'),
@@ -57,10 +20,8 @@ export const CreateEventPage = () => {
 
 	const [submitting, setSubmitting] = useState(false);
 	const {
-		getValues,
 		register,
 		handleSubmit,
-		reset,
 		handleChange,
 		formState: errors,
 	} = useForm({ mode: 'onBlur', resolver: yupResolver(schema) });

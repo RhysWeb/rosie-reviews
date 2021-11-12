@@ -79,7 +79,7 @@ class database {
 			}).then((res) => {
 				console.log(res.data);
 				const filteredResults = res.data.filter(
-					(obj) => obj.eventId == eventCode
+					(obj) => obj.eventId === eventCode
 				);
 				response = filteredResults;
 			});

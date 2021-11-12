@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import {
-	Typography,
 	makeStyles,
 	Table,
 	TableBody,
@@ -9,7 +8,6 @@ import {
 	TableHead,
 	TableRow,
 	Paper,
-	Button,
 } from '@material-ui/core';
 import { MainContainerLarger } from '../components/MainContainerLarger';
 import database from '../utils/database.js';
@@ -55,7 +53,7 @@ export const ResultsPage = () => {
 			setReviews(reviewsOnDb);
 		}
 		getReviews();
-	}, []);
+	}, [currentEvent.eventCode]);
 
 	const tableHeader = (
 		<TableHead>

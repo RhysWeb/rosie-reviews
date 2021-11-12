@@ -25,7 +25,7 @@ export const Login = () => {
 		}
 	};
 
-	if (!(token == process.env.REACT_APP_TOKEN)) {
+	if (!(token === process.env.REACT_APP_TOKEN)) {
 		return (
 			<div>
 				<form onSubmit={handleSubmit(onSubmit)}>

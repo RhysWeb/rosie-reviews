@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import {
-	Typography,
 	makeStyles,
 	Table,
 	TableBody,
@@ -56,14 +55,17 @@ export const LocalStoragePage = () => {
 	const { currentEvent } = useData();
 
 	useEffect(() => {
+		console.log(window.navigator.onLine);
 		const reviewsOnDb = localDatabase.getAllReviews(currentEvent.eventCode);
 		console.log(reviewsOnDb);
 		setReviews(reviewsOnDb);
-	}, []);
+	}, [currentEvent.eventCode]);
+
+	useEffect(() => {}, [window.navigator.onLine]);
 
 	const uploadReviews = (array) => {
 		array.map((obj) => {
-			database.addReview(obj, currentEvent.eventCode);
+			return database.addReview(obj, currentEvent.eventCode);
 		});
 	};
 
@@ -149,8 +151,11 @@ export const LocalStoragePage = () => {
 				variant="contained"
 				className={classes.button}
 				onClick={buttonClick}
+				disabled={!window.navigator.onLine}
 			>
-				Upload Local Reviews to the Server
+				{!window.navigator.onLine
+					? 'Offline - get a signal and refresh the page'
+					: 'Upload Local Reviews to the Server'}
 			</Button>
 		</MainContainerLarger>
 	);

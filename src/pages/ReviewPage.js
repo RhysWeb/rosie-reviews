@@ -9,7 +9,6 @@ import neutral from './neutral.png';
 import lesssad from './lesssad.png';
 import sad from './sad.png';
 import Swal from 'sweetalert2';
-import { useHistory } from 'react-router-dom';
 import localDatabase from '../utils/localDatabase.js';
 import logo1 from './logo1.jpg';
 import logo2 from './logo2.png';
@@ -47,7 +46,6 @@ export const ReviewPage = () => {
 	This rerenders the whole form. I could have just rerendered bits of it but I decided to do the whole thing.
 	Useful to know that if you want to force a component rerender you should change the key of the component
 	*/
-	const history = useHistory();
 	const { register, handleSubmit, reset, handleChange } = useForm({
 		defaultValues: {
 			reviewComment: '',
@@ -99,9 +97,9 @@ export const ReviewPage = () => {
 				<div style={{ marginBottom: '40px' }}></div>
 
 				<div className="logos2">
-					<img src={logo1} id="logo1" />
-					<img src={logo2} id="logo2" />
-					<img src={logo3} id="logo3" />
+					<img src={logo1} id="logo1" alt="Radipole Park and Gardens Logo" />
+					<img src={logo2} id="logo2" alt="Lottery Funding Logo" />
+					<img src={logo3} id="logo3" alt="Weymouth Town Council Logo" />
 				</div>
 				<fieldset>
 					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
