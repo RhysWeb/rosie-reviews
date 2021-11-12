@@ -5,9 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import logo from './newLogo.png';
+import logo from './happy.png';
 import { useHistory } from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 const useStyles = makeStyles((theme) => ({
 	root: {

@@ -1,6 +1,3 @@
-import Swal from 'sweetalert2';
-const axios = require('axios');
-
 class localDatabase {
 	static async addReview(form, eventCode) {
 		let storedData = JSON.parse(localStorage.getItem(eventCode));

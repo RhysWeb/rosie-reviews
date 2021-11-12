@@ -18,6 +18,3 @@ export const Home = () => {
 		</MainContainerLarger>
 	);
 };
-
-/*<FileInput name="files" control={control} />*/ //after typogrphy
-/**/

@@ -12,7 +12,7 @@ export const RadioLabel2 = (props) => {
 				onClick={handleRadioClick}
 				value={props.value}
 			/>
-			<img src={props.image} id={`face${props.value}`} />
+			<img alt={props.value} src={props.image} id={`face${props.value}`} />
 		</label>
 	);
 };

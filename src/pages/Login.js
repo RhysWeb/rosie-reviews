@@ -36,6 +36,7 @@ export const Login = () => {
 							label="Enter password"
 							{...register('password')}
 							variant="filled"
+							autoComplete="on"
 						/>
 						<div>
 							<Button

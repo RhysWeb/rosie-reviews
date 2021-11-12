@@ -1,7 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Home } from './pages/Home';
-import { Header } from './components/Header';
 import { ReviewPage } from './pages/ReviewPage';
 import { ResultsPage } from './pages/ResultsPage';
 import { CreateEventPage } from './pages/CreateEventPage';
@@ -13,7 +12,7 @@ import { ViewEventsPage } from './pages/ViewEventsPage';
 
 function App() {
 	const { token } = useData();
-	if (!(token == process.env.REACT_APP_TOKEN)) {
+	if (!(token === process.env.REACT_APP_TOKEN)) {
 		return <Login />;
 	}
 	return (

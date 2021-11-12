@@ -65,14 +65,6 @@ export const CreateEventPage = () => {
 		formState: errors,
 	} = useForm({ mode: 'onBlur', resolver: yupResolver(schema) });
 
-	// let var1;
-	// let var2;
-	// let var3;
-
-	// useEffect(() => {
-	// 	console.log(localStorage.getItem('data'));
-	// }, []);
-
 	const onSubmit = async (form) => {
 		console.log('click');
 		console.log(form);

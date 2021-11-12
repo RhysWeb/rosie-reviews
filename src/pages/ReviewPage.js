@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './ReviewPage.css';
 import { useForm } from 'react-hook-form';
-import { TextField, Button, MenuItem } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 import { RadioLabel2 } from '../components/Radiolabel2';
 import happy from './happy.png';
 import lesshappy from './lesshappy.png';
@@ -88,33 +88,6 @@ export const ReviewPage = () => {
 				window.scrollTo(0, 0);
 			});
 		});
-
-		// .then((res) => {
-		// 	if (res.status === 200) {
-		// 		Swal.fire({
-		// 			icon: 'success',
-		// 			title: 'Review submitted',
-		// 			timer: 3000,
-		// 			text: 'Thank you for your feedback. Enjoy the rest of your day!',
-		// 			showConfirmButton: false,
-		// 			showCancelButton: false,
-		// 		}).then(() => {
-		// 			Swal.fire({
-		// 				text: 'Please click the button to begin the next review.',
-		// 				confirmButtonText: 'Begin Next Review',
-		// 			}).then(() => {
-		// 				reset();
-		// 				setKey(key + 1);
-		// 				window.scrollTo(0, 0);
-		// 			});
-		// 		});
-		// 	} else {
-		// 		Swal.fire({
-		// 			icon: 'error',
-		// 			title: 'No review submitted',
-		// 			text: 'The system isnt working. Please tell someone at the event so that they can go back to using paper',
-		// 		});
-		// 	}
 	};
 
 	return (
