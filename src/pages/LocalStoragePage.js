@@ -61,8 +61,6 @@ export const LocalStoragePage = () => {
 		setReviews(reviewsOnDb);
 	}, [currentEvent.eventCode]);
 
-	useEffect(() => {}, [window.navigator.onLine]);
-
 	const uploadReviews = (array) => {
 		array.map((obj) => {
 			return database.addReview(obj, currentEvent.eventCode);

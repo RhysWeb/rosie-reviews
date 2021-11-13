@@ -102,7 +102,7 @@ export const ReviewPage = () => {
 					<img src={logo3} id="logo3" alt="Weymouth Town Council Logo" />
 				</div>
 				<fieldset>
-					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
+					<legend id="Q1" style={{ color: 'hsl(239, 83%, 21%)' }}>
 						Q1. Have you visited Radipole park before?
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>

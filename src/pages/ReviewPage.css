@@ -1,4 +1,13 @@
-/* DEFINE SOME ANIMATIONS */
+/* CSS Variables in the form */
+
+form {
+	--timer1: 0.3s;
+	--timer2: 0.15s;
+	--delay: 1s;
+	--flashingQ1: 1.5s;
+}
+
+/* animation on the face selectors */
 
 @keyframes colorChange {
 	to {
@@ -8,13 +17,6 @@
 	}
 }
 
-form {
-	--timer1: 0.3s;
-	--timer2: 0.15s;
-	--delay: 1s;
-}
-
-/* ANIMATION WHEN STARTING THE PAGE */
 #face5 {
 	animation: colorChange var(--timer1) ease var(--delay) 2 alternate,
 		colorChange var(--timer1) ease calc(var(--delay) + 13 * var(--timer2)) 2
@@ -43,6 +45,22 @@ form {
 			calc(var(--delay) + 4 * var(--timer2)) 2 alternate,
 		colorChange var(--timer1) ease calc(var(--delay) + 9 * var(--timer2)) 2
 			alternate;
+}
+
+/* Flashing animation on the first quesstion text */
+@keyframes flashing {
+	50% {
+		opacity: 0.5;
+	}
+}
+
+#Q1 {
+	animation: flashing var(--flashingQ1) step-start infinite;
+}
+
+/* This doesnt work, I was hoping that if I focus on the input it would stop the flashing of the question */
+input[name='visitedBefore']:focus-visible {
+	--flashingQ1: 0s;
 }
 
 /* IMAGE STYLES */
