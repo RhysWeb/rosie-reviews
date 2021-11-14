@@ -23,7 +23,7 @@ export const CreateEventPage = () => {
 		register,
 		handleSubmit,
 		handleChange,
-		formState: errors,
+		formState: { errors },
 	} = useForm({ mode: 'onBlur', resolver: yupResolver(schema) });
 
 	const onSubmit = async (form) => {

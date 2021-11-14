@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ReviewPage.css';
 import { useForm } from 'react-hook-form';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, MenuItem } from '@material-ui/core';
 import { RadioLabel2 } from '../components/Radiolabel2';
 import happy from './happy.png';
 import lesshappy from './lesshappy.png';
@@ -35,8 +35,11 @@ const dropdownAnswers = [
 
 export const ReviewPage = () => {
 	const { currentEvent } = useData();
-
 	const [key, setKey] = useState(1);
+	const [visitedBefore, setVisitedBefore] = useState('');
+	const handleChange = (event) => {
+		setVisitedBefore(event.target.value);
+	};
 	/*
 	This key state is important and unusual.
 	I found that when I submitted a form the form reset to default values using reset()
@@ -46,7 +49,7 @@ export const ReviewPage = () => {
 	This rerenders the whole form. I could have just rerendered bits of it but I decided to do the whole thing.
 	Useful to know that if you want to force a component rerender you should change the key of the component
 	*/
-	const { register, handleSubmit, reset, handleChange } = useForm({
+	const { register, handleSubmit, reset } = useForm({
 		defaultValues: {
 			reviewComment: '',
 			email: '',
@@ -56,7 +59,6 @@ export const ReviewPage = () => {
 
 	const onSubmit = (form) => {
 		console.log('click');
-		console.log(form);
 		if (form.reviewScore === 'none') {
 			Swal.fire({
 				icon: 'error',
@@ -66,7 +68,15 @@ export const ReviewPage = () => {
 			return;
 		}
 
-		localDatabase.addReview(form, currentEvent.eventCode);
+		const reviewSubmission = {
+			reviewComment: form.reviewComment,
+			email: form.email,
+			reviewScore: form.reviewScore,
+			visitedBefore: visitedBefore,
+		};
+		console.log(reviewSubmission);
+
+		localDatabase.addReview(reviewSubmission, currentEvent.eventCode);
 		Swal.fire({
 			icon: 'success',
 			title: 'Review submitted',
@@ -81,6 +91,7 @@ export const ReviewPage = () => {
 				confirmButtonText: 'Begin Next Review',
 			}).then((info) => {
 				console.log('.then function already started');
+				setVisitedBefore('');
 				reset();
 				setKey(key + 1);
 				window.scrollTo(0, 0);
@@ -93,7 +104,7 @@ export const ReviewPage = () => {
 			<HeaderEventSecure />
 			<div className="leftSide"></div>
 			<div className="rightSide"></div>
-			<form onSubmit={handleSubmit(onSubmit)} onChange={handleChange} key={key}>
+			<form onSubmit={handleSubmit(onSubmit)} key={key}>
 				<div style={{ marginBottom: '40px' }}></div>
 
 				<div className="logos2">
@@ -102,19 +113,33 @@ export const ReviewPage = () => {
 					<img src={logo3} id="logo3" alt="Weymouth Town Council Logo" />
 				</div>
 				<fieldset>
-					<legend id="Q1" style={{ color: 'hsl(239, 83%, 21%)' }}>
-						Q1. Have you visited Radipole park before?
+					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
+						Q1. Have you visited Radipole Park Before?
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>
-
 					<TextField
-						fullWidth
-						{...register('visitedBefore')}
+						id="visitedBefore"
+						select
+						label="Please select an option"
+						value={visitedBefore}
+						onChange={handleChange}
 						variant="filled"
-						label="Yes, No, 'Many times' etc"
-					/>
+						// margin="normal"
+						fullWidth
+					>
+						{dropdownAnswers.map((option) => (
+							<MenuItem
+								{...register('visitedBefore')}
+								key={option.value}
+								value={option.value}
+							>
+								{option.label}
+							</MenuItem>
+						))}
+					</TextField>
 					<div style={{ marginBottom: '10px' }}></div>
 				</fieldset>
+
 				<div style={{ marginBottom: '40px' }}></div>
 
 				<fieldset>
