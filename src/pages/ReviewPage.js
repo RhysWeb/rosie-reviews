@@ -15,6 +15,7 @@ import logo2 from './logo2.png';
 import logo3 from './logo3.png';
 import { HeaderEventSecure } from '../components/HeaderEventSecure';
 import { useData } from '../utils/DataContext';
+import { useDate } from '../customHooks/Date';
 
 ///Code for the test selection///
 const dropdownAnswers = [
@@ -35,6 +36,7 @@ const dropdownAnswers = [
 
 export const ReviewPage = () => {
 	const { currentEvent } = useData();
+	const [dateTime] = useDate();
 	const [key, setKey] = useState(1);
 	const [visitedBefore, setVisitedBefore] = useState('');
 	const handleChange = (event) => {
@@ -73,10 +75,11 @@ export const ReviewPage = () => {
 			email: form.email,
 			reviewScore: form.reviewScore,
 			visitedBefore: visitedBefore,
+			dateTime: dateTime,
 		};
 		console.log(reviewSubmission);
 
-		localDatabase.addReview(reviewSubmission, currentEvent.eventCode);
+		localDatabase.addReview(reviewSubmission, currentEvent.eventId);
 		Swal.fire({
 			icon: 'success',
 			title: 'Review submitted',

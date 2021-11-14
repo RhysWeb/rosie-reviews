@@ -11,7 +11,7 @@ export const EventHome = () => {
 			<Header />
 
 			<EventCard
-				eventCode={currentEvent.eventCode}
+				eventId={currentEvent.eventId}
 				eventName={currentEvent.eventName}
 				eventDate={currentEvent.eventDate}
 				buttonName="Review"

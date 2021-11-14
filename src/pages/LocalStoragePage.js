@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import {
 	makeStyles,
 	Table,
@@ -49,38 +51,56 @@ const useStyles = makeStyles({
 	},
 });
 
+//This is a function to allow an asyncronous forEach ()
+const asyncForEach = async (array, callback) => {
+	for (let index = 0; index < array.length; index++) {
+		await callback(array[index], index, array);
+	}
+};
+
 export const LocalStoragePage = () => {
 	const [reviews, setReviews] = useState([]);
 	const classes = useStyles();
 	const { currentEvent } = useData();
+	const history = useHistory();
 
 	useEffect(() => {
 		console.log(window.navigator.onLine);
-		const reviewsOnDb = localDatabase.getAllReviews(currentEvent.eventCode);
+		const reviewsOnDb = localDatabase.getAllReviews(currentEvent.eventId);
 		console.log(reviewsOnDb);
 		setReviews(reviewsOnDb);
-	}, [currentEvent.eventCode]);
+	}, [currentEvent.eventId]);
 
 	const uploadReviews = (array) => {
-		array.map((obj) => {
-			return database.addReview(obj, currentEvent.eventCode);
+		asyncForEach(array, async (obj) => {
+			let resp = await database.addReview(obj, currentEvent.eventId);
+			if (resp.status === 200) {
+				localDatabase.clearLocalReview(obj, currentEvent.eventId);
+				setReviews(localDatabase.getAllReviews(currentEvent.eventId));
+			}
 		});
 	};
 
 	const buttonClick = () => {
-		if (!reviews) {
+		if (!reviews || !window.navigator.onLine) {
 			return;
 		}
+
+		console.log('click');
 		uploadReviews(reviews);
-		localDatabase.clearLocalReviews(currentEvent.eventCode);
-		setReviews(localDatabase.getAllReviews(currentEvent.eventCode));
+		// localDatabase.clearLocalReviews(currentEvent.eventId);
+		// setReviews(localDatabase.getAllReviews(currentEvent.eventId));
+	};
+
+	const refreshClick = () => {
+		history.push('localStoragePage');
 	};
 
 	const tableHeader = (
 		<TableHead>
 			<TableRow>
 				<TableCell className={classes.headerRow} align="left">
-					Review ID
+					Date & Time
 				</TableCell>
 				<TableCell className={classes.headerRow} align="left">
 					Review{<br />}Score
@@ -101,12 +121,13 @@ export const LocalStoragePage = () => {
 
 	function tableRowCreate(myArray) {
 		return myArray.map((review, index) => {
-			const { email, reviewScore, reviewComment, visitedBefore } = review;
+			const { dateTime, email, reviewScore, reviewComment, visitedBefore } =
+				review;
 
 			return (
 				<TableRow key={index}>
 					<TableCell className={classes.id} align="left">
-						{index + 1}
+						{dateTime}
 					</TableCell>
 					<TableCell className={classes.score} align="left">
 						{reviewScore}
@@ -129,7 +150,7 @@ export const LocalStoragePage = () => {
 		<MainContainerLarger>
 			<Header />
 			<EventCard
-				eventCode={currentEvent.eventCode}
+				eventId={currentEvent.eventId}
 				eventName={currentEvent.eventName}
 				eventDate={currentEvent.eventDate}
 				buttonName="Back"
@@ -152,9 +173,19 @@ export const LocalStoragePage = () => {
 				disabled={!window.navigator.onLine}
 			>
 				{!window.navigator.onLine
-					? 'Offline - get a signal and refresh the page'
+					? "Offline - get a signal, then click 'refresh' below"
 					: 'Upload Local Reviews to the Server'}
 			</Button>
+			{!window.navigator.onLine && (
+				<Button
+					color="primary"
+					variant="contained"
+					className={classes.button}
+					onClick={refreshClick}
+				>
+					Refresh
+				</Button>
+			)}
 		</MainContainerLarger>
 	);
 };

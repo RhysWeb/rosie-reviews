@@ -47,19 +47,17 @@ export const ResultsPage = () => {
 
 	useEffect(() => {
 		async function getReviews() {
-			const reviewsOnDb = await database.getEventReviews(
-				currentEvent.eventCode
-			);
+			const reviewsOnDb = await database.getEventReviews(currentEvent.eventId);
 			setReviews(reviewsOnDb);
 		}
 		getReviews();
-	}, [currentEvent.eventCode]);
+	}, [currentEvent.eventId]);
 
 	const tableHeader = (
 		<TableHead>
 			<TableRow>
 				<TableCell className={classes.headerRow} align="left">
-					Review ID
+					Date & Time
 				</TableCell>
 				<TableCell className={classes.headerRow} align="left">
 					Review{<br />}Score
@@ -80,12 +78,19 @@ export const ResultsPage = () => {
 
 	function tableRowCreate(myArray) {
 		return myArray.map((review, index) => {
-			const { _id, email, reviewScore, reviewComment, visitedBefore } = review;
+			const {
+				_id,
+				dateTime,
+				email,
+				reviewScore,
+				reviewComment,
+				visitedBefore,
+			} = review;
 
 			return (
 				<TableRow key={_id}>
 					<TableCell className={classes.id} align="left">
-						{_id}
+						{dateTime}
 					</TableCell>
 					<TableCell className={classes.score} align="left">
 						{reviewScore}
@@ -108,7 +113,7 @@ export const ResultsPage = () => {
 		<MainContainerLarger>
 			<Header />
 			<EventCard
-				eventCode={currentEvent.eventCode}
+				eventId={currentEvent.eventId}
 				eventName={currentEvent.eventName}
 				eventDate={currentEvent.eventDate}
 				buttonName="Back"

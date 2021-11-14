@@ -28,7 +28,7 @@ class database {
 		return resp;
 	}
 
-	static async addReview(form, eventCode) {
+	static async addReview(form, eventId) {
 		console.log(form);
 		console.log('running axios');
 		console.log(process.env.REACT_APP_DATABASE_SERVER);
@@ -42,7 +42,8 @@ class database {
 					email: form.email,
 					reviewScore: form.reviewScore,
 					visitedBefore: form.visitedBefore,
-					eventId: eventCode,
+					eventId: eventId,
+					dateTime: form.dateTime,
 				},
 			});
 		} catch {
@@ -69,7 +70,7 @@ class database {
 		}
 	}
 
-	static async getEventReviews(eventCode) {
+	static async getEventReviews(eventId) {
 		let response;
 		try {
 			console.log('getting reviews for specific event');
@@ -79,7 +80,7 @@ class database {
 			}).then((res) => {
 				console.log(res.data);
 				const filteredResults = res.data.filter(
-					(obj) => obj.eventId === eventCode
+					(obj) => obj.eventId === eventId
 				);
 				response = filteredResults;
 			});
@@ -95,12 +96,14 @@ class database {
 		console.log('running axios');
 		console.log(process.env.REACT_APP_DATABASE_SERVER);
 		let resp;
+		let eventId = `${form.eventName.replaceAll(' ', '_')}${form.eventDate}`;
+		console.log(eventId);
 		try {
 			resp = await axios({
 				method: 'post',
 				url: `${process.env.REACT_APP_DATABASE_SERVER}/event`,
 				data: {
-					eventCode: form.eventCode,
+					eventId: eventId,
 					eventName: form.eventName,
 					eventDate: form.eventDate,
 				},

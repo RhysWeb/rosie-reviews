@@ -37,7 +37,14 @@ const useStyles = makeStyles({
 	},
 });
 
-export const EventCard = ({ eventCode, eventName, eventDate, buttonName }) => {
+const rearrangeDate = (date) => {
+	let year = date.slice(0, 4);
+	let month = date.slice(5, 7);
+	let day = date.slice(8, 10);
+	return `${day}/${month}/${year}`;
+};
+
+export const EventCard = ({ eventId, eventName, eventDate, buttonName }) => {
 	const history = useHistory();
 	const { setCurrentEvent } = useData();
 	const classes = useStyles();
@@ -52,7 +59,7 @@ export const EventCard = ({ eventCode, eventName, eventDate, buttonName }) => {
 			return;
 		}
 		setCurrentEvent({
-			eventCode: eventCode,
+			eventId: eventId,
 			eventName: eventName,
 			eventDate: eventDate,
 		});
@@ -63,9 +70,11 @@ export const EventCard = ({ eventCode, eventName, eventDate, buttonName }) => {
 		<Card elevation={4} className={classes.card}>
 			<CardContent className={classes.details}>
 				<div className={classes.codeContainer}>
-					<Typography className={classes.code}>{`${eventCode} - `}</Typography>
+					<Typography className={classes.code}>Date of Event: </Typography>
 
-					<Typography className={classes.date}>{eventDate}</Typography>
+					<Typography className={classes.date}>
+						{rearrangeDate(eventDate)}
+					</Typography>
 				</div>
 				<Typography className={classes.name}>{eventName}</Typography>
 			</CardContent>
@@ -82,7 +91,7 @@ export const EventCard = ({ eventCode, eventName, eventDate, buttonName }) => {
 };
 
 EventCard.propTypes = {
-	eventCode: PropTypes.string,
+	eventId: PropTypes.string,
 	eventName: PropTypes.string,
 	eventDate: PropTypes.string,
 	buttonName: PropTypes.string,

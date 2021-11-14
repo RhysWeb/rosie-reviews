@@ -1,20 +1,30 @@
 class localDatabase {
-	static async addReview(form, eventCode) {
-		let storedData = JSON.parse(localStorage.getItem(eventCode));
+	static async addReview(form, eventId) {
+		let storedData = JSON.parse(localStorage.getItem(eventId));
 		if (storedData) {
 			storedData.push(form);
-			localStorage.setItem(eventCode, JSON.stringify(storedData));
+			localStorage.setItem(eventId, JSON.stringify(storedData));
 		} else {
-			localStorage.setItem(eventCode, JSON.stringify([form]));
+			localStorage.setItem(eventId, JSON.stringify([form]));
 		}
 	}
 
-	static clearLocalReviews(eventCode) {
-		localStorage.removeItem(eventCode);
+	static clearLocalReviews(eventId) {
+		localStorage.removeItem(eventId);
 	}
 
-	static getAllReviews(eventCode) {
-		return JSON.parse(localStorage.getItem(eventCode));
+	static async clearLocalReview(review, eventId) {
+		let storedData = JSON.parse(localStorage.getItem(eventId));
+		if (storedData) {
+			let newData = storedData.filter((obj) => {
+				return review.dateTime !== obj.dateTime;
+			});
+			localStorage.setItem(eventId, JSON.stringify(newData));
+		}
+	}
+
+	static getAllReviews(eventId) {
+		return JSON.parse(localStorage.getItem(eventId));
 	}
 }
 

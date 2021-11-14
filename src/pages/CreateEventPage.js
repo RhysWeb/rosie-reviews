@@ -10,7 +10,6 @@ import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const schema = yup.object().shape({
-	eventCode: yup.string().required('This field is required'),
 	eventName: yup.string().required('This field is required'),
 	eventDate: yup.string().required('This field is required'),
 });
@@ -51,13 +50,6 @@ export const CreateEventPage = () => {
 
 					<TextField
 						fullWidth
-						{...register('eventCode')}
-						variant="filled"
-						label="make up a unique code for the event (no spaces)"
-						error={!!errors.eventCode}
-					/>
-					<TextField
-						fullWidth
 						{...register('eventName')}
 						variant="filled"
 						label="Brief description of event"
@@ -67,8 +59,13 @@ export const CreateEventPage = () => {
 						fullWidth
 						{...register('eventDate')}
 						variant="filled"
-						label="Date of event"
+						label="Date of Event"
+						type="date"
+						placeholder=""
 						error={!!errors.eventDate}
+						InputLabelProps={{
+							shrink: true,
+						}}
 					/>
 					<div style={{ marginBottom: '10px' }}></div>
 				</fieldset>
@@ -78,9 +75,11 @@ export const CreateEventPage = () => {
 					variant="contained"
 					color="primary"
 					fullWidth
-					disable={submitting}
+					disabled={submitting || !window.navigator.onLine}
 				>
-					Submit
+					{!window.navigator.onLine
+						? 'Offline - get a signal and refresh page'
+						: 'Submit'}
 				</Button>
 			</form>
 			<Link style={{ marginTop: '20px' }} to="/">

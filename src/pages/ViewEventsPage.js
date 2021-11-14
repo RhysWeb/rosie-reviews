@@ -27,8 +27,8 @@ export const ViewEventsPage = () => {
 			{events.map((event) => {
 				return (
 					<EventCard
-						key={event.eventCode}
-						eventCode={event.eventCode}
+						key={event.eventId}
+						eventId={event.eventId}
 						eventName={event.eventName}
 						eventDate={event.eventDate}
 						buttonName="select"
