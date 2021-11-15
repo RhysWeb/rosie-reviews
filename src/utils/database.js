@@ -76,13 +76,9 @@ class database {
 			console.log('getting reviews for specific event');
 			await axios({
 				method: 'get',
-				url: `${process.env.REACT_APP_DATABASE_SERVER}/review`,
+				url: `${process.env.REACT_APP_DATABASE_SERVER}/review/${eventId}`,
 			}).then((res) => {
-				console.log(res.data);
-				const filteredResults = res.data.filter(
-					(obj) => obj.eventId === eventId
-				);
-				response = filteredResults;
+				response = res.data;
 			});
 			console.log(response);
 			return response;
@@ -110,6 +106,13 @@ class database {
 			});
 		} catch {
 			resp = 'Error with the server';
+		}
+		if (resp.status === 202) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Event already exists',
+			});
+			return;
 		}
 		return resp;
 	}
