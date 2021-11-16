@@ -13,7 +13,7 @@ import localDatabase from '../utils/localDatabase.js';
 import logo1 from './logo1.jpg';
 import logo2 from './logo2.png';
 import logo3 from './logo3.png';
-import { HeaderEventSecure } from '../components/HeaderEventSecure';
+import { Header } from '../components/Header';
 import { useData } from '../utils/DataContext';
 import { useDate } from '../customHooks/Date';
 
@@ -104,7 +104,7 @@ export const ReviewPage = () => {
 
 	return (
 		<div className="grid">
-			<HeaderEventSecure />
+			<Header secure link="/event" />
 			<div className="leftSide"></div>
 			<div className="rightSide"></div>
 			<form onSubmit={handleSubmit(onSubmit)} key={key}>
