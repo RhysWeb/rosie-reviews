@@ -5,6 +5,8 @@ import { Header } from '../components/Header';
 import { SEO } from '../components/SEO';
 import { EventCard } from '../components/EventCard';
 import { Link } from 'react-router-dom';
+import { MyButton } from '../components/MyButton';
+import { ArrowBack } from '@material-ui/icons';
 
 export const ViewEventsPage = () => {
 	const [events, setEvents] = useState([]);
@@ -18,12 +20,13 @@ export const ViewEventsPage = () => {
 	}, []);
 
 	return (
-		<MainContainerLarger style={{ minWidth: '550px' }}>
+		<MainContainerLarger style={{ minWidth: '430px' }}>
 			<SEO
 				title="Events"
 				description="The list of available events for review"
 			/>
 			<Header />
+
 			{events.map((event) => {
 				return (
 					<EventCard
@@ -35,7 +38,11 @@ export const ViewEventsPage = () => {
 					/>
 				);
 			})}
-			<Link to="/">Back</Link>
+			<MyButton
+				text="Back to home"
+				icon={<ArrowBack style={{ fontSize: '60px' }} />}
+				route="/"
+			/>
 			<hr />
 		</MainContainerLarger>
 	);

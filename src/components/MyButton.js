@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core';
-import { AddCircle, Visibility, Album } from '@material-ui/icons';
 
 const useStyles = makeStyles({
 	link: {
@@ -18,10 +17,7 @@ const useStyles = makeStyles({
 			color: 'orange',
 			boxShadow: '15px 15px 15px rgb(0 0 0 / 0.5)',
 		},
-		'&:focus': {
-			color: 'orange',
-			boxShadow: '15px 15px 15px rgb(0 0 0 / 0.5)',
-		},
+
 		'&:active': {
 			boxShadow: '15px 15px 15px rgb(0 0 0 / 0.5)',
 			color: 'black',

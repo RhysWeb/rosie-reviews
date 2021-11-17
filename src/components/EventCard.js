@@ -8,32 +8,35 @@ import { useData } from '../utils/DataContext';
 import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
-	card: {
-		width: 500,
-		display: 'flex',
-		justifyContent: 'space-between',
-		padding: '10px',
-		marginBottom: '20px',
-	},
-
-	codeContainer: {
-		display: 'flex',
-	},
-	code: {
-		fontFamily: 'Verdana',
-		color: 'blue',
-		marginRight: '10px',
-	},
-	name: { marginTop: '10px', fontWeight: 'bold' },
-	date: { fontFamily: 'Verdana', color: 'blue' },
-
 	button: {
-		margin: '5px',
-		minWidth: '5.5rem',
+		width: '25rem',
+		background: 'hsl(0 0% 90% )',
+		display: 'flex',
+		justifyContent: 'flex-start',
+		textDecoration: 'none',
+		verticalAlign: 'bottom',
+		lineHeight: '1rem',
+		textTransform: 'none',
+		borderRadius: '1em',
+		padding: '20px',
+		color: 'blue',
+		boxShadow: '5px 5px 5px rgb(0 0 0 / 0.5)',
 		'&:hover': {
-			boxShadow: '0px 0 5px #0d33fd, 0px 0 15px #cce6ff',
-			transition: '0.1s ease-in-out all',
+			color: 'orange',
 		},
+	},
+	date: {
+		fontFamily: 'Changa One ',
+		width: '8rem',
+	},
+
+	name: {
+		fontFamily: 'courier-new',
+		fontSize: '1.0rem',
+		// width: '8rem',
+		FontWeight: 'bold',
+
+		textAlign: 'left',
 	},
 });
 
@@ -67,26 +70,23 @@ export const EventCard = ({ eventId, eventName, eventDate, buttonName }) => {
 	};
 
 	return (
-		<Card elevation={4} className={classes.card}>
-			<CardContent className={classes.details}>
-				<div className={classes.codeContainer}>
-					<Typography className={classes.code}>Date of Event: </Typography>
+		<>
+			<Button className={classes.button} onClick={buttonClick}>
+				<span className={classes.date}>{rearrangeDate(eventDate)}</span>
 
-					<Typography className={classes.date}>
-						{rearrangeDate(eventDate)}
-					</Typography>
-				</div>
-				<Typography className={classes.name}>{eventName}</Typography>
-			</CardContent>
-			<Button
+				<span className={classes.name}>{eventName}</span>
+
+				{/* <Button
 				color="primary"
 				variant="contained"
 				className={classes.button}
 				onClick={buttonClick}
 			>
 				{buttonName}
+			</Button> */}
 			</Button>
-		</Card>
+			<div style={{ marginBottom: '20px' }}></div>
+		</>
 	);
 };
 
