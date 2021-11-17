@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 	title: {
 		flexGrow: 1,
 		fontFamily: 'Changa One',
+		fontSize: '1.3rem',
 	},
 	button: {
 		fontFamily: 'Changa One',
