@@ -7,7 +7,6 @@ import { EventCard } from '../components/EventCard';
 import { Link } from 'react-router-dom';
 import { MyLink } from '../components/MyLink';
 import { ArrowBack, DeleteForever } from '@material-ui/icons';
-import { MyButton } from '../components/MyButton';
 
 export const ViewEventsPage = () => {
 	const [events, setEvents] = useState([]);
@@ -39,21 +38,16 @@ export const ViewEventsPage = () => {
 					/>
 				);
 			})}
-			<MyButton
+			<MyLink
 				text="Delete an event"
 				icon={<DeleteForever style={{ fontSize: '60px' }} />}
-				disabled={!window.navigator.onLine}
-				onClick={() => {
-					console.log('click');
-				}}
+				route="/"
 			/>
-
 			<MyLink
 				text="Back to home"
 				icon={<ArrowBack style={{ fontSize: '60px' }} />}
 				route="/"
 			/>
-
 			<hr />
 		</MainContainerLarger>
 	);

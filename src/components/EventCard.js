@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
 	button: {
-		width: '25rem',
+		width: 'clamp(360px,100%,600px)',
 		background: 'hsl(0 0% 90% )',
 		display: 'flex',
 		justifyContent: 'flex-start',
@@ -20,9 +20,15 @@ const useStyles = makeStyles({
 		borderRadius: '1em',
 		padding: '20px',
 		color: 'blue',
+		outline: 'solid grey 1px',
 		boxShadow: '5px 5px 5px rgb(0 0 0 / 0.5)',
 		'&:hover': {
 			color: 'orange',
+		},
+		'&:active': {
+			boxShadow: '6px 6px 6px rgb(0 0 0 / 0.2)',
+			outline: 'solid grey 2px',
+			color: 'black',
 		},
 	},
 	date: {
