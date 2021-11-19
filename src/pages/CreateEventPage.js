@@ -7,7 +7,9 @@ import { Header } from '../components/Header';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { MyLink } from '../components/MyLink';
+import { ArrowBack } from '@material-ui/icons';
+import { SEO } from '../components/SEO';
 
 const schema = yup.object().shape({
 	eventName: yup.string().required('This field is required'),
@@ -26,8 +28,6 @@ export const CreateEventPage = () => {
 	} = useForm({ mode: 'onBlur', resolver: yupResolver(schema) });
 
 	const onSubmit = async (form) => {
-		console.log('click');
-		console.log(form);
 		setSubmitting(true);
 
 		await database.addEvent(form);
@@ -38,7 +38,11 @@ export const CreateEventPage = () => {
 
 	return (
 		<MainContainerLarger>
-			<Header />
+			<SEO
+				title="Create Event"
+				description="Creating an event for the review site"
+			/>
+			<Header title="Create Event" />
 			<form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
 				<div style={{ marginBottom: '40px' }}></div>
 
@@ -82,9 +86,12 @@ export const CreateEventPage = () => {
 						: 'Submit'}
 				</Button>
 			</form>
-			<Link style={{ marginTop: '20px' }} to="/">
-				Back
-			</Link>
+			<MyLink
+				text="Back"
+				icon={<ArrowBack style={{ fontSize: '60px' }} />}
+				route="/"
+			/>
+
 			<hr />
 		</MainContainerLarger>
 	);

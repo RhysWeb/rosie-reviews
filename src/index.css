@@ -6,6 +6,15 @@ body {
 		sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background: var(--primary);
-	--primary: white;
+}
+
+:root {
+	--primary: 0;
+	--secondary: 30;
+	--primary-main: var(--primary), 50%, 50%;
+	--primary-light: var(--primary), 50%, 90%;
+	--primary-dark: var(--primary), 50%, 30%;
+	--secondary-main: var(--secondary), 80%, 50%;
+	--secondary-light: var(--secondary), 80%, 70%;
+	--secondary-dark: var(--secondary), 80%, 30%;
 }

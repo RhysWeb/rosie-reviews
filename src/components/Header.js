@@ -14,20 +14,32 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 		fontFamily: 'Changa One',
 	},
-	menuButton: {
+	icon: {
 		marginRight: theme.spacing(2),
 	},
-	title: {
+	appTitle: {
 		flexGrow: 1,
 		fontFamily: 'Changa One',
 		fontSize: '1.3rem',
 	},
 	button: {
-		fontFamily: 'Changa One',
+		fontSize: '0.8rem',
+		textTransform: 'uppercase',
+		fontWeight: 'normal',
+		marginRight: theme.spacing(2),
+		border: 'solid 1px white',
+		'&:hover': {
+			background: 'hsl(60 50% 50% / 0.4)',
+		},
+	},
+	heading: {
+		fontSize: '1rem',
+		textTransform: 'uppercase',
+		fontWeight: 'normal',
 	},
 }));
 
-export const Header = ({ secure, link }) => {
+export const Header = ({ secure, link, title }) => {
 	const history = useHistory();
 	const classes = useStyles();
 
@@ -59,25 +71,31 @@ export const Header = ({ secure, link }) => {
 				<Toolbar variant="dense">
 					<Icon
 						edge="start"
-						className={classes.menuButton}
+						className={classes.icon}
 						color="inherit"
 						aria-label="none"
 					>
 						<img src={logo} height={20} width={20} alt="logo" />
 					</Icon>
-					<Typography variant="h6" className={classes.title}>
+
+					<Typography variant="h6" className={classes.appTitle}>
 						Event Reviews
 					</Typography>
 
-					<Button
-						className={classes.button}
-						onClick={() => {
-							onClick();
-						}}
-						color="inherit"
-					>
-						Home
-					</Button>
+					{link && (
+						<Button
+							className={classes.button}
+							onClick={() => {
+								onClick();
+							}}
+							color="inherit"
+						>
+							back
+						</Button>
+					)}
+					<h1 className={classes.heading} color="inherit">
+						{title}
+					</h1>
 				</Toolbar>
 			</AppBar>
 			<Typography

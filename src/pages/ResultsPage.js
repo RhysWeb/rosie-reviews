@@ -8,16 +8,23 @@ import {
 	TableHead,
 	TableRow,
 	Paper,
+	CircularProgress,
 } from '@material-ui/core';
 import { MainContainerLarger } from '../components/MainContainerLarger';
 import database from '../utils/database.js';
 import { Header } from '../components/Header';
 import { EventCard } from '../components/EventCard';
 import { useData } from '../utils/DataContext';
+import { MyLink } from '../components/MyLink';
+import { ArrowBack } from '@material-ui/icons';
+import { SEO } from '../components/SEO';
 
 const useStyles = makeStyles({
+	tableContainer: {
+		minWidth: '1vw',
+	},
 	table: {
-		minWidth: 550,
+		minWidth: 700,
 	},
 	headerRow: {
 		color: 'black',
@@ -37,12 +44,17 @@ const useStyles = makeStyles({
 		color: 'blue',
 		fontSize: '10px',
 	},
+	noReviews: {
+		fontFamily: 'Roboto Slab, serif',
+		fontSize: '2rem',
+		textAlign: 'center',
+		color: 'hsl(var(--primary-dark))',
+	},
 });
 
 export const ResultsPage = () => {
 	const { currentEvent } = useData();
-
-	const [reviews, setReviews] = useState([]);
+	const [reviews, setReviews] = useState();
 	const classes = useStyles();
 
 	useEffect(() => {
@@ -111,23 +123,52 @@ export const ResultsPage = () => {
 
 	return (
 		<MainContainerLarger>
-			<Header />
+			<SEO
+				title="Reviews on cloud"
+				description="Reviews on the cloud for the particular event"
+			/>
+			<Header title="Database Reviews" />
 			<EventCard
 				eventId={currentEvent.eventId}
 				eventName={currentEvent.eventName}
 				eventDate={currentEvent.eventDate}
-				buttonName="Back"
+				style={{ color: 'black' }}
+				disabled={true}
 			/>
 
-			<TableContainer
-				component={Paper}
-				style={{ backgroundColor: 'hsl(1, 0%, 95%)' }}
-			>
-				<Table className={classes.table} aria-label="simple table">
-					{tableHeader}
-					<TableBody>{reviews && tableRowCreate(reviews)}</TableBody>
-				</Table>
-			</TableContainer>
+			{reviews ? (
+				<TableContainer
+					className={classes.tableContainer}
+					component={Paper}
+					style={{ backgroundColor: 'hsl(1, 0%, 95%)' }}
+				>
+					<Table className={classes.table} aria-label="simple table">
+						{reviews?.length !== 0 && tableHeader}
+						<TableBody>{reviews && tableRowCreate(reviews)}</TableBody>
+					</Table>
+				</TableContainer>
+			) : (
+				<>
+					<div style={{ marginBottom: '30px' }} />
+					<CircularProgress size={70} thickness={6} />
+					<div style={{ marginBottom: '48px' }} />
+				</>
+			)}
+			{reviews?.length === 0 && (
+				<>
+					<div style={{ marginBottom: '20px' }} />
+					<p className={classes.noReviews}>
+						This event has no reviews yet saved to the cloud
+					</p>
+					<div style={{ marginBottom: '20px' }} />
+				</>
+			)}
+
+			<MyLink
+				text="Back"
+				icon={<ArrowBack style={{ fontSize: '60px' }} />}
+				route="/event"
+			/>
 		</MainContainerLarger>
 	);
 };

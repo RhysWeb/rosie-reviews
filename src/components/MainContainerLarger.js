@@ -18,7 +18,7 @@ export const MainContainerLarger = ({ children, ...props }) => {
 		<Container
 			className={styles.root}
 			component="main"
-			maxWidth="xs"
+			maxWidth="md"
 			{...props}
 		>
 			{children}

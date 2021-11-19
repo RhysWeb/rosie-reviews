@@ -1,11 +1,15 @@
-import { Link } from 'react-router-dom';
 import { Button, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
-	flexbox: { display: 'flex', flexDirection: 'column', alignItems: 'center' },
+	flexbox: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		width: '12rem',
+	},
 
 	button: {
-		color: 'blue',
+		color: 'hsl(var(--primary-dark))',
 		fontFamily: 'Changa One',
 		textDecoration: 'none',
 		fontSize: '1.2rem',
@@ -13,15 +17,18 @@ const useStyles = makeStyles({
 		textTransform: 'none',
 		padding: '20px',
 		borderRadius: '1em',
-		minWidth: '12rem',
+		overflow: 'hidden',
 		'&:hover': {
-			color: 'orange',
+			color: 'hsl(var(--secondary-main))',
 			boxShadow: '15px 15px 15px rgb(0 0 0 / 0.5)',
 		},
-
+		'&:focus': {
+			color: 'red',
+			boxShadow: '15px 15px 15px rgb(0 0 0 / 0.5)',
+		},
 		'&:active': {
 			boxShadow: '15px 15px 15px rgb(0 0 0 / 0.5)',
-			color: 'black',
+			color: 'red',
 		},
 	},
 });
@@ -31,10 +38,10 @@ export const MyButton = (props) => {
 
 	return (
 		<Button className={classes.button} {...props}>
-			<div className={classes.flexbox}>
+			<span className={classes.flexbox}>
 				{props.icon}
 				{props.text}
-			</div>
+			</span>
 		</Button>
 	);
 };

@@ -4,13 +4,13 @@ import database from '../utils/database.js';
 import { Header } from '../components/Header';
 import { SEO } from '../components/SEO';
 import { EventCard } from '../components/EventCard';
-import { Link } from 'react-router-dom';
 import { MyLink } from '../components/MyLink';
 import { ArrowBack, DeleteForever } from '@material-ui/icons';
 import { MyButton } from '../components/MyButton';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export const ViewEventsPage = () => {
-	const [events, setEvents] = useState([]);
+	const [events, setEvents] = useState();
 
 	useEffect(() => {
 		async function getEvents() {
@@ -19,14 +19,27 @@ export const ViewEventsPage = () => {
 		}
 		getEvents();
 	}, []);
+	if (!events) {
+		return (
+			<MainContainerLarger>
+				<SEO
+					title="View Events"
+					description="The list of available events for review"
+				/>
+				<Header />
+				<div style={{ marginBottom: '30px' }} />
+				<CircularProgress size={70} thickness={6} />
+			</MainContainerLarger>
+		);
+	}
 
 	return (
 		<MainContainerLarger>
 			<SEO
-				title="Events"
+				title="View Events"
 				description="The list of available events for review"
 			/>
-			<Header />
+			<Header title="events" />
 
 			{events.map((event) => {
 				return (
@@ -35,12 +48,11 @@ export const ViewEventsPage = () => {
 						eventId={event.eventId}
 						eventName={event.eventName}
 						eventDate={event.eventDate}
-						buttonName="select"
 					/>
 				);
 			})}
 			<MyButton
-				text="Delete an event"
+				text="Delete an Event"
 				icon={<DeleteForever style={{ fontSize: '60px' }} />}
 				disabled={!window.navigator.onLine}
 				onClick={() => {
@@ -49,7 +61,7 @@ export const ViewEventsPage = () => {
 			/>
 
 			<MyLink
-				text="Back to home"
+				text="Back to Home"
 				icon={<ArrowBack style={{ fontSize: '60px' }} />}
 				route="/"
 			/>

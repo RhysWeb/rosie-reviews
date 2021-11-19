@@ -1,8 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import { Typography, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { useData } from '../utils/DataContext';
 import { useHistory } from 'react-router-dom';
@@ -10,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles({
 	button: {
 		width: 'clamp(360px,100%,600px)',
-		background: 'hsl(0 0% 90% )',
+		background: 'hsl(0 0% 90%)',
 		display: 'flex',
 		justifyContent: 'flex-start',
 		textDecoration: 'none',
@@ -19,11 +17,11 @@ const useStyles = makeStyles({
 		textTransform: 'none',
 		borderRadius: '1em',
 		padding: '20px',
-		color: 'blue',
-		outline: 'solid grey 1px',
+		color: 'hsl(var(--primary-dark))',
+		outline: 'solid hsl(var(--primary-main)) 1.5px',
 		boxShadow: '5px 5px 5px rgb(0 0 0 / 0.5)',
 		'&:hover': {
-			color: 'orange',
+			color: 'hsl(var(--secondary-main))',
 		},
 		'&:active': {
 			boxShadow: '6px 6px 6px rgb(0 0 0 / 0.2)',
@@ -32,16 +30,13 @@ const useStyles = makeStyles({
 		},
 	},
 	date: {
-		fontFamily: 'Changa One ',
+		fontFamily: 'Changa One',
 		width: '8rem',
 	},
 
 	name: {
-		fontFamily: 'courier-new',
+		fontFamily: 'Roboto Slab, serif',
 		fontSize: '1.0rem',
-		// width: '8rem',
-		FontWeight: 'bold',
-
 		textAlign: 'left',
 	},
 });
@@ -53,20 +48,12 @@ const rearrangeDate = (date) => {
 	return `${day}/${month}/${year}`;
 };
 
-export const EventCard = ({ eventId, eventName, eventDate, buttonName }) => {
+export const EventCard = ({ eventId, eventName, eventDate, ...props }) => {
 	const history = useHistory();
 	const { setCurrentEvent } = useData();
 	const classes = useStyles();
 
 	const buttonClick = () => {
-		if (buttonName === 'Review') {
-			history.push(`./reviewPage`);
-			return;
-		}
-		if (buttonName === 'Back') {
-			history.push(`./event`);
-			return;
-		}
 		setCurrentEvent({
 			eventId: eventId,
 			eventName: eventName,
@@ -77,19 +64,9 @@ export const EventCard = ({ eventId, eventName, eventDate, buttonName }) => {
 
 	return (
 		<>
-			<Button className={classes.button} onClick={buttonClick}>
+			<Button {...props} className={classes.button} onClick={buttonClick}>
 				<span className={classes.date}>{rearrangeDate(eventDate)}</span>
-
 				<span className={classes.name}>{eventName}</span>
-
-				{/* <Button
-				color="primary"
-				variant="contained"
-				className={classes.button}
-				onClick={buttonClick}
-			>
-				{buttonName}
-			</Button> */}
 			</Button>
 			<div style={{ marginBottom: '20px' }}></div>
 		</>
@@ -100,5 +77,4 @@ EventCard.propTypes = {
 	eventId: PropTypes.string,
 	eventName: PropTypes.string,
 	eventDate: PropTypes.string,
-	buttonName: PropTypes.string,
 };

@@ -2,13 +2,7 @@ import Swal from 'sweetalert2';
 const axios = require('axios');
 
 class database {
-	static async getResults() {
-		console.log('database function called');
-	}
-
 	static async login(password) {
-		console.log('checking password and getting token');
-		console.log(process.env.REACT_APP_DATABASE_SERVER);
 		let resp;
 		try {
 			resp = await axios({
@@ -29,9 +23,6 @@ class database {
 	}
 
 	static async addReview(form, eventId) {
-		console.log(form);
-		console.log('running axios');
-		console.log(process.env.REACT_APP_DATABASE_SERVER);
 		let resp;
 		try {
 			resp = await axios({
@@ -55,15 +46,12 @@ class database {
 	static async getAllReviews() {
 		let response;
 		try {
-			console.log('getting reviews');
 			await axios({
 				method: 'get',
 				url: `${process.env.REACT_APP_DATABASE_SERVER}/review`,
 			}).then((res) => {
-				console.log(res.data);
 				response = res.data;
 			});
-			console.log(response);
 			return response;
 		} catch (err) {
 			console.log(err);
@@ -73,14 +61,12 @@ class database {
 	static async getEventReviews(eventId) {
 		let response;
 		try {
-			console.log('getting reviews for specific event');
 			await axios({
 				method: 'get',
 				url: `${process.env.REACT_APP_DATABASE_SERVER}/review/${eventId}`,
 			}).then((res) => {
 				response = res.data;
 			});
-			console.log(response);
 			return response;
 		} catch (err) {
 			console.log(err);
@@ -88,12 +74,8 @@ class database {
 	}
 
 	static async addEvent(form) {
-		console.log(form);
-		console.log('running axios');
-		console.log(process.env.REACT_APP_DATABASE_SERVER);
 		let resp;
 		let eventId = `${form.eventName.replaceAll(' ', '_')}${form.eventDate}`;
-		console.log(eventId);
 		try {
 			resp = await axios({
 				method: 'post',
@@ -120,15 +102,12 @@ class database {
 	static async getAllEvents() {
 		let response;
 		try {
-			console.log('getting events');
 			await axios({
 				method: 'get',
 				url: `${process.env.REACT_APP_DATABASE_SERVER}/event`,
 			}).then((res) => {
-				console.log(res.data);
 				response = res.data;
 			});
-			console.log(response);
 			return response;
 		} catch (err) {
 			console.log(err);

@@ -16,6 +16,7 @@ import logo3 from './logo3.png';
 import { Header } from '../components/Header';
 import { useData } from '../utils/DataContext';
 import { useDate } from '../customHooks/Date';
+import { SEO } from '../components/SEO';
 
 ///Code for the test selection///
 const dropdownAnswers = [
@@ -77,7 +78,6 @@ export const ReviewPage = () => {
 			visitedBefore: visitedBefore,
 			dateTime: dateTime,
 		};
-		console.log(reviewSubmission);
 
 		localDatabase.addReview(reviewSubmission, currentEvent.eventId);
 		Swal.fire({
@@ -93,7 +93,6 @@ export const ReviewPage = () => {
 				text: 'Please click the button to begin the next review.',
 				confirmButtonText: 'Begin Next Review',
 			}).then((info) => {
-				console.log('.then function already started');
 				setVisitedBefore('');
 				reset();
 				setKey(key + 1);
@@ -104,7 +103,8 @@ export const ReviewPage = () => {
 
 	return (
 		<div className="grid">
-			<Header secure link="/event" />
+			<SEO title="Review Event" description="Review the event" />
+			<Header secure link="/event" title="Create Review" />
 			<div className="leftSide"></div>
 			<div className="rightSide"></div>
 			<form onSubmit={handleSubmit(onSubmit)} key={key}>
@@ -202,6 +202,7 @@ export const ReviewPage = () => {
 						Submit your Review
 					</Button>
 				</div>
+				<div style={{ marginBottom: '80px' }}></div>
 			</form>
 		</div>
 	);

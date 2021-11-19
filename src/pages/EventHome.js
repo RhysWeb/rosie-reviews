@@ -1,30 +1,52 @@
-import { Link } from 'react-router-dom';
 import { EventCard } from '../components/EventCard';
 import { Header } from '../components/Header';
 import { MainContainerLarger } from '../components/MainContainerLarger';
+import { useDate } from '../customHooks/Date';
 import { useData } from '../utils/DataContext';
+import { AddCircle, ArrowBack, CloudDone, CloudOff } from '@material-ui/icons';
+import { MyLink } from '../components/MyLink';
+import { SEO } from '../components/SEO';
 
 export const EventHome = () => {
 	const { currentEvent } = useData();
+	const [, date] = useDate(currentEvent.eventDate);
+
 	return (
 		<MainContainerLarger>
-			<Header />
+			<SEO
+				title={`Event Date: ${date}`}
+				description="Home page for a unique event"
+			/>
+			<Header title={`Event on ${date}`} />
 
 			<EventCard
 				eventId={currentEvent.eventId}
 				eventName={currentEvent.eventName}
 				eventDate={currentEvent.eventDate}
-				buttonName="Review"
+				style={{ color: 'black' }}
+				disabled={true}
 			/>
 			<hr />
-			<Link to="/reviewPage">go to event review page</Link>
-			<hr />
-			<Link to="/resultsPage">view uploaded reviews</Link>
-			<hr />
-			<Link to="/localStoragePage">view local storage</Link>
-			<hr />
-			<Link to="/viewEvents">back to existing events</Link>
-			<hr />
+			<MyLink
+				text="Create Reviews"
+				icon={<AddCircle style={{ fontSize: '60px' }} />}
+				route="/reviewPage"
+			/>
+			<MyLink
+				text="View Saved Reviews"
+				icon={<CloudDone style={{ fontSize: '60px' }} />}
+				route="/resultsPage"
+			/>
+			<MyLink
+				text="View Local Reviews"
+				icon={<CloudOff style={{ fontSize: '60px' }} />}
+				route="/localStoragePage"
+			/>
+			<MyLink
+				text="back to Events"
+				icon={<ArrowBack style={{ fontSize: '60px' }} />}
+				route="/viewEvents"
+			/>
 		</MainContainerLarger>
 	);
 };

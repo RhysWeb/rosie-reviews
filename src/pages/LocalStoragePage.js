@@ -18,10 +18,16 @@ import database from '../utils/database';
 import { Header } from '../components/Header';
 import { useData } from '../utils/DataContext';
 import { EventCard } from '../components/EventCard';
+import { MyLink } from '../components/MyLink';
+import { ArrowBack } from '@material-ui/icons';
+import { SEO } from '../components/SEO';
 
 const useStyles = makeStyles({
+	tableContainer: {
+		minWidth: '1vw',
+	},
 	table: {
-		minWidth: 550,
+		minWidth: 700,
 	},
 	headerRow: {
 		color: 'black',
@@ -49,6 +55,12 @@ const useStyles = makeStyles({
 			transition: '0.1s ease-in-out all',
 		},
 	},
+	noReviews: {
+		fontFamily: 'Roboto Slab, serif',
+		fontSize: '2rem',
+		textAlign: 'center',
+		color: 'hsl(var(--primary-dark))',
+	},
 });
 
 //This is a function to allow an asyncronous forEach ()
@@ -59,15 +71,13 @@ const asyncForEach = async (array, callback) => {
 };
 
 export const LocalStoragePage = () => {
-	const [reviews, setReviews] = useState([]);
+	const [reviews, setReviews] = useState();
 	const classes = useStyles();
 	const { currentEvent } = useData();
 	const history = useHistory();
 
 	useEffect(() => {
-		console.log(window.navigator.onLine);
 		const reviewsOnDb = localDatabase.getAllReviews(currentEvent.eventId);
-		console.log(reviewsOnDb);
 		setReviews(reviewsOnDb);
 	}, [currentEvent.eventId]);
 
@@ -86,7 +96,6 @@ export const LocalStoragePage = () => {
 			return;
 		}
 
-		console.log('click');
 		uploadReviews(reviews);
 		// localDatabase.clearLocalReviews(currentEvent.eventId);
 		// setReviews(localDatabase.getAllReviews(currentEvent.eventId));
@@ -148,29 +157,50 @@ export const LocalStoragePage = () => {
 
 	return (
 		<MainContainerLarger>
-			<Header />
+			<SEO title="Local Reviews (upload them)" description="Local reviews" />
+			<Header title="Locally Stored Reviews" />
 			<EventCard
 				eventId={currentEvent.eventId}
 				eventName={currentEvent.eventName}
 				eventDate={currentEvent.eventDate}
-				buttonName="Back"
+				style={{ color: 'black' }}
+				disabled={true}
 			/>
-			<div style={{ marginTop: '40px' }}></div>
-			<TableContainer
-				component={Paper}
-				style={{ backgroundColor: 'hsl(1, 0%, 95%)' }}
-			>
-				<Table className={classes.table} aria-label="simple table">
-					{tableHeader}
-					<TableBody>{reviews && tableRowCreate(reviews)}</TableBody>
-				</Table>
-			</TableContainer>
+			{reviews ? (
+				<TableContainer
+					className={classes.tableContainer}
+					component={Paper}
+					style={{ backgroundColor: 'hsl(1, 0%, 95%)' }}
+				>
+					<Table className={classes.table} aria-label="simple table">
+						{reviews?.length !== 0 && tableHeader}
+						<TableBody>{reviews && tableRowCreate(reviews)}</TableBody>
+					</Table>
+				</TableContainer>
+			) : (
+				<>
+					<div style={{ marginBottom: '20px' }} />
+					<p className={classes.noReviews}>
+						This event has no local reviews saved
+					</p>
+					<div style={{ marginBottom: '20px' }} />
+				</>
+			)}
+			{reviews?.length === 0 && (
+				<>
+					<div style={{ marginBottom: '20px' }} />
+					<p className={classes.noReviews}>
+						This event has no reviews yet saved to the local database
+					</p>
+					<div style={{ marginBottom: '20px' }} />
+				</>
+			)}
 			<Button
 				color="primary"
 				variant="contained"
 				className={classes.button}
 				onClick={buttonClick}
-				disabled={!window.navigator.onLine}
+				disabled={!window.navigator.onLine || reviews?.length === 0}
 			>
 				{!window.navigator.onLine
 					? "Offline - get a signal, then click 'refresh' below"
@@ -186,6 +216,11 @@ export const LocalStoragePage = () => {
 					Refresh
 				</Button>
 			)}
+			<MyLink
+				text="Back"
+				icon={<ArrowBack style={{ fontSize: '60px' }} />}
+				route="/event"
+			/>
 		</MainContainerLarger>
 	);
 };
