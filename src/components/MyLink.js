@@ -12,10 +12,14 @@ const useStyles = makeStyles({
 		transition: 'color 0.5s',
 		padding: '20px',
 		outlineRadius: '1em',
-		color: 'hsl(var(--primary-dark))',
 		borderRadius: '1em',
 		width: '12rem',
 		overflow: 'hidden',
+		// These next few lines are required to sort a weird problem on ipad. Buttons and links were starting up with the hover effect applied. So the media query removes the hover effects on touchscreen devices as these have 'hover:none'. However, it then reverted to the browser default hover style, so I had to set the hover color style to be the same as the unhover style.;
+		color: 'hsl(var(--primary-dark))',
+		'&:hover': {
+			color: 'hsl(var(--primary-dark))',
+		},
 		'@media (hover)': {
 			'&:hover': {
 				color: 'hsl(var(--secondary-main))',
