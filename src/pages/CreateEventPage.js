@@ -83,6 +83,7 @@ export const CreateEventPage = () => {
 						InputLabelProps={{
 							shrink: true,
 						}}
+						style={{ textAlign: 'left' }}
 					/>
 					<div style={{ marginBottom: '10px' }}></div>
 				</fieldset>
