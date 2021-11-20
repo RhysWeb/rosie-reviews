@@ -73,6 +73,22 @@ class database {
 		}
 	}
 
+	static async deleteEvent(eventId) {
+		let response;
+		try {
+			console.log('trying a delete');
+			await axios({
+				method: 'delete',
+				url: `${process.env.REACT_APP_DATABASE_SERVER}/event/${eventId}`,
+			}).then((res) => {
+				response = res;
+			});
+			return response;
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
 	static async addEvent(form) {
 		let resp;
 		let eventId = `${form.eventName.replaceAll(' ', '_')}${form.eventDate}`;

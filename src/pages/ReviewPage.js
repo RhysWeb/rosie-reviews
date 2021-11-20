@@ -3,16 +3,16 @@ import './ReviewPage.css';
 import { useForm } from 'react-hook-form';
 import { TextField, Button, MenuItem } from '@material-ui/core';
 import { RadioLabel2 } from '../components/Radiolabel2';
-import happy from './happy.png';
-import lesshappy from './lesshappy.png';
-import neutral from './neutral.png';
-import lesssad from './lesssad.png';
-import sad from './sad.png';
+import happy from '../images/happy.png';
+import lesshappy from '../images/lesshappy.png';
+import neutral from '../images/neutral.png';
+import lesssad from '../images/lesssad.png';
+import sad from '../images/sad.png';
 import Swal from 'sweetalert2';
 import localDatabase from '../utils/localDatabase.js';
-import logo1 from './logo1.jpg';
-import logo2 from './logo2.png';
-import logo3 from './logo3.png';
+import logo1 from '../images/logo1.jpg';
+import logo2 from '../images/logo2.png';
+import logo3 from '../images/logo3.png';
 import { Header } from '../components/Header';
 import { useData } from '../utils/DataContext';
 import { useDate } from '../customHooks/Date';
@@ -60,8 +60,13 @@ export const ReviewPage = () => {
 		},
 	});
 
+	const questionStyle = {
+		color: 'hsl(var(--primary-dark))',
+		fontSize: '0.9rem',
+		fontFamily: 'Roboto Slab, serif',
+	};
+
 	const onSubmit = (form) => {
-		console.log('click');
 		if (form.reviewScore === 'none') {
 			Swal.fire({
 				icon: 'error',
@@ -116,7 +121,7 @@ export const ReviewPage = () => {
 					<img src={logo3} id="logo3" alt="Weymouth Town Council Logo" />
 				</div>
 				<fieldset>
-					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
+					<legend style={questionStyle}>
 						Q1. Have you visited Radipole Park Before?
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>
@@ -146,7 +151,7 @@ export const ReviewPage = () => {
 				<div style={{ marginBottom: '40px' }}></div>
 
 				<fieldset>
-					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
+					<legend style={questionStyle}>
 						Q2. How did you enjoy todays event?
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>
@@ -163,15 +168,13 @@ export const ReviewPage = () => {
 				<div style={{ marginBottom: '40px' }}></div>
 
 				<fieldset>
-					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
-						Q3. Please provide a comment{' '}
-					</legend>
+					<legend style={questionStyle}>Q3. Please provide a comment </legend>
 					<div style={{ marginBottom: '20px' }}></div>
 
 					<TextField
 						multiline
 						fullWidth
-						rows={2}
+						rows={3}
 						label="What did you like? What could we improve? Write here"
 						{...register('reviewComment')}
 						variant="filled"
@@ -181,7 +184,7 @@ export const ReviewPage = () => {
 				<div style={{ marginBottom: '40px' }}></div>
 
 				<fieldset>
-					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
+					<legend style={questionStyle}>
 						Q4. Would you like to be informed about future events?
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>

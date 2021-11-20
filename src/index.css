@@ -9,11 +9,11 @@ body {
 }
 
 :root {
-	--primary: 100;
+	--primary: 230;
 	--secondary: 30;
-	--primary-main: var(--primary), 50%, 50%;
-	--primary-light: var(--primary), 50%, 90%;
-	--primary-dark: var(--primary), 50%, 30%;
+	--primary-main: var(--primary), 47%, 55%;
+	--primary-light: var(--primary), 60%, 93%;
+	--primary-dark: var(--primary), 45%, 30%;
 	--secondary-main: var(--secondary), 80%, 50%;
 	--secondary-light: var(--secondary), 80%, 70%;
 	--secondary-dark: var(--secondary), 80%, 30%;

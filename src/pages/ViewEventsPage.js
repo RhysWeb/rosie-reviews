@@ -8,17 +8,24 @@ import { MyLink } from '../components/MyLink';
 import { ArrowBack, DeleteForever } from '@material-ui/icons';
 import { MyButton } from '../components/MyButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import MySwitch from '../components/MySwitch';
+import { useData } from '../utils/DataContext';
 
 export const ViewEventsPage = () => {
 	const [events, setEvents] = useState();
+	const { deleteEvent, setDeleteEvent, updateCount } = useData();
 
+	async function getEvents() {
+		const eventsOnDb = await database.getAllEvents();
+		setEvents(eventsOnDb);
+	}
+
+	let labelColor = deleteEvent ? 'red' : 'hsl(var(--primary-dark))';
 	useEffect(() => {
-		async function getEvents() {
-			const eventsOnDb = await database.getAllEvents();
-			setEvents(eventsOnDb);
-		}
+		setDeleteEvent(false);
 		getEvents();
 	}, []);
+
 	if (!events) {
 		return (
 			<MainContainerLarger>
@@ -48,18 +55,24 @@ export const ViewEventsPage = () => {
 						eventId={event.eventId}
 						eventName={event.eventName}
 						eventDate={event.eventDate}
+						getEvents={() => getEvents()}
 					/>
 				);
 			})}
-			<MyButton
-				text="Delete an Event"
-				icon={<DeleteForever style={{ fontSize: '60px' }} />}
-				disabled={!window.navigator.onLine}
-				onClick={() => {
-					console.log('click');
-				}}
-			/>
-
+			<div style={{ display: 'flex', transform: 'translateX(15px)' }}>
+				<p
+					style={{
+						marginRight: '10px',
+						color: labelColor,
+						fontFamily: 'Changa One',
+						textDecoration: 'none',
+						fontSize: '1.2rem',
+					}}
+				>
+					Delete Event
+				</p>
+				<MySwitch />
+			</div>
 			<MyLink
 				text="Back to Home"
 				icon={<ArrowBack style={{ fontSize: '60px' }} />}

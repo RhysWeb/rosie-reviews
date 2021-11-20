@@ -60,7 +60,9 @@ export const CreateEventPage = () => {
 				<div className={classes.form}></div>
 
 				<fieldset>
-					<legend style={{ color: 'hsl(var(--primary-dark))' }}>
+					<legend
+						style={{ color: 'hsl(var(--primary-dark))', fontWeight: 'bold' }}
+					>
 						Create an event
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>

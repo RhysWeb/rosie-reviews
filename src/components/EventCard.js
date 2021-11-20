@@ -4,11 +4,13 @@ import { Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { useData } from '../utils/DataContext';
 import { useHistory } from 'react-router-dom';
+import { DeleteForever } from '@material-ui/icons';
+import database from '../utils/database.js';
 
 const useStyles = makeStyles({
 	button: {
 		width: 'clamp(360px,100%,600px)',
-		background: 'hsl(0 0% 90%)',
+		minHeight: '70px',
 		display: 'flex',
 		justifyContent: 'flex-start',
 		textDecoration: 'none',
@@ -17,6 +19,7 @@ const useStyles = makeStyles({
 		textTransform: 'none',
 		borderRadius: '1em',
 		padding: '20px',
+		background: 'hsl(0 0% 90%)',
 		color: 'hsl(var(--primary-dark))',
 		border: 'solid hsl(var(--primary-main)) 2px',
 		boxShadow: '5px 5px 5px rgb(0 0 0 / 0.5)',
@@ -39,6 +42,10 @@ const useStyles = makeStyles({
 		fontSize: '1.0rem',
 		textAlign: 'left',
 	},
+	delete: {
+		color: 'red',
+		marginLeft: 'auto',
+	},
 });
 
 const rearrangeDate = (date) => {
@@ -48,25 +55,58 @@ const rearrangeDate = (date) => {
 	return `${day}/${month}/${year}`;
 };
 
-export const EventCard = ({ eventId, eventName, eventDate, ...props }) => {
+export const EventCard = ({
+	eventId,
+	eventName,
+	eventDate,
+	getEvents,
+	...props
+}) => {
 	const history = useHistory();
-	const { setCurrentEvent } = useData();
+	const { setCurrentEvent, deleteEvent, setDeleteEvent } = useData();
 	const classes = useStyles();
+	let displayOnDelete = 'none';
+	let additionalCardDeleteStyles = {};
+	if (deleteEvent) {
+		displayOnDelete = 'inline-block';
+		additionalCardDeleteStyles = {
+			background: 'hsl(0 50% 90%)',
+			color: 'red',
+			border: 'solid hsl(0 40% 30%) 2px',
+		};
+	}
 
-	const buttonClick = () => {
-		setCurrentEvent({
-			eventId: eventId,
-			eventName: eventName,
-			eventDate: eventDate,
-		});
-		history.push(`./event`);
+	const buttonClick = async () => {
+		if (!deleteEvent) {
+			setCurrentEvent({
+				eventId: eventId,
+				eventName: eventName,
+				eventDate: eventDate,
+			});
+			history.push(`./event`);
+		} else {
+			console.log('deleting');
+			await database.deleteEvent(eventId);
+			// setUpdateCount(updateCount++);
+			setDeleteEvent(false);
+			getEvents();
+		}
 	};
 
 	return (
 		<>
-			<Button {...props} className={classes.button} onClick={buttonClick}>
+			<Button
+				{...props}
+				style={{ ...additionalCardDeleteStyles }}
+				className={classes.button}
+				onClick={buttonClick}
+			>
 				<span className={classes.date}>{rearrangeDate(eventDate)}</span>
 				<span className={classes.name}>{eventName}</span>
+				<DeleteForever
+					style={{ display: displayOnDelete }}
+					className={classes.delete}
+				/>
 			</Button>
 			<div style={{ marginBottom: '20px' }}></div>
 		</>
