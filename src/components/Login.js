@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useData } from '../utils/DataContext';
 import { useForm } from 'react-hook-form';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, CircularProgress } from '@material-ui/core';
 import { useState } from 'react';
 import database from '../utils/database.js';
 
 export const Login = () => {
 	const { token, setToken } = useData();
-	const [submitting] = useState(false);
+	const [submitting, setSubmitting] = useState(false);
 	const { register, handleSubmit } = useForm({
 		defaultValues: {
 			password: '',
@@ -17,9 +17,12 @@ export const Login = () => {
 	const onSubmit = async (form) => {
 		let token;
 		try {
+			setSubmitting(true);
 			let resp = await database.login(form.password);
 			token = resp.data.token;
 			setToken(token);
+
+			setSubmitting(false);
 		} catch {
 			console.log('error');
 		}
@@ -30,25 +33,41 @@ export const Login = () => {
 			<div>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<div style={{ margin: '100px auto', maxWidth: '300px' }}>
-						<TextField
-							type="password"
-							fullWidth
-							label="Enter password"
-							{...register('password')}
-							variant="filled"
-							autoComplete="on"
-						/>
-						<div>
-							<Button
-								disabled={submitting}
-								type="submit"
-								variant="contained"
-								color="primary"
-								fullWidth
+						{submitting ? (
+							<div
+								style={{
+									display: 'flex',
+									alignItems: 'center',
+									marginBottom: '30px',
+								}}
 							>
-								Login
-							</Button>
-						</div>
+								<CircularProgress
+									size={70}
+									thickness={6}
+									style={{ textAlign: 'center', margin: '0 auto' }}
+								/>
+							</div>
+						) : (
+							<>
+								<TextField
+									type="password"
+									fullWidth
+									label="Enter password"
+									{...register('password')}
+									variant="filled"
+									autoComplete="on"
+								/>
+								<Button
+									disabled={submitting}
+									type="submit"
+									variant="contained"
+									color="primary"
+									fullWidth
+								>
+									Login
+								</Button>
+							</>
+						)}
 					</div>
 				</form>
 			</div>

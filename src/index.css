@@ -9,7 +9,7 @@ body {
 }
 
 :root {
-	--primary: 0;
+	--primary: 100;
 	--secondary: 30;
 	--primary-main: var(--primary), 50%, 50%;
 	--primary-light: var(--primary), 50%, 90%;
