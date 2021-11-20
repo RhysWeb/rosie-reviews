@@ -10,6 +10,19 @@ import { useHistory } from 'react-router-dom';
 import { MyLink } from '../components/MyLink';
 import { ArrowBack } from '@material-ui/icons';
 import { SEO } from '../components/SEO';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+	form: {
+		fontSize: '1.2rem',
+		width: '500px',
+		// These next few lines are required to sort a weird problem on ipad. Buttons and links were starting up with the hover effect applied. So the media query removes the hover effects on touchscreen devices as these have 'hover:none'. However, it then reverted to the browser default hover style, so I had to set the hover color style to be the same as the unhover style.;
+
+		'@media (max-width: 500px)': {
+			width: '2vw',
+		},
+	},
+});
 
 const schema = yup.object().shape({
 	eventName: yup.string().required('This field is required'),
@@ -18,7 +31,7 @@ const schema = yup.object().shape({
 
 export const CreateEventPage = () => {
 	const history = useHistory();
-
+	const classes = useStyles();
 	const [submitting, setSubmitting] = useState(false);
 	const {
 		register,
@@ -44,10 +57,10 @@ export const CreateEventPage = () => {
 			/>
 			<Header title="Create Event" />
 			<form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
-				<div style={{ marginBottom: '40px' }}></div>
+				<div className={classes.form}></div>
 
 				<fieldset>
-					<legend style={{ color: 'hsl(239, 83%, 21%)' }}>
+					<legend style={{ color: 'hsl(var(--primary-dark))' }}>
 						Create an event
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>
