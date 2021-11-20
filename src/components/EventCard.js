@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 		borderRadius: '1em',
 		padding: '20px',
 		color: 'hsl(var(--primary-dark))',
-		outline: 'solid hsl(var(--primary-main)) 1.5px',
+		border: 'solid hsl(var(--primary-main)) 2px',
 		boxShadow: '5px 5px 5px rgb(0 0 0 / 0.5)',
 		'&:hover': {
 			color: 'hsl(var(--secondary-main))',
