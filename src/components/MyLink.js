@@ -16,9 +16,11 @@ const useStyles = makeStyles({
 		borderRadius: '1em',
 		width: '12rem',
 		overflow: 'hidden',
-		'&:hover': {
-			color: 'hsl(var(--secondary-main))',
-			boxShadow: '15px 15px 15px rgb(0 0 0 / 0.5)',
+		'@media (hover)': {
+			'&:hover': {
+				color: 'hsl(var(--secondary-main))',
+				boxShadow: '15px 15px 15px rgb(0 0 0 / 0.5)',
+			},
 		},
 		'&:focus': {
 			boxShadow: '15px 15px 15px rgb(0 0 0 / 0.5)',

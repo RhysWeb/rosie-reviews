@@ -21,7 +21,6 @@ export const Login = () => {
 			let resp = await database.login(form.password);
 			token = resp.data.token;
 			setToken(token);
-			this.blur();
 
 			setSubmitting(false);
 		} catch {
