@@ -200,7 +200,7 @@ export const LocalStoragePage = () => {
 				variant="contained"
 				className={classes.button}
 				onClick={buttonClick}
-				disabled={!window.navigator.onLine || reviews?.length === 0}
+				disabled={!window.navigator.onLine || reviews?.length === 0 || !reviews}
 			>
 				{!window.navigator.onLine
 					? "Offline - get a signal, then click 'refresh' below"
