@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useData } from '../utils/DataContext';
 import { useForm } from 'react-hook-form';
-import { TextField, Button, CircularProgress } from '@material-ui/core';
+import {
+	TextField,
+	Button,
+	CircularProgress,
+	Typography,
+} from '@material-ui/core';
 import { useState } from 'react';
 import database from '../utils/database.js';
 
@@ -21,7 +26,6 @@ export const Login = () => {
 			let resp = await database.login(form.password);
 			token = resp.data.token;
 			setToken(token);
-
 			setSubmitting(false);
 		} catch {
 			console.log('error');
@@ -50,6 +54,17 @@ export const Login = () => {
 							</div>
 						) : (
 							<>
+								<Typography
+									style={{
+										color: 'hsl(var(--primary-dark))',
+										marginBottom: '10px',
+										fontFamily: 'Changa One',
+										fontSize: '1.2rem',
+									}}
+									align="center"
+								>
+									Welcome
+								</Typography>
 								<TextField
 									type="password"
 									fullWidth

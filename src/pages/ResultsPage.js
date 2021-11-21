@@ -18,6 +18,7 @@ import { useData } from '../utils/DataContext';
 import { MyLink } from '../components/MyLink';
 import { ArrowBack } from '@material-ui/icons';
 import { SEO } from '../components/SEO';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
 	tableContainer: {
@@ -31,18 +32,22 @@ const useStyles = makeStyles({
 		fontWeight: 'bolder',
 		fontSize: '11px',
 		fontFamily: 'Arial',
+		lineHeight: '1rem',
 	},
 	id: {
 		color: 'red',
-		fontSize: '10px',
+		fontSize: '0.7rem',
+	},
+	score: {
+		fontSize: '0.7rem',
 	},
 	email: {
 		color: 'black',
-		fontSize: '10px',
+		fontSize: '0.7rem',
 	},
 	comment: {
 		color: 'blue',
-		fontSize: '10px',
+		fontSize: '0.7rem',
 	},
 	noReviews: {
 		fontFamily: 'Roboto Slab, serif',
@@ -56,6 +61,13 @@ export const ResultsPage = () => {
 	const { currentEvent } = useData();
 	const [reviews, setReviews] = useState();
 	const classes = useStyles();
+	const history = useHistory();
+
+	useEffect(() => {
+		if (currentEvent.eventId === 'EmptyId') {
+			history.push('./');
+		}
+	}, []);
 
 	useEffect(() => {
 		async function getReviews() {

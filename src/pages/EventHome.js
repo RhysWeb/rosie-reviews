@@ -6,10 +6,19 @@ import { useData } from '../utils/DataContext';
 import { AddCircle, ArrowBack, CloudDone, CloudOff } from '@material-ui/icons';
 import { MyLink } from '../components/MyLink';
 import { SEO } from '../components/SEO';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export const EventHome = () => {
 	const { currentEvent } = useData();
 	const [, date] = useDate(currentEvent.eventDate);
+	const history = useHistory();
+
+	useEffect(() => {
+		if (currentEvent.eventId === 'EmptyId') {
+			history.push('./');
+		}
+	}, []);
 
 	return (
 		<MainContainerLarger>

@@ -7,7 +7,11 @@ export const DataProvider = ({ children }) => {
 	const [token, setToken] = useState('');
 	const [theme, setTheme] = useState('');
 	const [updateCount, setUpdateCount] = useState(0);
-	const [currentEvent, setCurrentEvent] = useState({});
+	const [currentEvent, setCurrentEvent] = useState({
+		eventId: 'EmptyId',
+		eventName: 'EmptyName',
+		eventDate: '2021-12-22',
+	});
 	const [deleteEvent, setDeleteEvent] = useState(false);
 
 	const setValues = (values) => {

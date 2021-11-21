@@ -34,18 +34,22 @@ const useStyles = makeStyles({
 		fontWeight: 'bolder',
 		fontSize: '11px',
 		fontFamily: 'Arial',
+		lineHeight: '1rem',
 	},
 	id: {
 		color: 'red',
-		fontSize: '10px',
+		fontSize: '0.7rem',
+	},
+	score: {
+		fontSize: '0.7rem',
 	},
 	email: {
 		color: 'black',
-		fontSize: '10px',
+		fontSize: '0.7rem',
 	},
 	comment: {
 		color: 'blue',
-		fontSize: '10px',
+		fontSize: '0.7rem',
 	},
 	button: {
 		margin: '20px',
@@ -75,6 +79,12 @@ export const LocalStoragePage = () => {
 	const classes = useStyles();
 	const { currentEvent } = useData();
 	const history = useHistory();
+
+	useEffect(() => {
+		if (currentEvent.eventId === 'EmptyId') {
+			history.push('./');
+		}
+	}, []);
 
 	useEffect(() => {
 		const reviewsOnDb = localDatabase.getAllReviews(currentEvent.eventId);
@@ -189,9 +199,7 @@ export const LocalStoragePage = () => {
 			{reviews?.length === 0 && (
 				<>
 					<div style={{ marginBottom: '20px' }} />
-					<p className={classes.noReviews}>
-						This event has no reviews yet saved to the local database
-					</p>
+					<p className={classes.noReviews}>Local database empty</p>
 					<div style={{ marginBottom: '20px' }} />
 				</>
 			)}

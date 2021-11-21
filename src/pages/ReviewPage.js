@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ReviewPage.css';
 import { useForm } from 'react-hook-form';
 import { TextField, Button, MenuItem } from '@material-ui/core';
@@ -17,6 +17,7 @@ import { Header } from '../components/Header';
 import { useData } from '../utils/DataContext';
 import { useDate } from '../customHooks/Date';
 import { SEO } from '../components/SEO';
+import { useHistory } from 'react-router-dom';
 
 ///Code for the test selection///
 const dropdownAnswers = [
@@ -40,6 +41,7 @@ export const ReviewPage = () => {
 	const [dateTime] = useDate();
 	const [key, setKey] = useState(1);
 	const [visitedBefore, setVisitedBefore] = useState('');
+	const history = useHistory();
 	const handleChange = (event) => {
 		setVisitedBefore(event.target.value);
 	};
@@ -59,6 +61,12 @@ export const ReviewPage = () => {
 			reviewScore: 'none',
 		},
 	});
+
+	useEffect(() => {
+		if (currentEvent.eventId === 'EmptyId') {
+			history.push('./');
+		}
+	}, []);
 
 	const onSubmit = (form) => {
 		if (form.reviewScore === 'none') {
