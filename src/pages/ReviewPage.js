@@ -170,7 +170,10 @@ export const ReviewPage = () => {
 						variant="filled"
 						onFocus={() => {
 							console.log('focus');
-							// window.scrollTo(0, 2000);
+							document.getElementById(`submitButton`).scrollIntoView({
+								block: 'center',
+								behavior: 'smooth',
+							});
 						}}
 					/>
 					<div style={{ marginBottom: '10px' }}></div>
@@ -195,7 +198,13 @@ export const ReviewPage = () => {
 				<div style={{ marginBottom: '40px' }}></div>
 
 				<div>
-					<Button type="submit" variant="contained" color="primary" fullWidth>
+					<Button
+						id="submitButton"
+						type="submit"
+						variant="contained"
+						color="primary"
+						fullWidth
+					>
 						Submit your Review
 					</Button>
 				</div>
