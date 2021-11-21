@@ -254,3 +254,11 @@ legend {
 	font-size: 0.9rem;
 	font-family: 'Roboto Slab', serif;
 }
+
+#bottom {
+	grid-row: 1/4;
+	height: 100px;
+	width: 100%;
+	color: blue;
+	margin-bottom: 80px;
+}

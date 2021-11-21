@@ -9,6 +9,31 @@ import logo from '../images/neutral.png';
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
+var elem = document.documentElement;
+function openFullscreen() {
+	if (elem.requestFullscreen) {
+		elem.requestFullscreen();
+	} else if (elem.webkitRequestFullscreen) {
+		/* Safari */
+		elem.webkitRequestFullscreen();
+	} else if (elem.msRequestFullscreen) {
+		/* IE11 */
+		elem.msRequestFullscreen();
+	}
+}
+
+function closeFullscreen() {
+	if (document.exitFullscreen) {
+		document.exitFullscreen();
+	} else if (document.webkitExitFullscreen) {
+		/* Safari */
+		document.webkitExitFullscreen();
+	} else if (document.msExitFullscreen) {
+		/* IE11 */
+		document.msExitFullscreen();
+	}
+}
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -42,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export const Header = ({ secure, link, title }) => {
+export const Header = ({ secure, link, title, fullScreen }) => {
 	const history = useHistory();
 	const classes = useStyles();
 
@@ -94,6 +119,18 @@ export const Header = ({ secure, link, title }) => {
 							color="inherit"
 						>
 							back
+						</Button>
+					)}
+
+					{fullScreen && (
+						<Button
+							className={classes.button}
+							onClick={() => {
+								openFullscreen();
+							}}
+							color="inherit"
+						>
+							Fullscreen
 						</Button>
 					)}
 					<h1 className={classes.heading} color="inherit">

@@ -147,6 +147,11 @@ export const ResultsPage = () => {
 				style={{ color: 'black' }}
 				disabled={true}
 			/>
+			<MyLink
+				text="Back"
+				icon={<ArrowBack style={{ fontSize: '60px' }} />}
+				route="/event"
+			/>
 
 			{reviews ? (
 				<TableContainer
@@ -175,12 +180,6 @@ export const ResultsPage = () => {
 					<div style={{ marginBottom: '20px' }} />
 				</>
 			)}
-
-			<MyLink
-				text="Back"
-				icon={<ArrowBack style={{ fontSize: '60px' }} />}
-				route="/event"
-			/>
 		</MainContainerLarger>
 	);
 };

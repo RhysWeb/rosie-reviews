@@ -111,7 +111,7 @@ export const ReviewPage = () => {
 	return (
 		<div className="grid">
 			<SEO title="Review Event" description="Review the event" />
-			<Header secure link="/event" title="Create Review" />
+			<Header secure fullScreen link="/event" title="Create Review" />
 			<div className="leftSide"></div>
 			<div className="rightSide"></div>
 			<form id="form" onSubmit={handleSubmit(onSubmit)} key={key}>
@@ -178,8 +178,8 @@ export const ReviewPage = () => {
 						variant="filled"
 						onFocus={() => {
 							console.log('focus');
-							document.getElementById(`submitButton`).scrollIntoView({
-								block: 'center',
+							document.getElementById(`bottom`).scrollIntoView({
+								block: 'end',
 								behavior: 'smooth',
 							});
 						}}
@@ -216,7 +216,8 @@ export const ReviewPage = () => {
 						Submit your Review
 					</Button>
 				</div>
-				<div style={{ marginBottom: '80px' }}></div>
+
+				<div id="bottom"></div>
 			</form>
 		</div>
 	);
