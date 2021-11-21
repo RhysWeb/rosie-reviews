@@ -61,7 +61,7 @@ const useStyles = makeStyles({
 	},
 	noReviews: {
 		fontFamily: 'Roboto Slab, serif',
-		fontSize: '2rem',
+		fontSize: '1.5rem',
 		textAlign: 'center',
 		color: 'hsl(var(--primary-dark))',
 	},

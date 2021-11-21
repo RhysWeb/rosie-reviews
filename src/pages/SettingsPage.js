@@ -25,12 +25,10 @@ const useStyles = makeStyles({
 });
 
 const schema = yup.object().shape({
-	eventName: yup.string().required('This field is required'),
-	eventDate: yup.string().required('This field is required'),
+	color: yup.number().required('Enter a valid number'),
 });
 
-export const CreateEventPage = () => {
-	const history = useHistory();
+export const SettingsPage = () => {
 	const classes = useStyles();
 	const [submitting, setSubmitting] = useState(false);
 	const {
@@ -42,9 +40,9 @@ export const CreateEventPage = () => {
 
 	const onSubmit = async (form) => {
 		setSubmitting(true);
+		alert(form.color);
 
-		await database.addEvent(form);
-		history.push(`./viewEvents`);
+		await database.selectColor(form.color);
 
 		setSubmitting(false);
 	};
@@ -52,10 +50,7 @@ export const CreateEventPage = () => {
 	if (!window.navigator.onLine) {
 		return (
 			<MainContainerLarger>
-				<SEO
-					title="View Events"
-					description="The list of available events for review"
-				/>
+				<SEO title="Settings" description="The settings page" />
 				<Header />
 
 				<div style={{ marginBottom: '30px' }} />
@@ -82,11 +77,8 @@ export const CreateEventPage = () => {
 
 	return (
 		<MainContainerLarger>
-			<SEO
-				title="Create Event"
-				description="Creating an event for the review site"
-			/>
-			<Header title="Create Event" />
+			<SEO title="Settings" description="The settings page" />
+			<Header title="Settings" />
 			<form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
 				<div className={classes.form}></div>
 
@@ -94,30 +86,18 @@ export const CreateEventPage = () => {
 					<legend
 						style={{ color: 'hsl(var(--primary-dark))', fontWeight: 'bold' }}
 					>
-						Create an event
+						Choose the colour of the site
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>
 
 					<TextField
 						fullWidth
-						{...register('eventName')}
+						{...register('color')}
 						variant="filled"
-						label="Brief description of event"
+						label="Enter a number to choose a colour"
 						error={!!errors.eventName}
 					/>
-					<TextField
-						fullWidth
-						{...register('eventDate')}
-						variant="filled"
-						label="Date of Event"
-						type="date"
-						placeholder=""
-						error={!!errors.eventDate}
-						InputLabelProps={{
-							shrink: true,
-						}}
-						style={{ textAlign: 'left' }}
-					/>
+
 					<div style={{ marginBottom: '10px' }}></div>
 				</fieldset>
 

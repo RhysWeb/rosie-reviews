@@ -111,7 +111,7 @@ export const ReviewPage = () => {
 	return (
 		<div className="grid">
 			<SEO title="Review Event" description="Review the event" />
-			<Header secure fullScreen link="/event" title="Create Review" />
+			<Header secure home="/" back="/event" title="Create Review" />
 			<div className="leftSide"></div>
 			<div className="rightSide"></div>
 			<form id="form" onSubmit={handleSubmit(onSubmit)} key={key}>

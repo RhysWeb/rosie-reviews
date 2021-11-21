@@ -9,31 +9,6 @@ import logo from '../images/neutral.png';
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-var elem = document.documentElement;
-function openFullscreen() {
-	if (elem.requestFullscreen) {
-		elem.requestFullscreen();
-	} else if (elem.webkitRequestFullscreen) {
-		/* Safari */
-		elem.webkitRequestFullscreen();
-	} else if (elem.msRequestFullscreen) {
-		/* IE11 */
-		elem.msRequestFullscreen();
-	}
-}
-
-function closeFullscreen() {
-	if (document.exitFullscreen) {
-		document.exitFullscreen();
-	} else if (document.webkitExitFullscreen) {
-		/* Safari */
-		document.webkitExitFullscreen();
-	} else if (document.msExitFullscreen) {
-		/* IE11 */
-		document.msExitFullscreen();
-	}
-}
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -67,11 +42,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export const Header = ({ secure, link, title, fullScreen }) => {
+export const Header = ({ secure, back, title, home }) => {
 	const history = useHistory();
 	const classes = useStyles();
 
-	const onClick = async () => {
+	const onClick = async (link) => {
 		if (!secure) {
 			history.push(link);
 		} else {
@@ -110,29 +85,33 @@ export const Header = ({ secure, link, title, fullScreen }) => {
 						Event Reviews
 					</Typography>
 
-					{link && (
+					{back && (
 						<Button
 							className={classes.button}
 							onClick={() => {
-								onClick();
+								onClick(back);
 							}}
 							color="inherit"
 						>
-							back
+							Back
 						</Button>
 					)}
 
-					{fullScreen && (
+					{home && (
 						<Button
 							className={classes.button}
+							disabled={!window.navigator.onLine}
 							onClick={() => {
-								openFullscreen();
+								if (window.navigator.onLine) {
+									onClick(home);
+								}
 							}}
 							color="inherit"
 						>
-							Fullscreen
+							Home
 						</Button>
 					)}
+
 					<h1 className={classes.heading} color="inherit">
 						{title}
 					</h1>

@@ -43,13 +43,42 @@ const useStyles = makeStyles({
 	},
 });
 
-export const MyLink = (props) => {
+export const MyLink = ({ icon, text, route, back, disabled }) => {
 	const classes = useStyles();
 
+	if (disabled) {
+		return (
+			<Link className={classes.link} to={route} onClick={() => {}}>
+				{icon}
+				No Internet - Button Disabled
+			</Link>
+		);
+	}
+
+	if (back) {
+		return (
+			<Link
+				className={classes.link}
+				to={route}
+				onClick={() => window.history.back()}
+			>
+				{icon}
+				{text}
+			</Link>
+		);
+	}
+
 	return (
-		<Link className={classes.link} to={props.route}>
-			{props.icon}
-			{props.text}
+		<Link className={classes.link} to={route}>
+			{icon}
+			{text}
 		</Link>
 	);
+
+	// (
+	// 	<Link className={classes.link} to={route}>
+	// 		{icon}
+	// 		{text}
+	// 	</Link>
+	// );
 };

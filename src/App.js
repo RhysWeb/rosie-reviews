@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { ReviewPage } from './pages/ReviewPage';
+import { SettingsPage } from './pages/SettingsPage';
 import { ResultsPage } from './pages/ResultsPage';
 import { CreateEventPage } from './pages/CreateEventPage';
 import { Login } from './components/Login';
@@ -52,6 +53,7 @@ function App() {
 						<Route exact path="/createEvent" component={CreateEventPage} />
 						<Route exact path="/viewEvents" component={ViewEventsPage} />
 						<Route exact path="/event" component={EventHome} />
+						<Route exact path="/settings" component={SettingsPage} />
 
 						<Route
 							exact

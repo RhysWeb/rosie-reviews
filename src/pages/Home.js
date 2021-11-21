@@ -32,7 +32,7 @@ export const Home = () => {
 			<MyLink
 				text="Settings"
 				icon={<Settings style={{ fontSize: '60px' }} />}
-				route="/viewEvents"
+				route="/settings"
 			/>
 		</MainContainerLarger>
 	);

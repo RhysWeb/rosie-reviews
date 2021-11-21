@@ -22,6 +22,26 @@ class database {
 		return resp;
 	}
 
+	static async selectColor(color) {
+		let resp;
+		// try {
+		// 	resp = await axios({
+		// 		method: 'post',
+		// 		url: `${process.env.REACT_APP_DATABASE_SERVER}/review/login`,
+		// 		data: {
+		// 			password: password,
+		// 		},
+		// 	});
+		// } catch {
+		// 	resp = 'Error retrieving token from the server';
+		// 	Swal.fire({
+		// 		icon: 'error',
+		// 		title: 'Password is incorrect',
+		// 	});
+		// }
+		return resp;
+	}
+
 	static async addReview(form, eventId) {
 		let resp;
 		try {

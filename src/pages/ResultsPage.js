@@ -51,9 +51,10 @@ const useStyles = makeStyles({
 	},
 	noReviews: {
 		fontFamily: 'Roboto Slab, serif',
-		fontSize: '2rem',
+		fontSize: '1.5rem',
 		textAlign: 'center',
 		color: 'hsl(var(--primary-dark))',
+		lineHeight: '0rem',
 	},
 });
 
@@ -167,7 +168,19 @@ export const ResultsPage = () => {
 			) : (
 				<>
 					<div style={{ marginBottom: '30px' }} />
-					<CircularProgress size={70} thickness={6} />
+					{window.navigator.onLine ? (
+						<CircularProgress size={70} thickness={6} />
+					) : (
+						<>
+							<p className={classes.noReviews}>
+								You are disconnected from the internet.
+							</p>
+							<p className={classes.noReviews}>
+								Connect to see saved event reviews
+							</p>
+						</>
+					)}
+
 					<div style={{ marginBottom: '48px' }} />
 				</>
 			)}

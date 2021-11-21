@@ -56,6 +56,7 @@ export const EventHome = () => {
 				text="back to Events"
 				icon={<ArrowBack style={{ fontSize: '60px' }} />}
 				route="/viewEvents"
+				disabled={!window.navigator.onLine}
 			/>
 		</MainContainerLarger>
 	);

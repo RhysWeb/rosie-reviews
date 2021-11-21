@@ -10,6 +10,7 @@ import { MyButton } from '../components/MyButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MySwitch from '../components/MySwitch';
 import { useData } from '../utils/DataContext';
+import { Typography } from '@material-ui/core';
 
 export const ViewEventsPage = () => {
 	const [events, setEvents] = useState();
@@ -26,6 +27,36 @@ export const ViewEventsPage = () => {
 		getEvents();
 	}, []);
 
+	if (!window.navigator.onLine) {
+		return (
+			<MainContainerLarger>
+				<SEO
+					title="View Events"
+					description="The list of available events for review"
+				/>
+				<Header />
+
+				<div style={{ marginBottom: '30px' }} />
+				<Typography
+					style={{
+						color: 'hsl(var(--primary-dark))',
+						marginBottom: '10px',
+						fontFamily: 'Changa One',
+						fontSize: '1.2rem',
+					}}
+					align="center"
+				>
+					No Internet
+				</Typography>
+				<MyLink
+					text="Back"
+					back
+					icon={<ArrowBack style={{ fontSize: '60px' }} />}
+					route="/"
+				/>
+			</MainContainerLarger>
+		);
+	}
 	if (!events) {
 		return (
 			<MainContainerLarger>
