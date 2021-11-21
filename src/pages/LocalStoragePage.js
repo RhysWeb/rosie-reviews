@@ -158,7 +158,7 @@ export const LocalStoragePage = () => {
 	return (
 		<MainContainerLarger>
 			<SEO title="Local Reviews (upload them)" description="Local reviews" />
-			<Header title="Locally Stored Reviews" />
+			<Header title="Local Reviews" />
 			<EventCard
 				eventId={currentEvent.eventId}
 				eventName={currentEvent.eventName}

@@ -60,12 +60,6 @@ export const ReviewPage = () => {
 		},
 	});
 
-	const questionStyle = {
-		color: 'hsl(var(--primary-dark))',
-		fontSize: '0.9rem',
-		fontFamily: 'Roboto Slab, serif',
-	};
-
 	const onSubmit = (form) => {
 		if (form.reviewScore === 'none') {
 			Swal.fire({
@@ -112,7 +106,7 @@ export const ReviewPage = () => {
 			<Header secure link="/event" title="Create Review" />
 			<div className="leftSide"></div>
 			<div className="rightSide"></div>
-			<form onSubmit={handleSubmit(onSubmit)} key={key}>
+			<form id="form" onSubmit={handleSubmit(onSubmit)} key={key}>
 				<div style={{ marginBottom: '40px' }}></div>
 
 				<div className="logos2">
@@ -121,9 +115,7 @@ export const ReviewPage = () => {
 					<img src={logo3} id="logo3" alt="Weymouth Town Council Logo" />
 				</div>
 				<fieldset>
-					<legend style={questionStyle}>
-						Q1. Have you visited Radipole Park Before?
-					</legend>
+					<legend>Q1. Have you visited Radipole Park Before?</legend>
 					<div style={{ marginBottom: '20px' }}></div>
 					<TextField
 						id="visitedBefore"
@@ -151,9 +143,7 @@ export const ReviewPage = () => {
 				<div style={{ marginBottom: '40px' }}></div>
 
 				<fieldset>
-					<legend style={questionStyle}>
-						Q2. How did you enjoy todays event?
-					</legend>
+					<legend>Q2. How did you enjoy todays event?</legend>
 					<div style={{ marginBottom: '20px' }}></div>
 					<div className="reviewLablesDiv">
 						<RadioLabel2 register={register} value={5} image={happy} />
@@ -168,7 +158,7 @@ export const ReviewPage = () => {
 				<div style={{ marginBottom: '40px' }}></div>
 
 				<fieldset>
-					<legend style={questionStyle}>Q3. Please provide a comment </legend>
+					<legend>Q3. Please provide a comment </legend>
 					<div style={{ marginBottom: '20px' }}></div>
 
 					<TextField
@@ -178,13 +168,17 @@ export const ReviewPage = () => {
 						label="What did you like? What could we improve? Write here"
 						{...register('reviewComment')}
 						variant="filled"
+						onFocus={() => {
+							console.log('focus');
+							// window.scrollTo(0, 2000);
+						}}
 					/>
 					<div style={{ marginBottom: '10px' }}></div>
 				</fieldset>
 				<div style={{ marginBottom: '40px' }}></div>
 
 				<fieldset>
-					<legend style={questionStyle}>
+					<legend>
 						Q4. Would you like to be informed about future events?
 					</legend>
 					<div style={{ marginBottom: '20px' }}></div>

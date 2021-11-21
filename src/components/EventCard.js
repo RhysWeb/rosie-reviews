@@ -20,7 +20,6 @@ const useStyles = makeStyles({
 		borderRadius: '1em',
 		padding: '20px',
 		background: 'hsl(0 0% 90%)',
-		color: 'hsl(var(--primary-dark))',
 		border: 'solid hsl(var(--primary-main)) 2px',
 		boxShadow: '5px 5px 5px rgb(0 0 0 / 0.5)',
 		'&:hover': {
@@ -66,7 +65,7 @@ export const EventCard = ({
 	const { setCurrentEvent, deleteEvent, setDeleteEvent } = useData();
 	const classes = useStyles();
 	let displayOnDelete = 'none';
-	let additionalCardDeleteStyles = {};
+	let additionalCardDeleteStyles = { color: 'hsl(var(--primary-dark))' };
 	if (deleteEvent) {
 		displayOnDelete = 'inline-block';
 		additionalCardDeleteStyles = {

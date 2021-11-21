@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: '1rem',
 		textTransform: 'uppercase',
 		fontWeight: 'normal',
+		'@media (max-width: 400px)': {
+			display: 'none',
+		},
 	},
 }));
 

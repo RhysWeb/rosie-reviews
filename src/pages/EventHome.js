@@ -23,7 +23,6 @@ export const EventHome = () => {
 				eventId={currentEvent.eventId}
 				eventName={currentEvent.eventName}
 				eventDate={currentEvent.eventDate}
-				style={{ color: 'black' }}
 				disabled={true}
 			/>
 			<hr />

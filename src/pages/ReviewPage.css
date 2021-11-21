@@ -1,10 +1,12 @@
 /* CSS Variables in the form */
 
-form {
+#form {
 	--timer1: 0.3s;
 	--timer2: 0.15s;
 	--delay: 1s;
 	--flashingQ1: 1.5s;
+	min-width: fit-content;
+	max-width: 1000px;
 }
 
 /* animation on the face selectors */
@@ -66,10 +68,10 @@ input[name='visitedBefore']:focus-visible {
 /* IMAGE STYLES */
 [type='radio'] + img {
 	cursor: pointer;
-	width: 3rem;
+	width: 4rem;
 	text-align: center;
 	display: inline-block;
-	margin: 0.5rem;
+	margin: 1rem;
 	padding: 0.2rem;
 	border: 2px solid grey;
 	border-radius: 10%;
@@ -91,7 +93,7 @@ h3 {
 	color: black;
 	background: yellow;
 	border-radius: 10%;
-	width: 4.5rem;
+	width: 5rem;
 }
 
 [type='radio'] {
@@ -118,7 +120,7 @@ a:hover {
 	justify-content: space-between;
 }
 
-form {
+#form {
 	grid-column: 3/-3;
 	grid-row: 2/3;
 }
@@ -133,15 +135,75 @@ form {
 }
 
 #logo1 {
-	height: 70px;
+	height: 90px;
 }
 
 #logo2 {
-	height: 70px;
+	height: 90px;
 }
 
 #logo3 {
-	height: 70px;
+	height: 90px;
+}
+
+@media (max-width: 1000px) {
+	#logo1 {
+		height: 65px;
+	}
+
+	#logo2 {
+		height: 65px;
+	}
+	#logo3 {
+		height: 65px;
+	}
+	[type='radio'] + img {
+		width: 3.5rem;
+		margin: 0.8rem;
+	}
+	[type='radio']:checked + img {
+		width: 4.5rem;
+	}
+}
+
+@media (max-width: 550px) {
+	#logo1 {
+		height: 46px;
+	}
+
+	#logo2 {
+		height: 46px;
+	}
+	#logo3 {
+		height: 46px;
+	}
+	[type='radio'] + img {
+		width: 2.5rem;
+		margin: 0.5rem;
+	}
+	[type='radio']:checked + img {
+		width: 3rem;
+	}
+}
+
+@media (max-width: 400px) {
+	#logo1 {
+		height: 40px;
+	}
+
+	#logo2 {
+		height: 40px;
+	}
+	#logo3 {
+		height: 40px;
+	}
+	[type='radio'] + img {
+		width: 2.5rem;
+		margin: 0.2rem;
+	}
+	[type='radio']:checked + img {
+		width: 3rem;
+	}
 }
 
 .leftSide {
@@ -172,4 +234,10 @@ h4 {
 	margin-top: 30px;
 	margin-bottom: 30px;
 	color: darkslategrey;
+}
+
+legend {
+	color: hsl(var(--primary-dark));
+	font-size: 0.9rem;
+	font-family: 'Roboto Slab', serif;
 }

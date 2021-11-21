@@ -124,7 +124,7 @@ export const ResultsPage = () => {
 	return (
 		<MainContainerLarger>
 			<SEO
-				title="Reviews on cloud"
+				title="Cloud Reviews"
 				description="Reviews on the cloud for the particular event"
 			/>
 			<Header title="Database Reviews" />
