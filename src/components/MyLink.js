@@ -6,6 +6,7 @@ const useStyles = makeStyles({
 		fontFamily: 'Changa One',
 		textDecoration: 'none',
 		fontSize: '1.2rem',
+		textAlign: 'center',
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
@@ -13,7 +14,7 @@ const useStyles = makeStyles({
 		padding: '20px',
 		outlineRadius: '1em',
 		borderRadius: '1em',
-		width: '12rem',
+		width: '10rem',
 		overflow: 'hidden',
 		// These next few lines are required to sort a weird problem on ipad. Buttons and links were starting up with the hover effect applied. So the media query removes the hover effects on touchscreen devices as these have 'hover:none'. However, it then reverted to the browser default hover style, so I had to set the hover color style to be the same as the unhover style.;
 		color: 'hsl(var(--primary-dark))',
@@ -24,7 +25,13 @@ const useStyles = makeStyles({
 			'&:hover': {
 				color: 'hsl(var(--secondary-main))',
 				boxShadow: '15px 15px 15px rgb(0 0 0 / 0.5)',
+				// outline: 'solid hsl(var(--primary-dark)) 0.1px',
 			},
+		},
+		'@media (max-width: 550px)': {
+			fontSize: '1rem',
+			padding: '15px',
+			width: '8rem',
 		},
 		'&:focus': {
 			boxShadow: '15px 15px 15px rgb(0 0 0 / 0.5)',

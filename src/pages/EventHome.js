@@ -31,16 +31,18 @@ export const EventHome = () => {
 				icon={<AddCircle style={{ fontSize: '60px' }} />}
 				route="/reviewPage"
 			/>
-			<MyLink
-				text="View Saved Reviews"
-				icon={<CloudDone style={{ fontSize: '60px' }} />}
-				route="/resultsPage"
-			/>
-			<MyLink
-				text="View Local Reviews"
-				icon={<CloudOff style={{ fontSize: '60px' }} />}
-				route="/localStoragePage"
-			/>
+			<div style={{ display: 'flex' }}>
+				<MyLink
+					text="View Saved Reviews"
+					icon={<CloudDone style={{ fontSize: '60px' }} />}
+					route="/resultsPage"
+				/>
+				<MyLink
+					text="View Local Reviews"
+					icon={<CloudOff style={{ fontSize: '60px' }} />}
+					route="/localStoragePage"
+				/>
+			</div>
 			<MyLink
 				text="back to Events"
 				icon={<ArrowBack style={{ fontSize: '60px' }} />}
