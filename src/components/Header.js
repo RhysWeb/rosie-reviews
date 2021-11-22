@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 		fontFamily: 'Changa One',
 		fontSize: '1.3rem',
+		lineHeight: '1.3rem',
 	},
 	button: {
 		fontSize: '0.8rem',

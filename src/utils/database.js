@@ -22,23 +22,37 @@ class database {
 		return resp;
 	}
 
-	static async selectColor(color) {
+	static async getColor() {
+		let response;
+		try {
+			await axios({
+				method: 'get',
+				url: `${process.env.REACT_APP_DATABASE_SERVER}/profile`,
+			}).then((res) => {
+				response = res.data[0].color;
+			});
+			return response;
+		} catch (err) {
+			console.log(err);
+		}
+		return response;
+	}
+
+	static async changeColor(color) {
 		let resp;
-		// try {
-		// 	resp = await axios({
-		// 		method: 'post',
-		// 		url: `${process.env.REACT_APP_DATABASE_SERVER}/review/login`,
-		// 		data: {
-		// 			password: password,
-		// 		},
-		// 	});
-		// } catch {
-		// 	resp = 'Error retrieving token from the server';
-		// 	Swal.fire({
-		// 		icon: 'error',
-		// 		title: 'Password is incorrect',
-		// 	});
-		// }
+
+		try {
+			resp = await axios({
+				method: 'post',
+				url: `${process.env.REACT_APP_DATABASE_SERVER}/profile`,
+				data: {
+					color: color,
+				},
+			});
+		} catch {
+			resp = 'Error changing color';
+		}
+
 		return resp;
 	}
 

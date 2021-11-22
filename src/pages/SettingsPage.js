@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TextField, Button, Typography } from '@material-ui/core';
 import { MainContainerLarger } from '../components/MainContainerLarger';
 import database from '../utils/database.js';
@@ -31,6 +31,7 @@ const schema = yup.object().shape({
 export const SettingsPage = () => {
 	const classes = useStyles();
 	const [submitting, setSubmitting] = useState(false);
+
 	const {
 		register,
 		handleSubmit,
@@ -39,12 +40,10 @@ export const SettingsPage = () => {
 	} = useForm({ mode: 'onBlur', resolver: yupResolver(schema) });
 
 	const onSubmit = async (form) => {
-		setSubmitting(true);
-		alert(form.color);
-
-		await database.selectColor(form.color);
-
-		setSubmitting(false);
+		let r = document.querySelector(':root');
+		r.style.setProperty('--primary', form.color);
+		let resp = await database.changeColor(form.color);
+		console.log(resp);
 	};
 
 	if (!window.navigator.onLine) {
@@ -54,6 +53,7 @@ export const SettingsPage = () => {
 				<Header />
 
 				<div style={{ marginBottom: '30px' }} />
+
 				<Typography
 					style={{
 						color: 'hsl(var(--primary-dark))',

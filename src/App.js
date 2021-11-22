@@ -13,6 +13,8 @@ import { ViewEventsPage } from './pages/ViewEventsPage';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Header } from './components/Header';
 import { SEO } from './components/SEO';
+import { useEffect } from 'react';
+import database from './utils/database.js';
 
 const theme = createTheme({
 	palette: {
@@ -32,6 +34,15 @@ const theme = createTheme({
 });
 
 function App() {
+	useEffect(() => {
+		const getColor = async () => {
+			let color = await database.getColor();
+			console.log(color);
+			let r = document.querySelector(':root');
+			r.style.setProperty('--primary', color);
+		};
+		getColor();
+	}, []);
 	const { token } = useData();
 	if (!(token === process.env.REACT_APP_TOKEN)) {
 		return (
