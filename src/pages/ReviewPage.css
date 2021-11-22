@@ -109,6 +109,7 @@ a:hover {
 	grid-template-columns: 1fr 1rem 6fr 1rem 1fr;
 	background: white;
 	margin-bottom: 150px;
+	overflow: hidden;
 }
 
 .logos2 {
