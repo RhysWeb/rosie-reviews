@@ -79,6 +79,9 @@ export const SettingsPage = () => {
 		<MainContainerLarger>
 			<SEO title="Settings" description="The settings page" />
 			<Header title="Settings" />
+			<div id="colorWheel">
+				<div id="innerWheel"></div>
+			</div>
 			<form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
 				<div className={classes.form}></div>
 
@@ -94,7 +97,7 @@ export const SettingsPage = () => {
 						fullWidth
 						{...register('color')}
 						variant="filled"
-						label="Enter a number to choose a colour"
+						label="Enter number (1-360)"
 						error={!!errors.eventName}
 					/>
 

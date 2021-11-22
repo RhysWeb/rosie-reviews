@@ -18,3 +18,72 @@ body {
 	--secondary-light: var(--secondary), 80%, 70%;
 	--secondary-dark: var(--secondary), 80%, 30%;
 }
+
+#colorWheel {
+	background: red;
+	margin-top: 10vw;
+	margin-bottom: 20vw;
+	height: 50vw;
+	width: 50vw;
+	border-radius: 50%;
+	position: relative;
+	background: transparent;
+	background: conic-gradient(
+		hsl(0, 100%, 50%),
+		hsl(45, 100%, 50%),
+		hsl(90, 100%, 50%),
+		hsl(135, 100%, 50%),
+		hsl(180, 100%, 50%),
+		hsl(225, 100%, 50%),
+		hsl(270, 100%, 50%),
+		hsl(315, 100%, 50%),
+		hsl(360, 100%, 50%)
+	);
+}
+
+#innerWheel {
+	/* background: hsl(var(--primary-main)); */
+	--diameter: 25vw;
+	background: white;
+	z-index: 9999;
+	left: 50%;
+	margin-left: calc(var(--diameter) * -0.5);
+	top: 50%;
+	margin-top: calc(var(--diameter) * -0.5);
+	height: var(--diameter);
+	width: var(--diameter);
+	border-radius: 50%;
+	position: absolute;
+}
+
+#colorWheel::before {
+	content: '0';
+	transform: translateX(24vw) translateY(-6vw);
+	position: absolute;
+	font-weight: bold;
+	font-size: 4vw;
+}
+
+#colorWheel::after {
+	content: '180';
+	transform: translateX(22vw) translateY(51vw);
+	position: absolute;
+	font-weight: bold;
+	font-size: 4vw;
+}
+
+#innerWheel::before {
+	content: '90';
+	transform: translateX(39vw) translateY(10vw);
+	position: absolute;
+	font-weight: bold;
+	font-size: 4vw;
+}
+
+#innerWheel::after {
+	content: '270';
+	font-size: 4vw;
+	transform: translateX(-21vw) translateY(10vw);
+	position: absolute;
+	font-weight: bold;
+}
