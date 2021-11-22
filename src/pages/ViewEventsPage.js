@@ -52,7 +52,6 @@ export const ViewEventsPage = () => {
 					text="Back"
 					back
 					icon={<ArrowBack style={{ fontSize: '60px' }} />}
-					route="/"
 				/>
 			</MainContainerLarger>
 		);

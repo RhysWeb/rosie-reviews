@@ -48,7 +48,11 @@ export const MyLink = ({ icon, text, route, back, disabled }) => {
 
 	if (disabled) {
 		return (
-			<Link className={classes.link} to={route} onClick={() => {}}>
+			<Link
+				className={classes.link}
+				to={route}
+				onClick={(event) => event.preventDefault()}
+			>
 				{icon}
 				No Internet - Button Disabled
 			</Link>
@@ -58,9 +62,12 @@ export const MyLink = ({ icon, text, route, back, disabled }) => {
 	if (back) {
 		return (
 			<Link
+				to="./"
 				className={classes.link}
-				to={route}
-				onClick={() => window.history.back()}
+				onClick={(event) => {
+					event.preventDefault();
+					window.history.back();
+				}}
 			>
 				{icon}
 				{text}

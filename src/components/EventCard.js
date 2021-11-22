@@ -6,6 +6,7 @@ import { useData } from '../utils/DataContext';
 import { useHistory } from 'react-router-dom';
 import { DeleteForever } from '@material-ui/icons';
 import database from '../utils/database.js';
+import Swal from 'sweetalert2';
 
 const useStyles = makeStyles({
 	button: {
@@ -75,7 +76,7 @@ export const EventCard = ({
 		};
 	}
 
-	const buttonClick = async () => {
+	const buttonClick = () => {
 		if (!deleteEvent) {
 			setCurrentEvent({
 				eventId: eventId,
@@ -84,11 +85,20 @@ export const EventCard = ({
 			});
 			history.push(`./event`);
 		} else {
-			console.log('deleting');
-			await database.deleteEvent(eventId);
-			// setUpdateCount(updateCount++);
-			setDeleteEvent(false);
-			getEvents();
+			Swal.fire({
+				icon: 'warning',
+				title: 'Are you sure?',
+				text: `About to delete event: ${eventName}`,
+				confirmButtonText: 'Delete',
+				confirmButtonColor: 'red',
+				showCancelButton: true,
+			}).then(async (result) => {
+				if (result.isConfirmed) {
+					await database.deleteEvent(eventId);
+					setDeleteEvent(false);
+					getEvents();
+				}
+			});
 		}
 	};
 
