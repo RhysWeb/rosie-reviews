@@ -3,6 +3,7 @@ import { MainContainerLarger } from '../components/MainContainerLarger';
 import { SEO } from '../components/SEO';
 import { MyLink } from '../components/MyLink';
 import { Visibility, AddCircle, Settings } from '@material-ui/icons';
+import { Icons } from '../components/Icons';
 
 // let icon = <AcUnit />;
 
@@ -34,6 +35,7 @@ export const Home = () => {
 				icon={<Settings style={{ fontSize: '60px' }} />}
 				route="/settings"
 			/>
+			<Icons />
 		</MainContainerLarger>
 	);
 };
