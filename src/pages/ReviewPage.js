@@ -10,9 +10,6 @@ import lesssad from '../images/lesssad.png';
 import sad from '../images/sad.png';
 import Swal from 'sweetalert2';
 import localDatabase from '../utils/localDatabase.js';
-import logo1 from '../images/logo1.jpg';
-import logo2 from '../images/logo2.png';
-import logo3 from '../images/logo3.png';
 import { Header } from '../components/Header';
 import { useData } from '../utils/DataContext';
 import { useDate } from '../customHooks/Date';
@@ -118,12 +115,6 @@ export const ReviewPage = () => {
 			<form id="form" onSubmit={handleSubmit(onSubmit)} key={key}>
 				<div style={{ marginBottom: '40px' }}></div>
 				<Icons />
-
-				<div className="logos2">
-					<img src={logo1} id="logo1" alt="Radipole Park and Gardens Logo" />
-					<img src={logo2} id="logo2" alt="Lottery Funding Logo" />
-					<img src={logo3} id="logo3" alt="Weymouth Town Council Logo" />
-				</div>
 				<fieldset>
 					<legend>Q1. Have you visited Radipole Park Before?</legend>
 					<div style={{ marginBottom: '20px' }}></div>
