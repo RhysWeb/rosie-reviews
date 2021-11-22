@@ -112,7 +112,7 @@ a:hover {
 	overflow: hidden;
 }
 
-.logos2 {
+.logos {
 	grid-column: 3/4;
 	grid-row: 1/2;
 	display: flex;
@@ -124,15 +124,6 @@ a:hover {
 #form {
 	grid-column: 3/-3;
 	grid-row: 2/3;
-}
-
-.logos {
-	grid-column: 3/4;
-	grid-row: 3/4;
-	display: flex;
-	margin-top: 20px;
-	margin-bottom: 40px;
-	justify-content: space-between;
 }
 
 #logo1 {

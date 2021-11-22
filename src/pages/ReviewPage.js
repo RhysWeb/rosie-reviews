@@ -114,7 +114,7 @@ export const ReviewPage = () => {
 			<div className="rightSide"></div>
 			<form id="form" onSubmit={handleSubmit(onSubmit)} key={key}>
 				<div style={{ marginBottom: '40px' }}></div>
-				<Icons />
+				<Icons className="logos" />
 				<fieldset>
 					<legend>Q1. Have you visited Radipole Park Before?</legend>
 					<div style={{ marginBottom: '20px' }}></div>
