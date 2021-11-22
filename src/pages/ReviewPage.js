@@ -18,6 +18,7 @@ import { useData } from '../utils/DataContext';
 import { useDate } from '../customHooks/Date';
 import { SEO } from '../components/SEO';
 import { useHistory } from 'react-router-dom';
+import { Icons } from '../components/Icons';
 
 ///Code for the test selection///
 const dropdownAnswers = [
@@ -116,6 +117,7 @@ export const ReviewPage = () => {
 			<div className="rightSide"></div>
 			<form id="form" onSubmit={handleSubmit(onSubmit)} key={key}>
 				<div style={{ marginBottom: '40px' }}></div>
+				<Icons />
 
 				<div className="logos2">
 					<img src={logo1} id="logo1" alt="Radipole Park and Gardens Logo" />

@@ -47,19 +47,18 @@ function App() {
 			<ThemeProvider theme={theme}>
 				<Router>
 					<Switch>
-						<Route exact path="/" component={Home} />
 						<Route exact path="/reviewPage" component={ReviewPage} />
 						<Route exact path="/resultsPage" component={ResultsPage} />
 						<Route exact path="/createEvent" component={CreateEventPage} />
 						<Route exact path="/viewEvents" component={ViewEventsPage} />
 						<Route exact path="/event" component={EventHome} />
 						<Route exact path="/settings" component={SettingsPage} />
-
 						<Route
 							exact
 							path="/localStoragePage"
 							component={LocalStoragePage}
 						/>
+						<Route path="/" component={Home} />
 					</Switch>
 				</Router>
 			</ThemeProvider>
