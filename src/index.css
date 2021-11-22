@@ -17,73 +17,89 @@ body {
 	--secondary-main: var(--secondary), 80%, 50%;
 	--secondary-light: var(--secondary), 80%, 70%;
 	--secondary-dark: var(--secondary), 80%, 30%;
+	--outerWheelDiameter: 50vw;
+}
+
+@media (min-width: 700px) {
+	:root {
+		--outerWheelDiameter: 35vw;
+	}
+}
+
+@media (min-width: 1000px) {
+	:root {
+		--outerWheelDiameter: 20vw;
+	}
+}
+
+@media (min-width: 1500px) {
+	:root {
+		--outerWheelDiameter: 15vw;
+	}
 }
 
 #colorWheel {
 	background: red;
-	margin-top: 10vw;
-	margin-bottom: 20vw;
-	height: 50vw;
-	width: 50vw;
+	margin-top: calc(var(--outerWheelDiameter) * 0.1);
+	margin-bottom: calc(var(--outerWheelDiameter) * 0.3);
+	height: var(--outerWheelDiameter);
+	width: var(--outerWheelDiameter);
 	border-radius: 50%;
 	position: relative;
 	background: transparent;
 	background: conic-gradient(
-		hsl(0, 100%, 50%),
-		hsl(45, 100%, 50%),
-		hsl(90, 100%, 50%),
-		hsl(135, 100%, 50%),
-		hsl(180, 100%, 50%),
-		hsl(225, 100%, 50%),
-		hsl(270, 100%, 50%),
-		hsl(315, 100%, 50%),
-		hsl(360, 100%, 50%)
+		hsl(0, 60%, 50%),
+		hsl(45, 60%, 50%),
+		hsl(90, 60%, 50%),
+		hsl(135, 60%, 50%),
+		hsl(180, 60%, 50%),
+		hsl(225, 60%, 50%),
+		hsl(270, 60%, 50%),
+		hsl(315, 60%, 50%),
+		hsl(360, 60%, 50%)
 	);
+	font-size: calc(var(--outerWheelDiameter) * 0.08);
+	font-weight: bold;
 }
 
 #innerWheel {
 	/* background: hsl(var(--primary-main)); */
-	--diameter: 25vw;
-	background: white;
+	background: hsl(var(--primary-light));
 	z-index: 9999;
 	left: 50%;
-	margin-left: calc(var(--diameter) * -0.5);
+	margin-left: calc(var(--outerWheelDiameter) * -0.25);
 	top: 50%;
-	margin-top: calc(var(--diameter) * -0.5);
-	height: var(--diameter);
-	width: var(--diameter);
+	margin-top: calc(var(--outerWheelDiameter) * -0.25);
+	height: calc(var(--outerWheelDiameter) * 0.5);
+	width: calc(var(--outerWheelDiameter) * 0.5);
 	border-radius: 50%;
 	position: absolute;
 }
 
 #colorWheel::before {
 	content: '0';
-	transform: translateX(24vw) translateY(-6vw);
+	transform: translateX(calc(var(--outerWheelDiameter) * 0.48))
+		translateY(calc(var(--outerWheelDiameter) * -0.12));
 	position: absolute;
-	font-weight: bold;
-	font-size: 4vw;
 }
 
 #colorWheel::after {
 	content: '180';
-	transform: translateX(22vw) translateY(51vw);
+	transform: translateX(calc(var(--outerWheelDiameter) * 0.43))
+		translateY(calc(var(--outerWheelDiameter) * 1));
 	position: absolute;
-	font-weight: bold;
-	font-size: 4vw;
 }
 
 #innerWheel::before {
 	content: '90';
-	transform: translateX(39vw) translateY(10vw);
+	transform: translateX(calc(var(--outerWheelDiameter) * 0.8))
+		translateY(calc(var(--outerWheelDiameter) * 0.18));
 	position: absolute;
-	font-weight: bold;
-	font-size: 4vw;
 }
 
 #innerWheel::after {
 	content: '270';
-	font-size: 4vw;
-	transform: translateX(-21vw) translateY(10vw);
+	transform: translateX(calc(var(--outerWheelDiameter) * -0.42))
+		translateY(calc(var(--outerWheelDiameter) * 0.18));
 	position: absolute;
-	font-weight: bold;
 }
