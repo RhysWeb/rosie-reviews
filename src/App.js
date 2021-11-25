@@ -37,6 +37,9 @@ function App() {
 	useEffect(() => {
 		const getColor = async () => {
 			let color = await database.getColor();
+			if (color === undefined) {
+				return;
+			}
 			console.log(color);
 			let r = document.querySelector(':root');
 			r.style.setProperty('--primary', color);

@@ -27,8 +27,8 @@ export const Login = () => {
 			token = resp.data.token;
 			setToken(token);
 			setSubmitting(false);
-		} catch {
-			console.log('error');
+		} catch (e) {
+			console.log(e);
 			setSubmitting(false);
 		}
 	};

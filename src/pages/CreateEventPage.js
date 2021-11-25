@@ -103,6 +103,9 @@ export const CreateEventPage = () => {
 						{...register('eventName')}
 						variant="filled"
 						label="Brief description of event"
+						inputProps={{
+							maxlength: 35,
+						}}
 						error={!!errors.eventName}
 					/>
 					<TextField

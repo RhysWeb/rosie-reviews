@@ -18,9 +18,9 @@ const useStyles = makeStyles({
 		verticalAlign: 'bottom',
 		lineHeight: '1rem',
 		textTransform: 'none',
-		borderRadius: '1em',
+		borderRadius: '1rem',
 		padding: '20px',
-		background: 'hsl(0 0% 90%)',
+		background: 'hsl(0 0% 95%)',
 		border: 'solid hsl(var(--primary-main)) 2px',
 		boxShadow: '5px 5px 5px rgb(0 0 0 / 0.5)',
 		'&:hover': {
@@ -39,7 +39,8 @@ const useStyles = makeStyles({
 
 	name: {
 		fontFamily: 'Roboto Slab, serif',
-		fontSize: '1.0rem',
+		fontSize: '1.1rem',
+		// fontWeight: 'bold',
 		textAlign: 'left',
 	},
 	delete: {

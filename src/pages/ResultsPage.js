@@ -16,9 +16,12 @@ import { Header } from '../components/Header';
 import { EventCard } from '../components/EventCard';
 import { useData } from '../utils/DataContext';
 import { MyLink } from '../components/MyLink';
-import { ArrowBack } from '@material-ui/icons';
+import { ArrowBack, GetAppRounded } from '@material-ui/icons';
 import { SEO } from '../components/SEO';
 import { useHistory } from 'react-router-dom';
+import { useCreateSS } from '../customHooks/UseCreateSS';
+import { MyButton } from '../components/MyButton';
+import { ObjectSchema } from 'yup';
 
 const useStyles = makeStyles({
 	tableContainer: {
@@ -56,6 +59,18 @@ const useStyles = makeStyles({
 		color: 'hsl(var(--primary-dark))',
 		lineHeight: '0rem',
 	},
+	aveScoreBox: {
+		background: 'hsl(0 0% 95%)',
+		padding: '5px 20px',
+		marginTop: '20px',
+		marginBottom: '10px',
+		border: 'solid hsl(var(--primary-main)) 2px',
+		borderRadius: '1rem',
+		// boxShadow: '5px 5px 5px rgb(0 0 0 / 0.5)',
+		color: 'hsl(var(--primary-dark))',
+		fontWeight: 'bold',
+	},
+	score: { color: 'red', fontWeight: 'bold' },
 });
 
 export const ResultsPage = () => {
@@ -63,6 +78,7 @@ export const ResultsPage = () => {
 	const [reviews, setReviews] = useState();
 	const classes = useStyles();
 	const history = useHistory();
+	const [createSS] = useCreateSS();
 
 	useEffect(() => {
 		if (currentEvent.eventId === 'EmptyId') {
@@ -100,6 +116,55 @@ export const ResultsPage = () => {
 			</TableRow>
 		</TableHead>
 	);
+	function createArrayOfArrays(arroyOfObjects) {
+		let arrayofArrays = [];
+		arrayofArrays.push(Object.keys(arroyOfObjects[0]));
+		arroyOfObjects.map((object) => {
+			arrayofArrays.push(Object.values(object));
+		});
+		return arrayofArrays;
+	} //Thers no point to this function
+
+	let example = [
+		{
+			_id: '619174fb85d8ad95d8aa9a55',
+			reviewComment: '1',
+			email: 'No email',
+			reviewScore: '5',
+			eventId: 'Christmas_funday2021-12-22',
+			visitedBefore: 'Yes, lots of times',
+			dateTime: '14/11/2021 20:43:14',
+			__v: 0,
+		},
+		{
+			_id: '619174fb85d8ad95d8aa9a55',
+			reviewComment: '2',
+			email: 'Rhys@email',
+			reviewScore: '4',
+			eventId: 'Christmas_funday2021-12-22',
+			visitedBefore: 'Yes, lots of times',
+			dateTime: '14/11/2021 20:43:14',
+			__v: 0,
+		},
+	];
+
+	function getAverageScore(reviews) {
+		let reviewsArray = [];
+		reviews?.forEach((review) => {
+			reviewsArray.push(parseInt(review.reviewScore));
+		});
+		let averageScore;
+		averageScore =
+			reviewsArray.reduce((accum, curr) => accum + curr, 0) /
+			reviewsArray.length;
+		return Math.round((averageScore + Number.EPSILON) * 100) / 100;
+	}
+	// function convertObjToArray (obj) {
+	// 	let array = []
+	// 	let
+
+	// 	return array
+	// }
 
 	function tableRowCreate(myArray) {
 		return myArray.map((review, index) => {
@@ -148,12 +213,37 @@ export const ResultsPage = () => {
 				style={{ color: 'black' }}
 				disabled={true}
 			/>
-			<MyLink
-				text="Back"
-				icon={<ArrowBack style={{ fontSize: '60px' }} />}
-				route="/event"
-			/>
+			<div className={classes.aveScoreBox}>
+				<span>Average Review Score: </span>
+				<span className={classes.score}>{getAverageScore(reviews)}</span>
+			</div>
 
+			<div style={{ display: 'flex', marginBottom: '30px' }}>
+				<MyButton
+					icon={<GetAppRounded style={{ fontSize: '50px' }} />}
+					text="Spreadsheet"
+					onClick={() => {
+						createSS(createArrayOfArrays(reviews), reviews[0].eventId);
+						// createSS(['s', 's']);
+					}}
+				/>
+				{/* <button
+					onClick={() => {
+						console.log(Date(2021, 11, 24));
+					}}
+				>
+					Try me
+				</button> */}
+				<MyLink
+					text="Back"
+					icon={<ArrowBack style={{ fontSize: '60px' }} />}
+					route="/event"
+				/>
+				{/* 
+				<pre style={{ marginLeft: '230px' }}>
+					{JSON.stringify(reviews, null, ' ')}
+				</pre> */}
+			</div>
 			{reviews ? (
 				<TableContainer
 					className={classes.tableContainer}

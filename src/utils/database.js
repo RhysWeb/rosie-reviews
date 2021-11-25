@@ -49,7 +49,8 @@ class database {
 					color: color,
 				},
 			});
-		} catch {
+		} catch (err) {
+			console.log(err);
 			resp = 'Error changing color';
 		}
 
@@ -71,7 +72,8 @@ class database {
 					dateTime: form.dateTime,
 				},
 			});
-		} catch {
+		} catch (e) {
+			console.log(e);
 			resp = 'Error with the server';
 		}
 		return resp;
@@ -136,7 +138,8 @@ class database {
 					eventDate: form.eventDate,
 				},
 			});
-		} catch {
+		} catch (e) {
+			console.log(e);
 			resp = 'Error with the server';
 		}
 		if (resp.status === 202) {
