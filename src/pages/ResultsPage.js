@@ -57,7 +57,7 @@ const useStyles = makeStyles({
 		fontSize: '1.5rem',
 		textAlign: 'center',
 		color: 'hsl(var(--primary-dark))',
-		lineHeight: '0rem',
+		lineHeight: '1.4rem',
 	},
 	aveScoreBox: {
 		background: 'hsl(0 0% 95%)',
@@ -215,7 +215,9 @@ export const ResultsPage = () => {
 			/>
 			<div className={classes.aveScoreBox}>
 				<span>Average Review Score: </span>
-				<span className={classes.score}>{getAverageScore(reviews)}</span>
+				<span className={classes.score}>
+					{reviews && getAverageScore(reviews)}
+				</span>
 			</div>
 
 			<div style={{ display: 'flex', marginBottom: '30px' }}>
@@ -223,9 +225,10 @@ export const ResultsPage = () => {
 					icon={<GetAppRounded style={{ fontSize: '50px' }} />}
 					text="Spreadsheet"
 					onClick={() => {
-						createSS(createArrayOfArrays(reviews), reviews[0].eventId);
+						createSS(createArrayOfArrays(reviews), currentEvent.eventId);
 						// createSS(['s', 's']);
 					}}
+					disabled={!window.navigator.onLine}
 				/>
 				{/* <button
 					onClick={() => {
